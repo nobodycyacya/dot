@@ -1,14 +1,14 @@
 {
     // Built-in //
     "editor.fontFamily": "'JetBrainsMono Nerd Font', Monaco, Consolas",
-    "editor.fontSize": 14,
+    "editor.fontSize": 15,
     "editor.minimap.enabled": false,
     "editor.tabSize": 2,
     "editor.occurrencesHighlight": "off",
     "extensions.experimental.affinity": {
         "vscodevim.vim": 1,
     },
-    "window.zoomLevel": -0.7,
+    "window.zoomLevel": -0.75,
     "workbench.startupEditor": "none",
     "workbench.activityBar.location": "bottom",
     // VSCodeVim //
