@@ -509,9 +509,6 @@ awful.rules.rules = {
 
 -- Signal
 client.connect_signal("manage", function(c)
-  c.shape = function(cr, w, h)
-    gears.shape.rounded_rect(cr, w, h, 8)
-  end
   if awesome.startup and not c.size_hints.user_position and not c.size_hints.program_position then
     awful.placement.no_offscreen(c)
   end
