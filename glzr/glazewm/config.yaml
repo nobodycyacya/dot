@@ -20,7 +20,7 @@ gaps:
   scale_with_dpi: true
   inner_gap: '2px'
   outer_gap:
-    top: '32px' # YASB use 4px
+    top: '32px'
     right: '2px'
     bottom: '2px'
     left: '2px'
