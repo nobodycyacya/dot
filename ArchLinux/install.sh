@@ -45,46 +45,46 @@ trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
 # echo an error message before exiting
 trap 'echo "\"${last_command}\" command end with exit code $?."' EXIT
 (
-  echo "g"
-  sleep 1
-  echo "n"
-  echo "1"
-  echo ""
-  echo "+$UEFISIZE"
-  sleep 1
-  echo "n"
-  echo "2"
-  echo ""
-  echo "+$ROOTSIZE"
-  sleep 1
-  echo "n"
-  echo "3"
-  echo ""
-  echo "+$SWAPSIZE"
-  sleep 1
-  echo "n"
-  echo "4"
-  echo ""
-  echo ""
-  sleep 1
-  echo "t"
-  echo "1"
-  echo "1"
-  sleep 1
-  echo "t"
-  echo "2"
-  echo "20"
-  sleep 1
-  echo "t"
-  echo "3"
-  echo "19"
-  sleep 1
-  echo "t"
-  echo "4"
-  echo "20"
-  sleep 5
-  echo "w"
-  sleep 1
+echo "g"
+sleep 1
+echo "n"
+echo "1"
+echo ""
+echo "+$UEFISIZE"
+sleep 1
+echo "n"
+echo "2"
+echo ""
+echo "+$ROOTSIZE"
+sleep 1
+echo "n"
+echo "3"
+echo ""
+echo "+$SWAPSIZE"
+sleep 1
+echo "n"
+echo "4"
+echo ""
+echo ""
+sleep 1
+echo "t"
+echo "1"
+echo "1"
+sleep 1
+echo "t"
+echo "2"
+echo "20"
+sleep 1
+echo "t"
+echo "3"
+echo "19"
+sleep 1
+echo "t"
+echo "4"
+echo "20"
+sleep 5
+echo "w"
+sleep 1
 ) | fdisk $HDLOC
 
 # Format
@@ -160,38 +160,16 @@ arch-chroot /mnt systemctl enable bluetooth.service
 echo "Bluetooth services are enabled."
 
 # Official pakcage
-SYSTOOL1="brightnessctl pulseaudio pulseaudio-alsa pamixer xclip fastfetch udiskie"
-SYSTOOL2="blueman polkit-kde-agent alsa-utils flatpak btop npm kitty ibus ibus-chewing gvim"
+SYSTOOL1="brightnessctl alsa-utils xclip fastfetch udiskie"
+SYSTOOL2="blueman polkit-kde-agent flatpak btop npm ibus ibus-chewing gvim"
 SYSTOOL3="redshift flameshot unzip p7zip tmux arandr fzf lsd ripgrep"
-SYSTOOL4="pcmanfm lxappearance qt5ct awesome xorg-xinit xorg-server"
+SYSTOOL4="pcmanfm awesome xorg-xinit xorg-server neovim emacs"
 arch-chroot /mnt sudo pacman -S --noconfirm --needed $SYSTOOL1 $SYSTOOL2 $SYSTOOL3 $SYSTOOL4
-ADOBE1="adobe-source-code-pro-fonts	adobe-source-han-sans-cn-fonts adobe-source-han-sans-hk-fonts"
-ADOBE2="adobe-source-han-sans-jp-fonts adobe-source-han-sans-kr-fonts adobe-source-han-sans-otc-fonts"
-ADOBE3="adobe-source-han-sans-tw-fonts adobe-source-han-serif-cn-fonts"
-arch-chroot /mnt sudo pacman -S --noconfirm --needed $ADOBE1 $ADOBE2 $ADOBE3
-WQY="wqy-bitmapfont wqy-microhei wqy-microhei-lite wqy-zenhei"
-MATH="otf-latinmodern-math otf-latinmodern-math otf-latin-modern"
 NOTO="noto-fonts-emoji noto-fonts-extra noto-fonts ttf-noto-nerd noto-fonts-cjk"
-UBUNTU="ttf-ubuntu-mono-nerd ttf-ubuntu-nerd"
-CASCADIA="ttf-cascadia-code-nerd ttf-cascadia-mono-nerd"
-SYMBOLS="ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-common ttf-nerd-fonts-symbols-mono"
-LIBERATION="ttf-liberation ttf-liberation-mono-nerd"
-arch-chroot /mnt sudo pacman -S --noconfirm --needed $WQY $MATH $NOTO $UBUNTU $CASCADIA $SYMBOLS $LIBERATION
-INCONSOLATA="ttf-inconsolata-nerd ttf-inconsolata-go-nerd ttf-inconsolata-lgc-nerd"
-DEJAVU="ttf-dejavu ttf-dejavu-nerd"
-FIRA="otf-fira-mono otf-fira-sans otf-firamono-nerd ttf-fira-code ttf-fira-mono ttf-fira-sans ttf-firacode-nerd"
-FANTASQUE="ttf-fantasque-nerd ttf-fantasque-sans-mono otf-fantasque-sans-mono"
 HACK="ttf-hack ttf-hack-nerd"
 JETBRAINS="ttf-jetbrains-mono ttf-jetbrains-mono-nerd"
 ROBOTO="ttf-roboto ttf-roboto-mono ttf-roboto-mono-nerd"
-arch-chroot /mnt sudo pacman -S --noconfirm --needed $INCONSOLATA $DEJAVU $FIRA $FANTASQUE $HACK $JETBRAINS $ROBOTO
-NERD1="ttf-ibmplex-mono-nerd ttf-terminus-nerd"
-NERD2="ttf-iosevka-nerd ttf-meslo-nerd"
-NERD3="ttf-mononoki-nerd ttf-mplus-nerd"
-NERD4="ttf-victor-mono-nerd ttf-zed-mono-nerd ttf-sarasa-gothic"
-arch-chroot /mnt sudo pacman -S --noconfirm --needed $NERD1 $NERD2 $NERD3 $NERD4
-MISC="otf-codenewroman-nerd otf-comicshanns-nerd otf-droid-nerd otf-monaspace-nerd ttf-font-awesome"
-arch-chroot /mnt sudo pacman -S --noconfirm --needed $MISC
+arch-chroot /mnt sudo pacman -S --noconfirm --needed $NOTO $HACK $JETBRAINS $ROBOTO
 
 # yay
 arch-chroot /mnt pacman -S --noconfirm --needed git base-devel
@@ -199,5 +177,5 @@ arch-chroot /mnt sudo -u $USERNAME bash -c "cd && git clone https://aur.archlinu
 
 # AUR package
 AURAPP="google-chrome visual-studio-code-bin"
-AURFONT="ttf-tw ttf-ms-fonts ttf-pt-mono otf-monego-git ttf-monaco apple-fonts otf-apple-pingfang-relaxed otf-apple-pingfang otf-stix nerd-fonts-sf-mono"
+AURFONT="ttf-tw ttf-ms-fonts"
 arch-chroot /mnt sudo -u $USERNAME bash -c "yay -S --sudoloop $AURAPP $AURFONT"
