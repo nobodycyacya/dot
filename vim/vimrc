@@ -59,12 +59,13 @@ set smartcase
 set shortmess+=I
 set nobackup
 set noswapfile
-set termguicolors
+set notermguicolors
 set background=dark
 set timeoutlen=300
 set ttimeoutlen=300
 set pumheight=15
 set pumwidth=20
+colorscheme desert
 
 " BUILTIN:
 let g:loaded_2html_plugin = 1
@@ -165,16 +166,7 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)')) | 
 call plug#begin()
 Plug 'LunarWatcher/auto-pairs', { 'on': [] }
 Plug 'tpope/vim-commentary', { 'on': [] }
-Plug 'prabirshrestha/asyncomplete.vim', { 'on': [] }
-Plug 'prabirshrestha/asyncomplete-buffer.vim', { 'on': [] }
-Plug 'prabirshrestha/asyncomplete-file.vim', { 'on': [] }
-Plug 'prabirshrestha/asyncomplete-lsp.vim', { 'on': [] }
-Plug 'prabirshrestha/vim-lsp', { 'on': [] }
-Plug 'mattn/vim-lsp-settings', { 'on': ['LspInstallServer', 'LspManageServers'] }
-Plug 'hrsh7th/vim-vsnip', { 'on': [] }
-Plug 'hrsh7th/vim-vsnip-integ', { 'on': [] }
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle'] }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim', { 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg'] }
 call plug#end()
@@ -192,86 +184,8 @@ augroup VimCommentary
         \| autocmd! VimCommentary
 augroup END
 
-augroup CompletionLspSnippet
-  autocmd!
-  autocmd InsertEnter * call plug#load('asyncomplete.vim', 'asyncomplete-buffer.vim',
-        \ 'asyncomplete-file.vim', 'asyncomplete-lsp.vim', 'vim-lsp', 'vim-vsnip',
-        \ 'vim-vsnip-integ')
-        \| autocmd! CompletionLspSnippet
-        \| let g:lsp_diagnostics_enabled = 0
-        \| call asyncomplete#enable_for_buffer()
-        \| imap <expr><Tab> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : pumvisible() ? "\<C-n>" : "\<Tab>"
-        \| smap <expr><Tab> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : pumvisible() ? "\<C-n>" : "\<Tab>"
-        \| imap <expr><S-Tab> vsnip#available(1) ? '<Plug>(vsnip-jump-prev)' : pumvisible() ? "\<C-p>" : "\<S-Tab>"
-        \| smap <expr><S-Tab> vsnip#available(1) ? '<Plug>(vsnip-jump-prev)' : pumvisible() ? "\<C-p>" : "\<S-Tab>"
-        \| call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-        \ 'name': 'buffer',
-        \ 'allowlist': ['*'],
-        \ 'blocklist': ['go'],
-        \ 'completor': function('asyncomplete#sources#buffer#completor'),
-        \ 'config': { 'max_buffer_size': 100000 }
-        \ }))
-        \| call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-        \ 'name': 'file',
-        \ 'allowlist': ['*'],
-        \ 'priority': 10,
-        \ 'completor': function('asyncomplete#sources#file#completor')
-        \ }))
-        \| call lsp#enable()
-        \| if executable('clangd')
-        \| call lsp#register_server({
-        \ 'name': 'clangd',
-        \ 'cmd': { server_info -> ['clangd', '-j=12', '--enable-config', '--background-index', '--clang-tidy', '--all-scopes-completion', '--completion-style=detailed', '--header-insertion-decorators', '--limit-references=3000', '--limit-results=350'] },
-        \ 'whitelist': ['c', 'cpp']
-        \ })
-        \| endif
-        \| if executable('basedpyright')
-        \| call lsp#register_server({
-        \ 'name': 'basedpyright',
-        \ 'cmd': { server_info -> ['basedpyright-langserver', '--stdio'] },
-        \ 'whitelist': ['python']
-        \ })
-        \| endif
-        \| if executable('typescript-language-server')
-        \| call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': { server_info -> [&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-        \ 'root_uri': { server_info -> lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..')) },
-        \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact', 'typescript', 'typescript.tsx', 'typescriptreact']
-        \ })
-        \| endif
-augroup END
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  setlocal signcolumn=yes
-  if exists('+tagfunc')
-    setlocal tagfunc=lsp#tagfunc
-  endif
-  nmap <buffer>gd <Plug>(lsp-definition)
-  nmap <buffer>gs <Plug>(lsp-document-symbol-search)
-  nmap <buffer>gS <Plug>(lsp-workspace-symbol-search)
-  nmap <buffer>gr <Plug>(lsp-references)
-  nmap <buffer>gi <Plug>(lsp-implementation)
-  nmap <buffer>gt <Plug>(lsp-type-definition)
-  nmap <buffer><leader>rn <Plug>(lsp-rename)
-  nmap <buffer>[g <Plug>(lsp-previous-diagnostic)
-  nmap <buffer>]g <Plug>(lsp-next-diagnostic)
-  nmap <buffer>K <Plug>(lsp-hover)
-  nnoremap <buffer><expr><C-f> lsp#scroll(+4)
-  nnoremap <buffer><expr><C-d> lsp#scroll(-4)
-  let g:lsp_format_sync_timeout = 1000
-  autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
-endfunction
-augroup lsp_install
-  autocmd!
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-
 nnoremap <silent><leader> :<C-u>WhichKey '<space>'<cr>
 nnoremap <silent><localleader> :<C-u>WhichKey '\\'<cr>
-let g:NERDTreeWinSize = 25
-let g:NERDTreeShowHidden = 1
-nnoremap <leader>tn :NERDTreeToggle<cr>
 let g:fzf_layout = { 'down': '40%' }
 nnoremap <leader>ff :Files<cr>
 nnoremap <leader>fF :Files ~/<cr>
