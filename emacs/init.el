@@ -156,6 +156,8 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
         (clojure . ("https://github.com/sogaiu/tree-sitter-clojure"))
         (nix . ("https://github.com/nix-community/nix-ts-mode"))
         (mojo . ("https://github.com/HerringtonDarkholme/tree-sitter-mojo"))))
+(setq-default display-fill-column-indicator-column 80)
+(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
 
 ;; VIM-LIKE
 (require-package 'evil)
@@ -182,6 +184,40 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 
 (require-package 'evil-goggles)
 (add-hook 'evil-mode-hook #'evil-goggles-mode)
+(with-eval-after-load 'evil-goggles
+  (setq evil-goggles-pulse t)
+  (setq evil-goggles-duration 1.500)
+  (setq evil-goggles-blocking-duration 1.500)
+  (setq evil-goggles-async-duration 1.500)
+  (evil-goggles-use-diff-faces))
+
+(require-package 'evil-surround)
+(add-hook 'evil-mode-hook #'evil-surround-mode)
+
+(require-package 'evil-visualstar)
+(add-hook 'evil-mode-hook #'global-evil-visualstar-mode)
+
+(require-package 'evil-args)
+(with-eval-after-load 'evil
+  (define-key evil-normal-state-map "L" 'evil-forward-arg)
+  (define-key evil-normal-state-map "H" 'evil-backward-arg)
+  (define-key evil-motion-state-map "L" 'evil-forward-arg)
+  (define-key evil-motion-state-map "H" 'evil-backward-arg))
+
+(require-package 'evil-indent-plus)
+(with-eval-after-load 'evil
+  (define-key evil-inner-text-objects-map "i" 'evil-indent-plus-i-indent)
+  (define-key evil-outer-text-objects-map "i" 'evil-indent-plus-a-indent)
+  (define-key evil-inner-text-objects-map "I" 'evil-indent-plus-i-indent-up)
+  (define-key evil-outer-text-objects-map "I" 'evil-indent-plus-a-indent-up)
+  (define-key evil-inner-text-objects-map "J" 'evil-indent-plus-i-indent-up-down)
+  (define-key evil-outer-text-objects-map "J" 'evil-indent-plus-a-indent-up-down))
+
+(require-package 'evil-snipe)
+(add-hook 'evil-mode-hook #'evil-snipe-mode)
+(add-hook 'evil-mode-hook #'evil-snipe-override-mode)
+(with-eval-after-load 'evil-snipe
+  (setq evil-snipe-scope 'whole-buffer))
 
 (require-package 'general)
 (run-with-idle-timer
@@ -193,34 +229,35 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
        :prefix "SPC"
        :states '(normal visual))
      (spc-leader-def
-       "SPC" 'counsel-M-x
-       "ff" 'counsel-find-file
-       "fb" 'counsel-ibuffer
-       "fc" 'counsel-load-theme
-       "fw" 'counsel-rg
-       "fW" 'counsel-grep
-       "fF" 'counsel-flycheck
-       "fo" 'counsel-outline
-       "tt" 'emacs-init-time
-       "tn" 'neotree-toggle
-       "ts" 'scratch
-       "tr" 'quickrun
-       "tp" 'symbol-overlay-put
-       "tu" 'vundo
-       "tR" 'symbol-overlay-remove-all
-       "ww" 'ace-window
-       "wd" 'ace-delete-window
-       "wD" 'ace-delete-other-windows
-       "1" 'winum-select-window-1
-       "2" 'winum-select-window-2
-       "3" 'winum-select-window-3
-       "4" 'winum-select-window-4
-       "5" 'winum-select-window-5
-       "6" 'winum-select-window-6
-       "7" 'winum-select-window-7
-       "8" 'winum-select-window-8
-       "9" 'winum-select-window-9
-       "0" 'winum-select-window-0-or-10)))
+      "SPC" 'counsel-M-x
+      "ff" 'counsel-find-file
+      "fb" 'counsel-ibuffer
+      "fc" 'counsel-load-theme
+      "fw" 'counsel-rg
+      "fW" 'counsel-grep
+      "fF" 'counsel-flycheck
+      "fo" 'counsel-outline
+      "tt" 'emacs-init-time
+      "tn" 'neotree-toggle
+      "ts" 'scratch
+      "tr" 'quickrun
+      "tp" 'symbol-overlay-put
+      "tu" 'vundo
+      "tR" 'symbol-overlay-remove-all
+      "tm" 'minimap-mode
+      "ww" 'ace-window
+      "wd" 'ace-delete-window
+      "wD" 'ace-delete-other-windows
+      "1" 'winum-select-window-1
+      "2" 'winum-select-window-2
+      "3" 'winum-select-window-3
+      "4" 'winum-select-window-4
+      "5" 'winum-select-window-5
+      "6" 'winum-select-window-6
+      "7" 'winum-select-window-7
+      "8" 'winum-select-window-8
+      "9" 'winum-select-window-9
+      "0" 'winum-select-window-0-or-10)))
 
 ;; COMPLETION, SNIPPET
 (require-package 'company)
@@ -231,11 +268,24 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
   (setq company-tooltip-align-annotations t)
   (setq company-tooltip-margin 3)
   (setq company-format-margin-function #'company-text-icons-margin)
+  (setq company-global-modes '(not eshell-mode help-mode vterm-mode))
+  (setq company-dabbrev-other-buffers nil)
+  (setq company-dabbrev-ignore-case nil)
+  (setq company-dabbrev-downcase nil)
   (setq company-backends
         '((company-capf :with company-yasnippet)
           (company-files :with company-yasnippet)
           (company-dabbrev :with company-yasnippet)
           ((company-dabbrev-code company-keywords) :with company-yasnippet))))
+
+(require-package 'company-box)
+(when (display-graphic-p)
+  (add-hook 'global-company-mode-hook #'company-box-mode))
+(with-eval-after-load 'company-box
+  (setq company-box-show-single-candidate t)
+  (setq company-box-backends-colors nil)
+  (setq company-box-tooltip-limit 50)
+  (setq company-box-icons-alist 'company-box-icons-idea))
 
 (require-package 'yasnippet)
 (require-package 'yasnippet-snippets)
@@ -259,6 +309,10 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 
 (require-package 'winum)
 (run-with-idle-timer 2 nil #'winum-mode)
+(with-eval-after-load 'winum
+  (setq winum-format "[%s]")
+  (setq winum-mode-line-position 0)
+  (set-face-attribute 'winum-face nil :foreground "DeepPink" :weight 'bold))
 
 (require-package 'highlight-numbers)
 (add-hook 'prog-mode-hook #'highlight-numbers-mode)
@@ -268,6 +322,9 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 
 (require-package 'highlight-defined)
 (add-hook 'emacs-lisp-mode-hook #'highlight-defined-mode)
+
+(require-package 'highlight-quoted)
+(add-hook 'emacs-lisp-mode-hook #'highlight-quoted-mode)
 
 (require-package 'beacon)
 (run-with-idle-timer 2 nil #'beacon-mode)
@@ -287,6 +344,9 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
   (setq indent-bars-no-descend-string t)
   (setq indent-bars-display-on-blank-lines nil)
   (setq indent-bars-color '(highlight :face-bg t :blend 0.425)))
+
+(require-package 'mode-line-bell)
+(run-with-idle-timer 2 nil #'mode-line-bell-mode)
 
 ;; IVY
 (require-package 'ivy)
@@ -384,12 +444,30 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
           ("BUG" error bold)
           ("XXX" font-lock-constant-face bold))))
 
+(require-package 'esup)
+
+(require-package 'exec-path-from-shell)
+(when (eq system-type 'darwin)
+  (run-with-idle-timer 5 nil #'exec-path-from-shell-initialize))
+
+(require-package 'eshell-syntax-highlighting)
+(add-hook 'eshell-mode-hook #'eshell-syntax-highlighting-mode)
+
+(require-package 'minimap)
+(global-set-key (kbd "<f12>") #'minimap-mode)
+(with-eval-after-load 'minimap
+  (setq minimap-window-location 'right)
+  (setq minimap-update-delay 0.1)
+  (setq minimap-width-fraction 0.09)
+  (setq minimap-minimum-width 15))
+
 ;; SYNTAX CHECKING
 (require-package 'flycheck)
 (add-hook 'prog-mode-hook #'global-flycheck-mode)
 
 ;; LSP & DAP
 (require-package 'lsp-mode)
+(require-package 'lsp-ivy)
 (require-package 'lsp-ui)
 (require-package 'dap-mode)
 
@@ -399,23 +477,33 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
   (setq lua-indent-level 2)
   (setq lua-indent-nested-block-content-align nil)
   (setq lua-indent-close-paren-align nil))
+
+(require-package 'pyvenv)
+(add-hook 'python-mode-hook #'pyvenv-mode)
+
 (require-package 'typescript-mode)
 (require-package 'markdown-mode)
 (require-package 'vimrc-mode)
 (require-package 'scss-mode)
 (require-package 'web-mode)
 (require-package 'go-mode)
+(require-package 'cmake-mode)
 (require-package 'rust-mode)
 (require-package 'dotenv-mode)
 (require-package 'ess)
+(require-package 'ess-view-data)
+(require-package 'polymode)
+(require-package 'poly-R)
+(require-package 'quarto-mode)
 (require-package 'clojure-mode)
 (require-package 'haskell-mode)
 (require-package 'json-mode)
 (require-package 'yaml-mode)
+(require-package 'csv-mode)
 (require-package 'toml-mode)
 (require-package 'emmet-mode)
-(require-package 'pyvenv)
-(add-hook 'python-mode-hook #'pyvenv-mode)
+(require-package 'zig-mode)
+(require-package 'rust-mode)
 
 (provide 'init)
 ;; Local Variables:
