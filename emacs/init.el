@@ -18,6 +18,7 @@
 ;;; Code:
 
 ;; BUILTIN
+(add-hook 'after-init-hook #'(lambda () (load-theme 'modus-vivendi t)))
 (when (or (featurep 'esup-child) (daemonp) noninteractive)
   (package-initialize))
 (setq package-enable-at-startup nil)
@@ -113,6 +114,7 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (setq show-paren-when-point-in-periphery t)
 (setq show-paren-context-when-offscreen t)
 (setq show-paren-delay 0.2)
+(run-with-idle-timer 2 nil #'global-tab-line-mode)
 (add-hook 'prog-mode-hook #'hl-line-mode)
 (add-hook 'after-init-hook #'save-place-mode)
 (setq treesit-language-source-alist
@@ -181,6 +183,45 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (require-package 'evil-goggles)
 (add-hook 'evil-mode-hook #'evil-goggles-mode)
 
+(require-package 'general)
+(run-with-idle-timer
+ 5 nil
+ #'(lambda ()
+     (require 'general)
+     (general-evil-setup t)
+     (general-create-definer spc-leader-def
+       :prefix "SPC"
+       :states '(normal visual))
+     (spc-leader-def
+       "SPC" 'counsel-M-x
+       "ff" 'counsel-find-file
+       "fb" 'counsel-ibuffer
+       "fc" 'counsel-load-theme
+       "fw" 'counsel-rg
+       "fW" 'counsel-grep
+       "fF" 'counsel-flycheck
+       "fo" 'counsel-outline
+       "tt" 'emacs-init-time
+       "tn" 'neotree-toggle
+       "ts" 'scratch
+       "tr" 'quickrun
+       "tp" 'symbol-overlay-put
+       "tu" 'vundo
+       "tR" 'symbol-overlay-remove-all
+       "ww" 'ace-window
+       "wd" 'ace-delete-window
+       "wD" 'ace-delete-other-windows
+       "1" 'winum-select-window-1
+       "2" 'winum-select-window-2
+       "3" 'winum-select-window-3
+       "4" 'winum-select-window-4
+       "5" 'winum-select-window-5
+       "6" 'winum-select-window-6
+       "7" 'winum-select-window-7
+       "8" 'winum-select-window-8
+       "9" 'winum-select-window-9
+       "0" 'winum-select-window-0-or-10)))
+
 ;; COMPLETION, SNIPPET
 (require-package 'company)
 (add-hook 'prog-mode-hook #'global-company-mode)
@@ -193,6 +234,7 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
   (setq company-backends
         '((company-capf :with company-yasnippet)
           (company-files :with company-yasnippet)
+          (company-dabbrev :with company-yasnippet)
           ((company-dabbrev-code company-keywords) :with company-yasnippet))))
 
 (require-package 'yasnippet)
@@ -212,9 +254,39 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (require-package 'nerd-icons-dired)
 (add-hook 'dired-mode-hook #'nerd-icons-dired-mode)
 
-;; winum
+(require-package 'tab-line-nerd-icons)
+(add-hook 'tab-line-mode-hook #'tab-line-nerd-icons-global-mode)
+
 (require-package 'winum)
 (run-with-idle-timer 2 nil #'winum-mode)
+
+(require-package 'highlight-numbers)
+(add-hook 'prog-mode-hook #'highlight-numbers-mode)
+
+(require-package 'auto-highlight-symbol)
+(add-hook 'prog-mode-hook #'global-auto-highlight-symbol-mode)
+
+(require-package 'highlight-defined)
+(add-hook 'emacs-lisp-mode-hook #'highlight-defined-mode)
+
+(require-package 'beacon)
+(run-with-idle-timer 2 nil #'beacon-mode)
+(with-eval-after-load 'beacon
+  (setq beacon-size 60)
+  (setq beacon-blink-duration 1.0)
+  (setq beacon-blink-when-point-moves-vertically 3)
+  (setq beacon-blink-when-point-moves-horizontally 3)
+  (setq beacon-blink-when-focused t))
+
+(require-package 'indent-bars)
+(add-hook 'prog-mode-hook #'indent-bars-mode)
+(with-eval-after-load 'indent-bars
+  (setq indent-bars-starting-column 0)
+  (setq indent-bars-width-frac 0.15)
+  (setq indent-bars-prefer-character t)
+  (setq indent-bars-no-descend-string t)
+  (setq indent-bars-display-on-blank-lines nil)
+  (setq indent-bars-color '(highlight :face-bg t :blend 0.425)))
 
 ;; IVY
 (require-package 'ivy)
@@ -288,12 +360,37 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (global-set-key (kbd "M-g w") 'avy-goto-word-0)
 (global-set-key (kbd "M-g c") 'avy-goto-char-timer)
 
+(require-package 'format-all)
+(add-hook 'prog-mode-hook #'format-all-mode)
+
+(require-package 'scratch)
+(global-set-key (kbd "<f3>") #'scratch)
+
+(require-package 'vundo)
+(global-set-key (kbd "<f4>") #'vundo)
+
+(require-package 'hl-todo)
+(add-hook 'prog-mode-hook #'hl-todo-mode)
+(add-hook 'yaml-mode-hook #'hl-todo-mode)
+(with-eval-after-load 'hl-todo
+  (setq hl-todo-highlight-punctuation ":")
+  (setq hl-todo-keyword-faces
+        '(("TODO" warning bold)
+          ("FIXME" error bold)
+          ("REVIEW" font-lock-keyword-face bold)
+          ("HACK" font-lock-constant-face bold)
+          ("DEPRECATED" font-lock-doc-face bold)
+          ("NOTE" success bold)
+          ("BUG" error bold)
+          ("XXX" font-lock-constant-face bold))))
+
 ;; SYNTAX CHECKING
 (require-package 'flycheck)
 (add-hook 'prog-mode-hook #'global-flycheck-mode)
 
 ;; LSP & DAP
 (require-package 'lsp-mode)
+(require-package 'lsp-ui)
 (require-package 'dap-mode)
 
 ;; PROGRAMMING
@@ -317,6 +414,8 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (require-package 'yaml-mode)
 (require-package 'toml-mode)
 (require-package 'emmet-mode)
+(require-package 'pyvenv)
+(add-hook 'python-mode-hook #'pyvenv-mode)
 
 (provide 'init)
 ;; Local Variables:
