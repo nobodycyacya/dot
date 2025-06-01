@@ -180,6 +180,7 @@ Plug 'hrsh7th/vim-vsnip', { 'on': [] }
 Plug 'hrsh7th/vim-vsnip-integ', { 'on': [] }
 Plug 'LunarWatcher/auto-pairs', { 'on': [] }
 Plug 'luochen1990/rainbow', { 'on': [] }
+Plug 'liuchengxu/vista.vim', { 'on': ['Vista'] }
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle'] }
 Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle'] }
@@ -195,6 +196,9 @@ Plug 'junegunn/limelight.vim', { 'on': ['Limelight'] }
 Plug 'dstein64/vim-startuptime', { 'on': ['StartupTime'] }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug'] }
+if has('python3')
+  Plug 'vim-autoformat/vim-autoformat', { 'on': ['Autoformat'] }
+endif
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 call plug#end()
 
