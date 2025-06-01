@@ -229,35 +229,35 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
        :prefix "SPC"
        :states '(normal visual))
      (spc-leader-def
-      "SPC" 'counsel-M-x
-      "ff" 'counsel-find-file
-      "fb" 'counsel-ibuffer
-      "fc" 'counsel-load-theme
-      "fw" 'counsel-rg
-      "fW" 'counsel-grep
-      "fF" 'counsel-flycheck
-      "fo" 'counsel-outline
-      "tt" 'emacs-init-time
-      "tn" 'neotree-toggle
-      "ts" 'scratch
-      "tr" 'quickrun
-      "tp" 'symbol-overlay-put
-      "tu" 'vundo
-      "tR" 'symbol-overlay-remove-all
-      "tm" 'minimap-mode
-      "ww" 'ace-window
-      "wd" 'ace-delete-window
-      "wD" 'ace-delete-other-windows
-      "1" 'winum-select-window-1
-      "2" 'winum-select-window-2
-      "3" 'winum-select-window-3
-      "4" 'winum-select-window-4
-      "5" 'winum-select-window-5
-      "6" 'winum-select-window-6
-      "7" 'winum-select-window-7
-      "8" 'winum-select-window-8
-      "9" 'winum-select-window-9
-      "0" 'winum-select-window-0-or-10)))
+       "SPC" 'counsel-M-x
+       "ff" 'counsel-find-file
+       "fb" 'counsel-ibuffer
+       "fc" 'counsel-load-theme
+       "fw" 'counsel-rg
+       "fW" 'counsel-grep
+       "fF" 'counsel-flycheck
+       "fo" 'counsel-outline
+       "tt" 'emacs-init-time
+       "tn" 'neotree-toggle
+       "ts" 'scratch
+       "tr" 'quickrun
+       "tp" 'symbol-overlay-put
+       "tu" 'vundo
+       "tR" 'symbol-overlay-remove-all
+       "tm" 'minimap-mode
+       "ww" 'ace-window
+       "wd" 'ace-delete-window
+       "wD" 'ace-delete-other-windows
+       "1" 'winum-select-window-1
+       "2" 'winum-select-window-2
+       "3" 'winum-select-window-3
+       "4" 'winum-select-window-4
+       "5" 'winum-select-window-5
+       "6" 'winum-select-window-6
+       "7" 'winum-select-window-7
+       "8" 'winum-select-window-8
+       "9" 'winum-select-window-9
+       "0" 'winum-select-window-0-or-10)))
 
 ;; COMPLETION, SNIPPET
 (require-package 'company)
@@ -374,6 +374,57 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (with-eval-after-load 'wgrep
   (setq wgrep-auto-save-buffer t))
 
+(require-package 'avy)
+
+(require-package 'hydra)
+(run-with-idle-timer
+ 5 nil
+ #'(lambda ()
+     ;; avy
+     (defhydra hydra-avy (:exit t :hint nil :color pink)
+       "
+ Line^^       Region^^        Goto
+----------------------------------------------------------
+ [_y_] yank   [_Y_] yank      [_c_] timed char  [_C_] char
+ [_m_] move   [_M_] move      [_w_] word        [_W_] any word
+ [_k_] kill   [_K_] kill      [_l_] line        [_L_] end of line"
+       ("c" avy-goto-char-timer)
+       ("C" avy-goto-char)
+       ("w" avy-goto-word-1)
+       ("W" avy-goto-word-0)
+       ("l" avy-goto-line)
+       ("L" avy-goto-end-of-line)
+       ("m" avy-move-line)
+       ("M" avy-move-region)
+       ("k" avy-kill-whole-line)
+       ("K" avy-kill-region)
+       ("y" avy-copy-line)
+       ("Y" avy-copy-region))
+     (global-set-key (kbd "M-g a") 'hydra-avy/body)
+     ;; lsp-mode
+     (defhydra hydra-lsp (:exit t :hint nil :color pink)
+       "
+ Buffer^^               Server^^                   Symbol
+-------------------------------------------------------------------------------------
+ [_f_] format           [_M-r_] restart            [_d_] declaration  [_i_] implementation  [_o_] documentation
+ [_m_] imenu            [_S_]   shutdown           [_D_] definition   [_t_] type            [_r_] rename
+ [_x_] execute action   [_M-s_] describe session   [_R_] references   [_s_] signature"
+       ("d" lsp-find-declaration)
+       ("D" lsp-ui-peek-find-definitions)
+       ("R" lsp-ui-peek-find-references)
+       ("i" lsp-ui-peek-find-implementation)
+       ("t" lsp-find-type-definition)
+       ("s" lsp-signature-help)
+       ("o" lsp-describe-thing-at-point)
+       ("r" lsp-rename)
+       ("f" lsp-format-buffer)
+       ("m" lsp-ui-imenu)
+       ("x" lsp-execute-code-action)
+       ("M-s" lsp-describe-session)
+       ("M-r" lsp-restart-workspace)
+       ("S" lsp-shutdown-workspace))
+     (global-set-key (kbd "M-g l") 'hydra-lsp/body)))
+
 ;; TOOL
 (require-package 'ace-window)
 (global-set-key [remap other-window] #'ace-window)
@@ -396,12 +447,10 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (run-with-idle-timer 2 nil #'xclip-mode)
 
 (require-package 'neotree)
-(global-set-key (kbd "<f1>") #'neotree-toggle)
 (with-eval-after-load 'neotree
   (setq neo-theme 'nerd-icons))
 
 (require-package 'quickrun)
-(global-set-key (kbd "<f2>") #'quickrun)
 (with-eval-after-load 'quickrun
   (setq quickrun-focus-p nil))
 
@@ -415,19 +464,12 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (require-package 'git-gutter)
 (add-hook 'prog-mode-hook #'global-git-gutter-mode)
 
-(require-package 'avy)
-(global-set-key (kbd "M-g l") 'avy-goto-line)
-(global-set-key (kbd "M-g w") 'avy-goto-word-0)
-(global-set-key (kbd "M-g c") 'avy-goto-char-timer)
-
 (require-package 'format-all)
 (add-hook 'prog-mode-hook #'format-all-mode)
 
 (require-package 'scratch)
-(global-set-key (kbd "<f3>") #'scratch)
 
 (require-package 'vundo)
-(global-set-key (kbd "<f4>") #'vundo)
 
 (require-package 'hl-todo)
 (add-hook 'prog-mode-hook #'hl-todo-mode)
@@ -454,7 +496,6 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (add-hook 'eshell-mode-hook #'eshell-syntax-highlighting-mode)
 
 (require-package 'minimap)
-(global-set-key (kbd "<f12>") #'minimap-mode)
 (with-eval-after-load 'minimap
   (setq minimap-window-location 'right)
   (setq minimap-update-delay 0.1)
