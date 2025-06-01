@@ -165,6 +165,7 @@ Plug 'tpope/vim-commentary', { 'on': [] }
 Plug 'romainl/vim-cool', { 'on': [] }
 Plug 'airblade/vim-gitgutter', { 'on': [] }
 Plug 'justinmk/vim-sneak', { 'on': [] }
+Plug 'rhysd/clever-f.vim', { 'on': [] }
 Plug 'kana/vim-textobj-user', { 'on': [] }
 Plug 'glts/vim-textobj-comment', { 'on': [] }
 Plug 'kana/vim-textobj-function', { 'on': [] }
@@ -180,9 +181,11 @@ Plug 'hrsh7th/vim-vsnip', { 'on': [] }
 Plug 'hrsh7th/vim-vsnip-integ', { 'on': [] }
 Plug 'LunarWatcher/auto-pairs', { 'on': [] }
 Plug 'luochen1990/rainbow', { 'on': [] }
+Plug 'matze/vim-move', { 'on': ['<Plug>MoveLineDown', '<Plug>MoveLineUp', '<Plug>MoveCharLeft', '<Plug>MoveCharRight', '<Plug>MoveBlockDown', '<Plug>MoveBlockUp', '<Plug>MoveBlockLeft', '<Plug>MoveBlockRight'] }
 Plug 'liuchengxu/vista.vim', { 'on': ['Vista'] }
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle'] }
 Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle'] }
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': ['NERDTreeToggle'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle'] }
 Plug 'jistr/vim-nerdtree-tabs', { 'on': ['NERDTreeToggle', 'NERDTreeTabsToggle'] }
 Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
@@ -316,6 +319,12 @@ augroup load_vim_sneak
         \| autocmd! load_vim_sneak
 augroup END
 
+augroup load_clever_f_vim
+  autocmd!
+  autocmd BufReadPost * call plug#load('clever-f.vim')
+        \| autocmd! load_clever_f_vim
+augroup END
+
 augroup load_vim_textobj
   autocmd!
   autocmd BufReadPost * call plug#load('vim-textobj-user', 'vim-textobj-comment', 'vim-textobj-function', 'vim-textobj-indent')
@@ -374,6 +383,13 @@ augroup load_completion_lsp_snippet
         \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact', 'typescript', 'typescript.tsx', 'typescriptreact']
         \ })
         \| endif
+        \| if executable('gopls')
+        \| call lsp#register_server({
+        \ 'name': 'gopls',
+        \ 'cmd': { server_info->['gopls', '-remote=auto'] },
+        \ 'allowlist': ['go', 'gomod', 'gohtmltmpl', 'gotexttmpl']
+        \ })
+        \| endif
 augroup END
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
@@ -414,6 +430,16 @@ augroup load_rainbow
         \| autocmd! load_rainbow
         \| RainbowToggle
 augroup END
+
+let g:move_map_keys = 0
+nmap <Esc><Down> <Plug>MoveLineDown
+nmap <Esc><Up> <Plug>MoveLineUp
+nmap <Esc><Left> <Plug>MoveCharLeft
+nmap <Esc><Right> <Plug>MoveCharRight
+vmap <Esc><Down> <Plug>MoveBlockDown
+vmap <Esc><Up> <Plug>MoveBlockUp
+vmap <Esc><Left> <Plug>MoveBlockLeft
+vmap <Esc><Right> <Plug>MoveBlockRight
 
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeWinSize = 23
