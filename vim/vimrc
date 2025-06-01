@@ -53,7 +53,6 @@ set noswapfile
 set timeoutlen=300
 set ttimeoutlen=300
 set background=dark
-colorscheme desert
 let g:loaded_2html_plugin = 1
 let g:loaded_getscript = 1
 let g:loaded_gzip = 1
@@ -148,6 +147,7 @@ augroup END
 
 call plug#begin()
 Plug 'sheerun/vim-polyglot', { 'on': [] }
+Plug 'mhinz/vim-startify', { 'on': [] }
 Plug 'ryanoasis/vim-devicons', { 'on': [] }
 Plug 'morhetz/gruvbox', { 'on': [] }
 Plug 'ap/vim-buftabline', { 'on': [] }
@@ -159,17 +159,21 @@ Plug 'ntpeters/vim-better-whitespace', { 'on': [] }
 Plug 'itchyny/vim-cursorword', { 'on': [] }
 Plug 'wellle/context.vim', { 'on': [] }
 Plug 'andymass/vim-matchup', { 'on': [] }
+Plug 'mattn/emmet-vim', { 'on': [], 'for': 'html' }
 Plug 'ap/vim-css-color', { 'on': [] }
 Plug 'machakann/vim-highlightedyank', { 'on': [] }
 Plug 'tpope/vim-commentary', { 'on': [] }
+Plug 'tpope/vim-surround', { 'on': [] }
 Plug 'romainl/vim-cool', { 'on': [] }
 Plug 'airblade/vim-gitgutter', { 'on': [] }
+Plug 'mg979/vim-visual-multi', { 'on': [], 'branch': 'master' }
 Plug 'justinmk/vim-sneak', { 'on': [] }
 Plug 'rhysd/clever-f.vim', { 'on': [] }
 Plug 'kana/vim-textobj-user', { 'on': [] }
 Plug 'glts/vim-textobj-comment', { 'on': [] }
 Plug 'kana/vim-textobj-function', { 'on': [] }
 Plug 'kana/vim-textobj-indent', { 'on': [] }
+Plug 'wellle/targets.vim', { 'on': [] }
 Plug 'dense-analysis/ale', { 'on': [] }
 Plug 'prabirshrestha/asyncomplete.vim', { 'on': [] }
 Plug 'prabirshrestha/asyncomplete-buffer.vim', { 'on': [] }
@@ -181,6 +185,7 @@ Plug 'hrsh7th/vim-vsnip', { 'on': [] }
 Plug 'hrsh7th/vim-vsnip-integ', { 'on': [] }
 Plug 'LunarWatcher/auto-pairs', { 'on': [] }
 Plug 'luochen1990/rainbow', { 'on': [] }
+Plug 'vim-test/vim-test', { 'on': ['TestNearest', 'TestFile', 'TestSuite', 'TestLast', 'TestVisit'] }
 Plug 'matze/vim-move', { 'on': ['<Plug>MoveLineDown', '<Plug>MoveLineUp', '<Plug>MoveCharLeft', '<Plug>MoveCharRight', '<Plug>MoveBlockDown', '<Plug>MoveBlockUp', '<Plug>MoveBlockLeft', '<Plug>MoveBlockRight'] }
 Plug 'liuchengxu/vista.vim', { 'on': ['Vista'] }
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle'] }
@@ -197,7 +202,9 @@ Plug 'junegunn/fzf.vim', { 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines
 Plug 'junegunn/goyo.vim', { 'on': ['Goyo'] }
 Plug 'junegunn/limelight.vim', { 'on': ['Limelight'] }
 Plug 'dstein64/vim-startuptime', { 'on': ['StartupTime'] }
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'lambdalisue/vim-suda', { 'on': ['SudaRead', 'SudaWrite'] }
+Plug 'voldikss/vim-floaterm', { 'on': ['FloatermNew', 'FloatermPrev', 'FloatermNext', 'FloatermToggle', 'FloatermShow'] }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug'] }
 if has('python3')
   Plug 'vim-autoformat/vim-autoformat', { 'on': ['Autoformat'] }
@@ -208,6 +215,16 @@ call plug#end()
 augroup load_vim_polyglot
   autocmd!
   autocmd BufReadPost * call plug#load('vim-polyglot')
+        \| autocmd! load_vim_polyglot
+augroup END
+
+augroup load_vim_startify
+  autocmd!
+  autocmd BufWinEnter * call plug#load('vim-startify')
+        \| autocmd! load_vim_startify
+        \| let g:startify_custom_header = []
+        \| let g:startify_files_number = 15
+        \| let g:startify_padding_left = winwidth(0) / 3
 augroup END
 
 augroup load_vim_devicons
@@ -281,6 +298,12 @@ augroup load_vim_matchup
         \| autocmd! load_vim_matchup
 augroup END
 
+augroup load_emmet_vim
+  autocmd!
+  autocmd BufReadPost * call plug#load('emmet-vim')
+        \| autocmd! load_emmet_vim
+augroup END
+
 augroup load_vim_css_color
   autocmd!
   autocmd BufReadPost * call plug#load('vim-css-color')
@@ -300,6 +323,12 @@ augroup load_vim_commentary
         \| autocmd! load_vim_commentary
 augroup END
 
+augroup load_vim_surround
+  autocmd!
+  autocmd BufReadPost * call plug#load('vim-surround')
+        \| autocmd! load_vim_surround
+augroup END
+
 augroup load_vim_cool
   autocmd!
   autocmd BufReadPost * call plug#load('vim-cool')
@@ -311,6 +340,12 @@ augroup load_vim_gitgutter
   autocmd!
   autocmd BufReadPost * call plug#load('vim-gitgutter')
         \| autocmd! load_vim_gitgutter
+augroup END
+
+augroup load_vim_visual_multi
+  autocmd!
+  autocmd BufReadPost * call plug#load('vim-visual-multi')
+        \| autocmd! load_vim_visual_multi
 augroup END
 
 augroup load_vim_sneak
@@ -327,7 +362,7 @@ augroup END
 
 augroup load_vim_textobj
   autocmd!
-  autocmd BufReadPost * call plug#load('vim-textobj-user', 'vim-textobj-comment', 'vim-textobj-function', 'vim-textobj-indent')
+  autocmd BufReadPost * call plug#load('vim-textobj-user', 'vim-textobj-comment', 'vim-textobj-function', 'vim-textobj-indent', 'targets.vim')
         \| load_vim_textobj
 augroup END
 
