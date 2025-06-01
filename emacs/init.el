@@ -18,8 +18,9 @@
 ;;; Code:
 
 ;; BUILTIN
-(add-hook 'after-init-hook #'(lambda () (load-theme 'modus-vivendi t)))
-(when (or (featurep 'esup-child) (daemonp) noninteractive)
+(when (or (featurep 'esup-child)
+          (daemonp)
+          noninteractive)
   (package-initialize))
 (setq package-enable-at-startup nil)
 (setq package-check-signature nil)
@@ -86,7 +87,7 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (setq which-key-idle-delay 0.3)
 (setq which-key-idle-secondary-delay 0.01)
-(run-with-idle-timer 2 nil #'which-key-mode)
+(run-with-idle-timer 5 nil #'which-key-mode)
 (setq-default indent-tabs-mode nil)
 (add-hook 'prog-mode-hook #'column-number-mode)
 (add-hook 'prog-mode-hook #'line-number-mode)
@@ -114,7 +115,6 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (setq show-paren-when-point-in-periphery t)
 (setq show-paren-context-when-offscreen t)
 (setq show-paren-delay 0.2)
-(run-with-idle-timer 2 nil #'global-tab-line-mode)
 (add-hook 'prog-mode-hook #'hl-line-mode)
 (add-hook 'after-init-hook #'save-place-mode)
 (setq treesit-language-source-alist
@@ -304,11 +304,30 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (require-package 'nerd-icons-dired)
 (add-hook 'dired-mode-hook #'nerd-icons-dired-mode)
 
-(require-package 'tab-line-nerd-icons)
-(add-hook 'tab-line-mode-hook #'tab-line-nerd-icons-global-mode)
+(require-package 'doom-themes)
+(add-hook 'after-init-hook #'(lambda () (load-theme 'doom-palenight t)))
+
+(require-package 'doom-modeline)
+(run-with-idle-timer 5 nil #'doom-modeline-mode)
+(with-eval-after-load 'doom-modeline
+  (setq doom-modeline-height 25)
+  (setq doom-modeline-bar-width 5)
+  (setq doom-modeline-window-width-limit 75)
+  (setq doom-modeline-minor-modes t))
+
+(require-package 'minions)
+(add-hook 'doom-modeline-mode-hook #'minions-mode)
+
+(require-package 'solaire-mode)
+(run-with-idle-timer 5 nil #'solaire-global-mode)
+
+(require-package 'hide-mode-line)
+(add-hook 'completion-list-mode-hook #'hide-mode-line-mode)
+(add-hook 'neotree-mode-hook #'hide-mode-line-mode)
+(add-hook 'eshell-mode-hook #'hide-mode-line-mode)
 
 (require-package 'winum)
-(run-with-idle-timer 2 nil #'winum-mode)
+(run-with-idle-timer 5 nil #'winum-mode)
 (with-eval-after-load 'winum
   (setq winum-format "[%s]")
   (setq winum-mode-line-position 0)
@@ -327,7 +346,7 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (add-hook 'emacs-lisp-mode-hook #'highlight-quoted-mode)
 
 (require-package 'beacon)
-(run-with-idle-timer 2 nil #'beacon-mode)
+(run-with-idle-timer 5 nil #'beacon-mode)
 (with-eval-after-load 'beacon
   (setq beacon-size 60)
   (setq beacon-blink-duration 1.0)
@@ -346,7 +365,19 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
   (setq indent-bars-color '(highlight :face-bg t :blend 0.425)))
 
 (require-package 'mode-line-bell)
-(run-with-idle-timer 2 nil #'mode-line-bell-mode)
+(run-with-idle-timer 10 nil #'mode-line-bell-mode)
+
+(require-package 'centaur-tabs)
+(run-with-idle-timer
+ 5 nil
+ #'(lambda ()
+     (setq centaur-tabs-style "bar")
+     (setq centaur-tabs-height 25)
+     (setq centaur-tabs-set-icons t)
+     (setq centaur-tabs-icon-type 'nerd-icons)
+     (setq centaur-tabs-gray-out-icons 'buffer)
+     (setq centaur-tabs-set-bar 'over)
+     (centaur-tabs-mode)))
 
 ;; IVY
 (require-package 'ivy)
@@ -490,7 +521,7 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 
 (require-package 'exec-path-from-shell)
 (when (eq system-type 'darwin)
-  (run-with-idle-timer 5 nil #'exec-path-from-shell-initialize))
+  (run-with-idle-timer 10 nil #'exec-path-from-shell-initialize))
 
 (require-package 'eshell-syntax-highlighting)
 (add-hook 'eshell-mode-hook #'eshell-syntax-highlighting-mode)
@@ -502,7 +533,12 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
   (setq minimap-width-fraction 0.09)
   (setq minimap-minimum-width 15))
 
-;; SYNTAX CHECKING
+(require-package 'symbols-outline)
+(with-eval-after-load 'symbols-outline
+  (setq symbols-outline-fetch-fn #'symbols-outline-lsp-fetch)
+  (setq symbols-outline-window-position 'right))
+
+;; SYNTAX CHECK
 (require-package 'flycheck)
 (add-hook 'prog-mode-hook #'global-flycheck-mode)
 
