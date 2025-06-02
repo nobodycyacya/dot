@@ -251,7 +251,7 @@ augroup END
 " UI
 augroup load_vim_devicons
   autocmd!
-  autocmd BufWinEnter,BufReadPost * call plug#load('vim-devicons')
+  autocmd BufReadPost * call plug#load('vim-devicons')
         \| autocmd! load_vim_devicons
         \| let g:webdevicons_enable = 1
         \| let g:webdevicons_enable_startify = 1
@@ -269,7 +269,7 @@ augroup END
 
 augroup load_gruvbox
   autocmd!
-  autocmd BufWinEnter,BufReadPost * call plug#load('gruvbox')
+  autocmd BufReadPost * call plug#load('gruvbox')
         \| autocmd! load_gruvbox
         \| let g:gruvbox_contrast_dark = 'hard'
         \| colorscheme gruvbox
