@@ -518,6 +518,8 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 
 (require-package 'vundo)
 
+(require-package 'sudo-edit)
+
 (require-package 'hl-todo)
 (add-hook 'prog-mode-hook #'hl-todo-mode)
 (add-hook 'yaml-mode-hook #'hl-todo-mode)
