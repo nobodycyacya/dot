@@ -292,6 +292,25 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (add-hook 'prog-mode-hook #'yas-minor-mode)
 
 ;; UI
+(require-package 'dashboard)
+(when (display-graphic-p)
+  (add-hook 'after-init-hook #'dashboard-setup-startup-hook))
+(with-eval-after-load 'dashboard
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-center-content t)
+  (setq dashboard-vertically-center-content t)
+  (setq dashboard-navigation-cycle t)
+  (setq dashboard-display-icons-p t)
+  (setq dashboard-icon-type 'nerd-icons)
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-icon-file-height 1.25)
+  (setq dashboard-heading-icon-height 1.25)
+  (setq dashboard-icon-file-v-adjust -0.125)
+  (setq dashboard-heading-icon-v-adjust -0.125)
+  (setq dashboard-item-shortcuts '((recents . "r") (bookmarks . "m") (projects . "p")))
+  (setq dashboard-items '((recents . 10) (bookmarks . 10) (projects . 5))))
+
 (require-package 'rainbow-delimiters)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
@@ -408,52 +427,49 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (require-package 'avy)
 
 (require-package 'hydra)
+(require-package 'pretty-hydra)
 (run-with-idle-timer
  5 nil
  #'(lambda ()
      ;; avy
-     (defhydra hydra-avy (:exit t :hint nil :color pink)
-       "
- Line^^       Region^^        Goto
-----------------------------------------------------------
- [_y_] yank   [_Y_] yank      [_c_] timed char  [_C_] char
- [_m_] move   [_M_] move      [_w_] word        [_W_] any word
- [_k_] kill   [_K_] kill      [_l_] line        [_L_] end of line"
-       ("c" avy-goto-char-timer)
-       ("C" avy-goto-char)
-       ("w" avy-goto-word-1)
-       ("W" avy-goto-word-0)
-       ("l" avy-goto-line)
-       ("L" avy-goto-end-of-line)
-       ("m" avy-move-line)
-       ("M" avy-move-region)
-       ("k" avy-kill-whole-line)
-       ("K" avy-kill-region)
-       ("y" avy-copy-line)
-       ("Y" avy-copy-region))
+     (pretty-hydra-define hydra-avy
+       (:color pink :quit-key "q" :title "Avy Commands")
+       ("Line"
+        (("y" avy-copy-line)
+         ("m" avy-move-line)
+         ("k" avy-kill-whole-line))
+        "Region"
+        (("Y" avy-copy-region)
+         ("M" avy-move-region)
+         ("K" avy-kill-region))
+        "Goto"
+        (("c" avy-goto-char-timer)
+         ("C" avy-goto-char)
+         ("w" avy-goto-word-1)
+         ("W" avy-goto-word-0)
+         ("l" avy-goto-line)
+         ("L" avy-goto-end-of-line))))
      (global-set-key (kbd "M-g a") 'hydra-avy/body)
      ;; lsp-mode
-     (defhydra hydra-lsp (:exit t :hint nil :color pink)
-       "
- Buffer^^               Server^^                   Symbol
--------------------------------------------------------------------------------------
- [_f_] format           [_M-r_] restart            [_d_] declaration  [_i_] implementation  [_o_] documentation
- [_m_] imenu            [_S_]   shutdown           [_D_] definition   [_t_] type            [_r_] rename
- [_x_] execute action   [_M-s_] describe session   [_R_] references   [_s_] signature"
-       ("d" lsp-find-declaration)
-       ("D" lsp-ui-peek-find-definitions)
-       ("R" lsp-ui-peek-find-references)
-       ("i" lsp-ui-peek-find-implementation)
-       ("t" lsp-find-type-definition)
-       ("s" lsp-signature-help)
-       ("o" lsp-describe-thing-at-point)
-       ("r" lsp-rename)
-       ("f" lsp-format-buffer)
-       ("m" lsp-ui-imenu)
-       ("x" lsp-execute-code-action)
-       ("M-s" lsp-describe-session)
-       ("M-r" lsp-restart-workspace)
-       ("S" lsp-shutdown-workspace))
+     (pretty-hydra-define hydra-lsp
+       (:color pink :quit-key "q" :title "LSP Commands")
+       ("Buffer"
+        (("f" lsp-format-buffer)
+         ("m" lsp-ui-imenu)
+         ("x" lsp-execute-code-action))
+        "Server"
+        (("M-r" lsp-restart-workspace)
+         ("S" lsp-shutdown-workspace)
+         ("M-s" lsp-describe-session))
+        "Symbol"
+        (("d" lsp-find-declaration)
+         ("D" lsp-ui-peek-find-definitions)
+         ("R" lsp-ui-peek-find-references)
+         ("i" lsp-ui-peek-find-implementation)
+         ("t" lsp-find-type-definition)
+         ("s" lsp-signature-help)
+         ("o" lsp-describe-thing-at-point)
+         ("r" lsp-rename))))
      (global-set-key (kbd "M-g l") 'hydra-lsp/body)))
 
 ;; TOOL
