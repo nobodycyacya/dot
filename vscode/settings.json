@@ -1,12 +1,12 @@
 {
     // Built-in //
-    "editor.fontSize": 13,
+    "editor.fontSize": 14,
     "editor.minimap.enabled": false,
     "editor.tabSize": 2,
     "extensions.experimental.affinity": {
         "vscodevim.vim": 1,
     },
-    "window.zoomLevel": -0.78,
+    "window.zoomLevel": -0.7,
     // VSCodeVim //
     "vim.changeWordIncludesWhitespace": false,
     "vim.cursorStylePerMode.normal": "block",
