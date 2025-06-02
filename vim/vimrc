@@ -73,8 +73,8 @@ let g:loaded_zip = 1
 let g:loaded_zipPlugin = 1
 let mapleader = ' '
 let maplocalleader = ','
-nnoremap <leader>CR :source $VIMRC<cr>
-nnoremap <leader>CE :edit $VIMRC<cr>
+nnoremap <leader>CR :source $MYVIMRC<cr>
+nnoremap <leader>CE :edit $MYVIMRC<cr>
 inoremap jk <esc>
 vnoremap jk <esc>
 cnoremap jk <c-c>
