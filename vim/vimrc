@@ -46,8 +46,8 @@ set ignorecase
 set smartcase
 set nobackup
 set noswapfile
-set timeoutlen=300
-set ttimeoutlen=300
+set timeoutlen=500
+set ttimeoutlen=500
 set background=dark
 colorscheme retrobox
 let g:loaded_2html_plugin = 1
@@ -127,7 +127,7 @@ augroup END
 
 " VIMPLUG:
 let data_dir = has('win32') || has('win64') ? '$HOME/vimfiles' : '~/.vim'
-nnoremap <leader>P :PlugStatus<cr>
+nnoremap <leader>tP :PlugStatus<cr>
 if empty(glob(data_dir.'/autoload/plug.vim'))
   if has('win32') || has('win64')
     silent execute '!powershell -Command "New-Item -Path "'.data_dir.' -Name autoload -Type Directory -Force; Invoke-WebRequest -Uri https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -OutFile '.data_dir.'\autoload\plug.vim"'
@@ -137,7 +137,6 @@ if empty(glob(data_dir.'/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync
         \| source $MYVIMRC
 endif
-
 augroup install_plugin_when_startup
   autocmd!
   autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
@@ -152,8 +151,8 @@ call plug#begin()
 Plug 'sheerun/vim-polyglot', { 'on': [] }
 
 " UI
-Plug 'mhinz/vim-startify', { 'on': [] }
 Plug 'ryanoasis/vim-devicons', { 'on': [] }
+Plug 'mhinz/vim-startify', { 'on': [] }
 Plug 'morhetz/gruvbox', { 'on': [] }
 Plug 'ap/vim-buftabline', { 'on': [] }
 Plug 'Yggdroot/indentLine', { 'on': [] }
@@ -250,6 +249,15 @@ augroup load_vim_polyglot
 augroup END
 
 " UI
+augroup load_vim_devicons
+  autocmd!
+  autocmd BufWinEnter,BufReadPost * call plug#load('vim-devicons')
+        \| autocmd! load_vim_devicons
+        \| let g:webdevicons_enable = 1
+        \| let g:webdevicons_enable_startify = 1
+        \| let g:webdevicons_enable_nerdtree = 1
+augroup END
+
 augroup load_vim_startify
   autocmd!
   autocmd BufWinEnter * call plug#load('vim-startify')
@@ -259,18 +267,9 @@ augroup load_vim_startify
         \| let g:startify_padding_left = winwidth(0) / 3
 augroup END
 
-augroup load_vim_devicons
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-devicons')
-        \| autocmd! load_vim_devicons
-        \| let g:webdevicons_enable = 1
-        \| let g:webdevicons_enable_startify = 1
-        \| let g:webdevicons_enable_nerdtree = 1
-augroup END
-
 augroup load_gruvbox
   autocmd!
-  autocmd BufReadPost * call plug#load('gruvbox')
+  autocmd BufWinEnter,BufReadPost * call plug#load('gruvbox')
         \| autocmd! load_gruvbox
         \| let g:gruvbox_contrast_dark = 'hard'
         \| colorscheme gruvbox
@@ -316,7 +315,7 @@ augroup load_vim_cursorword
   autocmd!
   autocmd BufReadPost * call plug#load('vim-cursorword')
         \| autocmd! load_vim_cursorword
-        \| highlight CursorWord ctermbg=237
+        \| highlight CursorWord ctermbg=239
 augroup END
 
 augroup load_context_vim
@@ -370,6 +369,7 @@ augroup load_vim_gitgutter
   autocmd!
   autocmd BufReadPost * call plug#load('vim-gitgutter')
         \| autocmd! load_vim_gitgutter
+        \| let g:gitgutter_map_keys = 0
 augroup END
 
 augroup load_vim_textobj
@@ -380,6 +380,36 @@ augroup END
 
 nnoremap <silent><leader> :<c-u>WhichKey '<space>'<cr>
 nnoremap <silent><localleader> :<c-u>WhichKey ','<cr>
+let g:which_key_map = {}
+let g:which_key_map['C'] = {
+      \ 'name': '+Config',
+      \ 'E': ['<leader>CE', 'Edit config'],
+      \ 'R': ['<leader>CR', 'Reload config']
+      \ }
+let g:which_key_map['f'] = {
+      \ 'name': '+Find',
+      \ 'b': ['<leader>fb', 'Find buffers'],
+      \ 'c': ['<leader>fc', 'Find colorschemes'],
+      \ 'f': ['<leader>ff', 'Find files'],
+      \ 'F': ['<leader>fF', 'Find files from HOME'],
+      \ 'r': ['<leader>fr', 'Find history'],
+      \ 's': ['<leader>fs', 'Find words in current buffer'],
+      \ 'w': ['<leader>fw', 'Find words']
+      \ }
+let g:which_key_map['g'] = {
+      \ 'name': '+Goto',
+      \ 'l': ['<leader>gl', 'easymotion-goto-line'],
+      \ 'w': ['<leader>gw', 'easymotion-goto-word']
+      \ }
+let g:which_key_map['t'] = {
+      \ 'name': '+Toggle',
+      \ 'n': ['<leader>tn', 'Nerd Tree'],
+      \ 'P': ['<leader>tP', 'Plugin Panel']
+      \ }
+augroup load_which_key_register
+  autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map', 'n')
+  autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map', 'v')
+augroup END
 
 " TOOL
 augroup load_vim_visual_multi
@@ -441,6 +471,8 @@ augroup load_ale
   autocmd!
   autocmd InsertEnter * call plug#load('ale')
         \| autocmd! load_ale
+        \| let g:ale_lint_on_text_changed = 0
+        \| let g:ale_lint_on_save = 1
 augroup END
 
 " AUTO-COMPLETION, LSP, SNIPPETS
@@ -449,6 +481,7 @@ augroup load_completion_lsp_snippet
   autocmd InsertEnter * call plug#load('asyncomplete.vim', 'asyncomplete-buffer.vim', 'asyncomplete-file.vim', 'asyncomplete-lsp.vim', 'vim-lsp', 'vim-vsnip', 'vim-vsnip-integ')
         \| autocmd! load_completion_lsp_snippet
         \| let g:lsp_diagnostics_enabled = 0
+        \| let g:lsp_use_native_client = 1
         \| call asyncomplete#enable_for_buffer()
         \| imap <expr><Tab> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : pumvisible() ? "\<C-n>" : "\<Tab>"
         \| smap <expr><Tab> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : pumvisible() ? "\<C-n>" : "\<Tab>"
