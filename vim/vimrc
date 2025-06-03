@@ -12,7 +12,7 @@ if has('gui')
   elseif has('mac')
     set guifont=Menlo:h12
   elseif has('win32') || has('win64')
-    set guifont=Consolas:h10
+    set guifont=Consolas:h11
   endif
   set guioptions=
 endif
@@ -203,6 +203,7 @@ Plug 'lambdalisue/vim-suda', { 'on': ['SudaRead', 'SudaWrite'] }
 Plug 'voldikss/vim-floaterm', { 'on': ['FloatermNew', 'FloatermPrev', 'FloatermNext', 'FloatermToggle', 'FloatermShow'] }
 Plug 'mtth/scratch.vim', { 'on': ['Scratch'] }
 Plug 'metakirby5/codi.vim', { 'on': ['Codi', 'CodiNew', 'CodiSelect', 'CodiExpand'] }
+Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun'] }
 
 " LINTING
 Plug 'dense-analysis/ale', { 'on': [] }
