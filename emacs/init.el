@@ -229,25 +229,32 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
        :prefix "SPC"
        :states '(normal visual))
      (spc-leader-def
-       "SPC" 'counsel-M-x
-       "ff" 'counsel-find-file
-       "fb" 'counsel-ibuffer
-       "fc" 'counsel-load-theme
-       "fw" 'counsel-rg
-       "fW" 'counsel-grep
-       "fF" 'counsel-flycheck
-       "fo" 'counsel-outline
-       "tt" 'emacs-init-time
-       "tn" 'neotree-toggle
-       "ts" 'scratch
-       "tr" 'quickrun
-       "tp" 'symbol-overlay-put
-       "tu" 'vundo
-       "tR" 'symbol-overlay-remove-all
-       "tm" 'minimap-mode
-       "ww" 'ace-window
-       "wd" 'ace-delete-window
-       "wD" 'ace-delete-other-windows
+       "SPC" '(counsel-M-x :wk "Commands"))
+     (spc-leader-def
+       "f" '(:ignore t :wk "Find")
+       "ff" '(counsel-find-file :wk "Files")
+       "fb" '(counsel-ibuffer :wk "Buffers")
+       "fc" '(counsel-load-theme :wk "Colorschemes")
+       "fw" '(counsel-rg :wk "Words+")
+       "fW" '(counsel-grep :wk "Words")
+       "fF" '(counsel-flycheck :wk "Errors")
+       "fo" '(counsel-outline :wk "Outline"))
+     (spc-leader-def
+       "t" '(:ignore t :wk "Toggle")
+       "tt" '(emacs-init-time :wk "Startup Time")
+       "tn" '(neotree-toggle :wk "File Tree")
+       "ts" '(scratch :wk "Scratch Buffer")
+       "tr" '(quickrun :wk "QuickRun")
+       "tu" '(vundo :wk "Undo Tree")
+       "tp" '(symbol-overlay-put :wk "Highlight")
+       "tR" '(symbol-overlay-remove-all :wk "Remove Highlight")
+       "tm" '(minimap-mode :wk "Minimap"))
+     (spc-leader-def
+       "w" '(:ignore t :wk "Window")
+       "ww" '(ace-window :wk "Ace Window")
+       "wd" '(ace-delete-window :wk "Delete Windows")
+       "wD" '(ace-delete-other-windows :wk "Delete Other Windows"))
+     (spc-leader-def
        "1" 'winum-select-window-1
        "2" 'winum-select-window-2
        "3" 'winum-select-window-3
@@ -286,6 +293,10 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
   (setq company-box-backends-colors nil)
   (setq company-box-tooltip-limit 50)
   (setq company-box-icons-alist 'company-box-icons-idea))
+
+(require-package 'company-posframe)
+(when (display-graphic-p)
+  (add-hook 'global-company-mode-hook #'company-posframe-mode))
 
 (require-package 'yasnippet)
 (require-package 'yasnippet-snippets)
@@ -383,6 +394,14 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
   (setq indent-bars-display-on-blank-lines nil)
   (setq indent-bars-color '(highlight :face-bg t :blend 0.425)))
 
+(require-package 'which-key-posframe)
+(when (display-graphic-p)
+  (add-hook 'which-key-mode-hook #'which-key-posframe-mode))
+(with-eval-after-load 'which-key-posframe
+  (setq which-key-posframe-parameters '((left-fringe . 12) (right-fringe . 12)))
+  (setq which-key-posframe-border-width 2)
+  (set-face-attribute 'which-key-posframe-border nil :background (face-background 'highlight)))
+
 (require-package 'mode-line-bell)
 (run-with-idle-timer 10 nil #'mode-line-bell-mode)
 
@@ -404,7 +423,7 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (require-package 'swiper)
 (require-package 'ivy-rich)
 (require-package 'nerd-icons-ivy-rich)
-(add-hook 'after-init-hook #'ivy-mode)
+(run-with-idle-timer 0.5 nil #'ivy-mode)
 (add-hook 'ivy-mode-hook #'counsel-mode)
 (add-hook 'ivy-mode-hook #'ivy-rich-mode)
 (add-hook 'ivy-mode-hook #'nerd-icons-ivy-rich-mode)
@@ -416,6 +435,15 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
   (setq ivy-count-format "(%d/%d)")
   (setq ivy-re-builders-alist `((t . ivy--regex-ignore-order))))
 (global-set-key (kbd "C-s") #'counsel-grep-or-swiper)
+
+(require-package 'ivy-posframe)
+(when (display-graphic-p)
+  (add-hook 'ivy-mode-hook #'ivy-posframe-mode))
+(with-eval-after-load 'ivy-posframe
+  (setq ivy-posframe-parameters '((left-fringe . 12) (right-fringe . 12)))
+  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
+  (setq ivy-posframe-border-width 2)
+  (set-face-attribute 'ivy-posframe-border nil :background (face-background 'highlight)))
 
 (require-package 'amx)
 (add-hook 'ivy-mode-hook #'amx-mode)
@@ -559,6 +587,16 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 ;; SYNTAX CHECK
 (require-package 'flycheck)
 (add-hook 'prog-mode-hook #'global-flycheck-mode)
+(with-eval-after-load 'flycheck
+  (global-set-key (kbd "M-n") #'flycheck-next-error)
+  (global-set-key (kbd "M-p") #'flycheck-previous-error))
+
+(require-package 'flycheck-posframe)
+(when (display-graphic-p)
+  (add-hook #'global-flycheck-mode-hook #'flycheck-posframe-mode))
+(with-eval-after-load 'flycheck-posframe
+  (setq flycheck-posframe-border-width 2)
+  (set-face-attribute 'flycheck-posframe-border-face nil :background (face-background 'highlight)))
 
 ;; LSP & DAP
 (require-package 'lsp-mode)
