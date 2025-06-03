@@ -48,6 +48,7 @@ set nobackup
 set noswapfile
 set timeoutlen=500
 set ttimeoutlen=500
+set termguicolors
 set background=dark
 colorscheme retrobox
 let g:loaded_2html_plugin = 1
@@ -285,7 +286,7 @@ augroup load_indentline
   autocmd!
   autocmd BufReadPost * call plug#load('indentLine')
         \| autocmd! load_indentline
-        \| let g:indentLine_char_list = ['┃']
+        \| let g:indentLine_char_list = ['│']
         \| IndentLinesEnable
 augroup END
 
@@ -492,7 +493,7 @@ augroup load_completion_lsp_snippet
         \ 'allowlist': ['*'],
         \ 'blocklist': ['go'],
         \ 'completor': function('asyncomplete#sources#buffer#completor'),
-        \ 'config': { 'max_buffer_size': 100000 }
+        \ 'config': { 'max_buffer_size': 10000 }
         \ }))
         \| call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
         \ 'name': 'file',
