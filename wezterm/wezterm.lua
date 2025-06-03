@@ -1,17 +1,22 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
+wezterm.on("gui-startup", function()
+  local tab, pane, window = wezterm.mux.spawn_window{}
+  window:gui_window():maximize()
+end)
+
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
   config.font_size = 10
   config.default_prog = { "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" }
   config.window_background_opacity = 0.98
 elseif wezterm.target_triple == "x86_64-apple-darwin" then
-  config.font_size = 11
-  config.default_prog = { "/usr/bin/zsh", "-l" }
+  config.font_size = 13
+  config.default_prog = { "/bin/zsh", "-l" }
   config.window_background_opacity = 0.98
 elseif wezterm.target_triple == "aarch64-apple-darwin" then
-  config.font_size = 11
-  config.default_prog = { "/usr/bin/zsh", "-l" }
+  config.font_size = 13
+  config.default_prog = { "/bin/zsh", "-l" }
   config.window_background_opacity = 0.98
 elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" then
   config.font_size = 12
