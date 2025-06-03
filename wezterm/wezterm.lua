@@ -15,6 +15,7 @@ elseif wezterm.target_triple == "x86_64-unknown-linux-gnu"  then
   config.default_prog = { '/usr/bin/bash', '-l' }
 end
 
+config.hide_tab_bar_if_only_one_tab = true
 config.line_height = 1.1
 config.color_scheme = 'DoomOne'
 config.window_padding = {
