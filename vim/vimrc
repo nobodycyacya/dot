@@ -1,3 +1,6 @@
+" If version is greater than 9.1.0327, the config file path can be "~/.config/vim".
+" Otherwise, the config file path be only "~/.vim".
+
 " https://github.com/junegunn/vim-plug/wiki/tips
 " https://www.reddit.com/r/vim/comments/7datnj/comment/dpxfjym/?st=ja3oaqh0&sh=a9e76b40
 " https://github.com/junegunn/vim-plug/wiki/faq#conditional-activation
