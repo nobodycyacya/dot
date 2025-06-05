@@ -13,7 +13,7 @@ if has('gui')
     set guifont=JetBrainsMono\ Nerd\ Font:h12
   elseif has('mac')
     set guifont=Menlo:h12
-  elseif has('win32') || has('win64')
+  elseif has('win32')||has('win64')
     set guifont=Consolas:h11
   endif
   set guioptions=
@@ -53,29 +53,29 @@ set ttimeoutlen=500
 set termguicolors
 set background=dark
 colorscheme retrobox
-let g:loaded_2html_plugin = 1
-let g:loaded_getscript = 1
-let g:loaded_gzip = 1
-let g:loaded_logipat = 1
-let g:loaded_man = 1
-let g:loaded_matchit = 1
-let g:loaded_matchparen = 1
-let g:loaded_netrw = 1
-let g:loaded_netrwPlugin = 1
-let g:loaded_netrwSettings = 1
-let g:loaded_netrwFileHandlers = 1
-let g:loaded_rrhelper = 1
-let g:loaded_spellfile_plugin = 1
-let g:loaded_tar = 1
-let g:loaded_tarPlugin = 1
-let g:loaded_2html_plugin = 1
-let g:loaded_tutor_mode_plugin = 1
-let g:loaded_vimball = 1
-let g:loaded_vimballPlugin = 1
-let g:loaded_zip = 1
-let g:loaded_zipPlugin = 1
-let mapleader = ' '
-let maplocalleader = ','
+let g:loaded_2html_plugin=1
+let g:loaded_getscript=1
+let g:loaded_gzip=1
+let g:loaded_logipat=1
+let g:loaded_man=1
+let g:loaded_matchit=1
+let g:loaded_matchparen=1
+let g:loaded_netrw=1
+let g:loaded_netrwPlugin=1
+let g:loaded_netrwSettings=1
+let g:loaded_netrwFileHandlers=1
+let g:loaded_rrhelper=1
+let g:loaded_spellfile_plugin=1
+let g:loaded_tar=1
+let g:loaded_tarPlugin=1
+let g:loaded_2html_plugin=1
+let g:loaded_tutor_mode_plugin=1
+let g:loaded_vimball=1
+let g:loaded_vimballPlugin=1
+let g:loaded_zip=1
+let g:loaded_zipPlugin=1
+let mapleader=' '
+let maplocalleader=','
 nnoremap <leader>CR :source $MYVIMRC<cr>
 nnoremap <leader>CE :edit $MYVIMRC<cr>
 inoremap jk <esc>
@@ -93,15 +93,11 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 augroup restore_cursor_position
   autocmd!
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$')
-        \| execute "normal! g'\""
-        \| endif
+  autocmd BufReadPost * if line("'\"")>1&&line("'\"")<=line('$')|execute "normal! g'\""|endif
 augroup END
 augroup large_file_optimization
   autocmd!
-  autocmd BufWinEnter * if getfsize(expand('%')) > 1048576
-        \| syntax clear
-        \| endif
+  autocmd BufWinEnter * if getfsize(expand('%'))>1048576|syntax clear|endif
 augroup END
 augroup disable_auto_comment
   autocmd!
@@ -129,119 +125,115 @@ augroup disable_mouse_support
 augroup END
 
 " VIMPLUG:
-let data_dir = has('win32') || has('win64') ? '$HOME/vimfiles' : '~/.vim'
+let data_dir=has('win32')||has('win64')?'$HOME/vimfiles':'~/.config/vim'
 nnoremap <leader>tP :PlugStatus<cr>
 if empty(glob(data_dir.'/autoload/plug.vim'))
-  if has('win32') || has('win64')
+  if has('win32')||has('win64')
     silent execute '!powershell -Command "New-Item -Path "'.data_dir.' -Name autoload -Type Directory -Force; Invoke-WebRequest -Uri https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -OutFile '.data_dir.'\autoload\plug.vim"'
   else
     silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   endif
-  autocmd VimEnter * PlugInstall --sync
-        \| source $MYVIMRC
+  autocmd VimEnter * PlugInstall --sync|source $MYVIMRC
 endif
 augroup install_plugin_when_startup
   autocmd!
-  autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-        \| PlugInstall --sync
-        \| q
-        \| endif
+  autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))|PlugInstall --sync|q|endif
 augroup END
 
-call plug#begin()
+call plug#begin(data_dir.'/plugged')
 
 " SYNTAX HIGHLIGHTING
-Plug 'sheerun/vim-polyglot', { 'on': [] }
+Plug 'sheerun/vim-polyglot', {'on': []}
 
 " UI
-Plug 'ryanoasis/vim-devicons', { 'on': [] }
-Plug 'mhinz/vim-startify', { 'on': [] }
-Plug 'morhetz/gruvbox', { 'on': [] }
-Plug 'ap/vim-buftabline', { 'on': [] }
-Plug 'Yggdroot/indentLine', { 'on': [] }
-Plug 'itchyny/lightline.vim', { 'on': [] }
-Plug 'shinchu/lightline-gruvbox.vim', { 'on': [] }
-Plug 'wincent/terminus', { 'on': [] }
+Plug 'ryanoasis/vim-devicons', {'on': []}
+Plug 'mhinz/vim-startify', {'on': []}
+Plug 'morhetz/gruvbox', {'on': []}
+Plug 'ap/vim-buftabline', {'on': []}
+Plug 'Yggdroot/indentLine', {'on': []}
+Plug 'itchyny/lightline.vim', {'on': []}
+Plug 'shinchu/lightline-gruvbox.vim', {'on': []}
+Plug 'wincent/terminus', {'on': []}
 
 " EDITOR
-Plug 'ntpeters/vim-better-whitespace', { 'on': [] }
-Plug 'itchyny/vim-cursorword', { 'on': [] }
-Plug 'wellle/context.vim', { 'on': [] }
-Plug 'andymass/vim-matchup', { 'on': [] }
-Plug 'ap/vim-css-color', { 'on': [] }
-Plug 'machakann/vim-highlightedyank', { 'on': [] }
-Plug 'tpope/vim-commentary', { 'on': [] }
-Plug 'tpope/vim-surround', { 'on': [] }
-Plug 'romainl/vim-cool', { 'on': [] }
-Plug 'airblade/vim-gitgutter', { 'on': [] }
-Plug 'kana/vim-textobj-user', { 'on': [] }
-Plug 'glts/vim-textobj-comment', { 'on': [] }
-Plug 'kana/vim-textobj-function', { 'on': [] }
-Plug 'kana/vim-textobj-indent', { 'on': [] }
-Plug 'wellle/targets.vim', { 'on': [] }
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+Plug 'ntpeters/vim-better-whitespace', {'on': []}
+Plug 'itchyny/vim-cursorword', {'on': []}
+Plug 'wellle/context.vim', {'on': []}
+Plug 'andymass/vim-matchup', {'on': []}
+Plug 'ap/vim-css-color', {'on': []}
+Plug 'machakann/vim-highlightedyank', {'on': []}
+Plug 'tpope/vim-commentary', {'on': []}
+Plug 'tpope/vim-surround', {'on': []}
+Plug 'romainl/vim-cool', {'on': []}
+Plug 'airblade/vim-gitgutter', {'on': []}
+Plug 'kana/vim-textobj-user', {'on': []}
+Plug 'glts/vim-textobj-comment', {'on': []}
+Plug 'kana/vim-textobj-function', {'on': []}
+Plug 'kana/vim-textobj-indent', {'on': []}
+Plug 'wellle/targets.vim', {'on': []}
+Plug 'liuchengxu/vim-which-key', {'on': ['WhichKey', 'WhichKey!']}
 
 " TOOL
-Plug 'mg979/vim-visual-multi', { 'on': [], 'branch': 'master' }
-Plug 'justinmk/vim-sneak', { 'on': [] }
-Plug 'rhysd/clever-f.vim', { 'on': [] }
-Plug 'matze/vim-move', { 'on': ['<Plug>MoveLineDown', '<Plug>MoveLineUp', '<Plug>MoveCharLeft', '<Plug>MoveCharRight', '<Plug>MoveBlockDown', '<Plug>MoveBlockUp', '<Plug>MoveBlockLeft', '<Plug>MoveBlockRight'] }
-Plug 'liuchengxu/vista.vim', { 'on': ['Vista'] }
-Plug 'mbbill/undotree', { 'on': ['UndotreeToggle'] }
-Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle'] }
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': ['NERDTreeToggle'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle'] }
-Plug 'jistr/vim-nerdtree-tabs', { 'on': ['NERDTreeToggle', 'NERDTreeTabsToggle'] }
-Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
-Plug 'thinca/vim-quickrun', { 'on': ['QuickRun'] }
-Plug 'easymotion/vim-easymotion', { 'on': ['<Plug>(easymotion-overwin-line)', '<Plug>(easymotion-overwin-w)'] }
-Plug 'tpope/vim-fugitive', { 'on': ['G', 'Git'] }
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() }, 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg'] }
-Plug 'junegunn/fzf.vim', { 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg'] }
-Plug 'junegunn/goyo.vim', { 'on': ['Goyo'] }
-Plug 'junegunn/limelight.vim', { 'on': ['Limelight'] }
-Plug 'dstein64/vim-startuptime', { 'on': ['StartupTime'] }
-Plug 'lambdalisue/vim-suda', { 'on': ['SudaRead', 'SudaWrite'] }
-Plug 'voldikss/vim-floaterm', { 'on': ['FloatermNew', 'FloatermPrev', 'FloatermNext', 'FloatermToggle', 'FloatermShow'] }
-Plug 'mtth/scratch.vim', { 'on': ['Scratch'] }
-Plug 'metakirby5/codi.vim', { 'on': ['Codi', 'CodiNew', 'CodiSelect', 'CodiExpand'] }
-Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun'] }
+Plug 'mg979/vim-visual-multi', {'on': [], 'branch': 'master'}
+Plug 'justinmk/vim-sneak', {'on': []}
+Plug 'rhysd/clever-f.vim', {'on': []}
+Plug 'matze/vim-move', {'on': ['<Plug>MoveLineDown', '<Plug>MoveLineUp', '<Plug>MoveCharLeft', '<Plug>MoveCharRight', '<Plug>MoveBlockDown', '<Plug>MoveBlockUp', '<Plug>MoveBlockLeft', '<Plug>MoveBlockRight']}
+Plug 'liuchengxu/vista.vim', {'on': ['Vista']}
+Plug 'mbbill/undotree', {'on': ['UndotreeToggle']}
+Plug 'preservim/nerdtree', {'on': ['NERDTreeToggle']}
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight', {'on': ['NERDTreeToggle']}
+Plug 'Xuyuanp/nerdtree-git-plugin', {'on': ['NERDTreeToggle']}
+Plug 'jistr/vim-nerdtree-tabs', {'on': ['NERDTreeToggle', 'NERDTreeTabsToggle']}
+Plug 'dyng/ctrlsf.vim', {'on': ['CtrlSF']}
+Plug 'thinca/vim-quickrun', {'on': ['QuickRun']}
+Plug 'easymotion/vim-easymotion', {'on': ['<Plug>(easymotion-overwin-line)', '<Plug>(easymotion-overwin-w)']}
+Plug 'tpope/vim-fugitive', {'on': ['G', 'Git']}
+Plug 'junegunn/fzf', {'do': { -> fzf#install() }, 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg']}
+Plug 'junegunn/fzf.vim', {'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg']}
+Plug 'junegunn/goyo.vim', {'on': ['Goyo']}
+Plug 'junegunn/limelight.vim', {'on': ['Limelight']}
+Plug 'dstein64/vim-startuptime', {'on': ['StartupTime']}
+Plug 'lambdalisue/vim-suda', {'on': ['SudaRead', 'SudaWrite']}
+Plug 'voldikss/vim-floaterm', {'on': ['FloatermNew', 'FloatermPrev', 'FloatermNext', 'FloatermToggle', 'FloatermShow']}
+Plug 'mtth/scratch.vim', {'on': ['Scratch']}
+Plug 'metakirby5/codi.vim', {'on': ['Codi', 'CodiNew', 'CodiSelect', 'CodiExpand']}
+Plug 'skywind3000/asyncrun.vim', {'on': ['AsyncRun']}
 
 " LINTING
-Plug 'dense-analysis/ale', { 'on': [] }
+Plug 'dense-analysis/ale', {'on': []}
 
 " AUTO-COMPLETION, LSP, SNIPPETS
-Plug 'prabirshrestha/asyncomplete.vim', { 'on': [] }
-Plug 'prabirshrestha/asyncomplete-buffer.vim', { 'on': [] }
-Plug 'prabirshrestha/asyncomplete-file.vim', { 'on': [] }
-Plug 'prabirshrestha/asyncomplete-lsp.vim', { 'on': [] }
-Plug 'prabirshrestha/vim-lsp', { 'on': [] }
-Plug 'mattn/vim-lsp-settings', { 'on': ['LspInstallServer', 'LspManageServers'] }
-Plug 'hrsh7th/vim-vsnip', { 'on': [] }
-Plug 'hrsh7th/vim-vsnip-integ', { 'on': [] }
-Plug 'LunarWatcher/auto-pairs', { 'on': [] }
-Plug 'luochen1990/rainbow', { 'on': [] }
+Plug 'prabirshrestha/asyncomplete.vim', {'on': []}
+Plug 'prabirshrestha/asyncomplete-buffer.vim', {'on': []}
+Plug 'prabirshrestha/asyncomplete-file.vim', {'on': []}
+Plug 'prabirshrestha/asyncomplete-lsp.vim', {'on': []}
+Plug 'prabirshrestha/vim-lsp', {'on': []}
+Plug 'mattn/vim-lsp-settings', {'on': ['LspInstallServer', 'LspManageServers']}
+Plug 'hrsh7th/vim-vsnip', {'on': []}
+Plug 'hrsh7th/vim-vsnip-integ', {'on': []}
+Plug 'LunarWatcher/auto-pairs', {'on': []}
+Plug 'luochen1990/rainbow', {'on': []}
 
 " LANGUAGE SPECIFIC
-Plug 'mattn/emmet-vim', { 'on': [], 'for': 'html' }
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug'] }
-Plug 'tpope/vim-dadbod', { 'on': ['DB'] }
-Plug 'kristijanhusak/vim-dadbod-ui', { 'on': ['DBUI', 'DBUIToggle', 'DBUIAddConnection', 'DBUIFindBuffer'] }
-Plug 'kristijanhusak/vim-dadbod-completion', { 'on': ['DBUI', 'DBUIToggle', 'DBUIAddConnection', 'DBUIFindBuffer'] }
+Plug 'mattn/emmet-vim', {'on': [], 'for': 'html'}
+Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries', 'for': 'go'}
+Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'tpope/vim-dadbod', {'on': ['DB']}
+Plug 'kristijanhusak/vim-dadbod-ui', {'on': ['DBUI', 'DBUIToggle', 'DBUIAddConnection', 'DBUIFindBuffer'], 'for': 'sql'}
+Plug 'kristijanhusak/vim-dadbod-completion', {'on': ['DBUI', 'DBUIToggle', 'DBUIAddConnection', 'DBUIFindBuffer'], 'for': 'sql'}
 
 " DEBUGGER
 if has('python3')
-  Plug 'puremourning/vimspector', { 'on': ['VimspectorInstall', '<Plug>VimspectorContinue', '<Plug>VimspectorBreakpoints', '<Plug>VimspectorToggleBreakpoint', '<Plug>VimspectorGoToCurrentLine'] }
+  Plug 'puremourning/vimspector', {'on': ['VimspectorInstall', '<Plug>VimspectorContinue', '<Plug>VimspectorBreakpoints', '<Plug>VimspectorToggleBreakpoint', '<Plug>VimspectorGoToCurrentLine']}
 endif
 
 " FORMATTING
 if has('python3')
-  Plug 'vim-autoformat/vim-autoformat', { 'on': ['Autoformat'] }
+  Plug 'vim-autoformat/vim-autoformat', {'on': ['Autoformat']}
 endif
 
 " TESTING
-Plug 'vim-test/vim-test', { 'on': ['TestNearest', 'TestFile', 'TestSuite', 'TestLast', 'TestVisit'] }
+Plug 'vim-test/vim-test', {'on': ['TestNearest', 'TestFile', 'TestSuite', 'TestLast', 'TestVisit']}
 
 call plug#end()
 
@@ -257,25 +249,25 @@ augroup load_vim_devicons
   autocmd!
   autocmd BufReadPost * call plug#load('vim-devicons')
         \| autocmd! load_vim_devicons
-        \| let g:webdevicons_enable = 1
-        \| let g:webdevicons_enable_startify = 1
-        \| let g:webdevicons_enable_nerdtree = 1
+        \| let g:webdevicons_enable=1
+        \| let g:webdevicons_enable_startify=1
+        \| let g:webdevicons_enable_nerdtree=1
 augroup END
 
 augroup load_vim_startify
   autocmd!
   autocmd BufWinEnter * call plug#load('vim-startify')
         \| autocmd! load_vim_startify
-        \| let g:startify_custom_header = []
-        \| let g:startify_files_number = 15
-        \| let g:startify_padding_left = winwidth(0) / 3
+        \| let g:startify_custom_header=[]
+        \| let g:startify_files_number=15
+        \| let g:startify_padding_left=winwidth(0)/3
 augroup END
 
 augroup load_gruvbox
   autocmd!
   autocmd BufReadPost * call plug#load('gruvbox')
         \| autocmd! load_gruvbox
-        \| let g:gruvbox_contrast_dark = 'hard'
+        \| let g:gruvbox_contrast_dark='hard'
         \| colorscheme gruvbox
 augroup END
 
@@ -289,7 +281,7 @@ augroup load_indentline
   autocmd!
   autocmd BufReadPost * call plug#load('indentLine')
         \| autocmd! load_indentline
-        \| let g:indentLine_char_list = ['│']
+        \| let g:indentLine_char_list=['│']
         \| IndentLinesEnable
 augroup END
 
@@ -298,7 +290,7 @@ augroup load_lightline
   autocmd BufReadPost * call plug#load('lightline.vim', 'lightline-gruvbox.vim')
         \| autocmd! load_lightline
         \| let g:lightline = {}
-        \| let g:lightline.colorscheme = 'gruvbox'
+        \| let g:lightline.colorscheme='gruvbox'
         \| call lightline#enable()
 augroup END
 
@@ -326,9 +318,9 @@ augroup load_context_vim
   autocmd!
   autocmd BufReadPost * call plug#load('context.vim')
         \| autocmd! load_context_vim
-        \| let g:context_max_height = 1
-        \| let g:context_max_per_indent = 1
-        \| let g:context_max_join_parts = 1
+        \| let g:context_max_height=1
+        \| let g:context_max_per_indent=1
+        \| let g:context_max_join_parts=1
 augroup END
 
 augroup load_vim_matchup
@@ -347,7 +339,7 @@ augroup load_vim_highlightedyank
   autocmd!
   autocmd BufReadPost * call plug#load('vim-highlightedyank')
         \| autocmd! load_vim_highlightedyank
-        \| let g:highlightedyank_highlight_duration = 1500
+        \| let g:highlightedyank_highlight_duration=1500
 augroup END
 
 augroup load_vim_commentary
@@ -366,14 +358,14 @@ augroup load_vim_cool
   autocmd!
   autocmd BufReadPost * call plug#load('vim-cool')
         \| autocmd! load_vim_cool
-        \| let g:cool_total_matches = 1
+        \| let g:cool_total_matches=1
 augroup END
 
 augroup load_vim_gitgutter
   autocmd!
   autocmd BufReadPost * call plug#load('vim-gitgutter')
         \| autocmd! load_vim_gitgutter
-        \| let g:gitgutter_map_keys = 0
+        \| let g:gitgutter_map_keys=0
 augroup END
 
 augroup load_vim_textobj
@@ -384,32 +376,32 @@ augroup END
 
 nnoremap <silent><leader> :<c-u>WhichKey '<space>'<cr>
 nnoremap <silent><localleader> :<c-u>WhichKey ','<cr>
-let g:which_key_map = {}
+let g:which_key_map={}
 let g:which_key_map['C'] = {
-      \ 'name': '+Config',
-      \ 'E': ['<leader>CE', 'Edit config'],
-      \ 'R': ['<leader>CR', 'Reload config']
-      \ }
+      \'name': '+Config',
+      \'E': ['<leader>CE', 'Edit config'],
+      \'R': ['<leader>CR', 'Reload config']
+      \}
 let g:which_key_map['f'] = {
-      \ 'name': '+Find',
-      \ 'b': ['<leader>fb', 'Find buffers'],
-      \ 'c': ['<leader>fc', 'Find colorschemes'],
-      \ 'f': ['<leader>ff', 'Find files'],
-      \ 'F': ['<leader>fF', 'Find files from HOME'],
-      \ 'r': ['<leader>fr', 'Find history'],
-      \ 's': ['<leader>fs', 'Find words in current buffer'],
-      \ 'w': ['<leader>fw', 'Find words']
-      \ }
+      \'name': '+Find',
+      \'b': ['<leader>fb', 'Find buffers'],
+      \'c': ['<leader>fc', 'Find colorschemes'],
+      \'f': ['<leader>ff', 'Find files'],
+      \'F': ['<leader>fF', 'Find files from HOME'],
+      \'r': ['<leader>fr', 'Find history'],
+      \'s': ['<leader>fs', 'Find words in current buffer'],
+      \'w': ['<leader>fw', 'Find words']
+      \}
 let g:which_key_map['g'] = {
-      \ 'name': '+Goto',
-      \ 'l': ['<leader>gl', 'easymotion-goto-line'],
-      \ 'w': ['<leader>gw', 'easymotion-goto-word']
-      \ }
+      \'name': '+Goto',
+      \'l': ['<leader>gl', 'easymotion-goto-line'],
+      \'w': ['<leader>gw', 'easymotion-goto-word']
+      \}
 let g:which_key_map['t'] = {
-      \ 'name': '+Toggle',
-      \ 'n': ['<leader>tn', 'Nerd Tree'],
-      \ 'P': ['<leader>tP', 'Plugin Panel']
-      \ }
+      \'name': '+Toggle',
+      \'n': ['<leader>tn', 'Nerd Tree'],
+      \'P': ['<leader>tP', 'Plugin Panel']
+      \}
 augroup load_which_key_register
   autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map', 'n')
   autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map', 'v')
@@ -434,7 +426,7 @@ augroup load_clever_f_vim
         \| autocmd! load_clever_f_vim
 augroup END
 
-let g:move_map_keys = 0
+let g:move_map_keys=0
 nmap <Esc><Down> <Plug>MoveLineDown
 nmap <Esc><Up> <Plug>MoveLineUp
 nmap <Esc><Left> <Plug>MoveCharLeft
@@ -444,15 +436,15 @@ vmap <Esc><Up> <Plug>MoveBlockUp
 vmap <Esc><Left> <Plug>MoveBlockLeft
 vmap <Esc><Right> <Plug>MoveBlockRight
 
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeWinSize = 23
+let g:NERDTreeShowHidden=1
+let g:NERDTreeWinSize=23
 nnoremap <leader>tn :NERDTreeToggle<cr>
 
-let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_do_mapping=0
 nmap <Leader>gl <Plug>(easymotion-overwin-line)
 nmap <Leader>gw <Plug>(easymotion-overwin-w)
 
-let g:fzf_layout = { 'down': '40%' }
+let g:fzf_layout = {'down': '40%'}
 nnoremap <leader>ff :Files<cr>
 nnoremap <leader>fF :Files ~/<cr>
 nnoremap <leader>fb :Buffers<cr>
@@ -463,7 +455,7 @@ nnoremap <leader>fc :Colors<cr>
 nnoremap <leader><leader> :Commands<cr>
 
 augroup goyo_enter
-  let g:limelight_conceal_ctermfg = 240
+  let g:limelight_conceal_ctermfg=240
   autocmd! User GoyoEnter Limelight
 augroup END
 augroup goyo_leave
@@ -475,8 +467,8 @@ augroup load_ale
   autocmd!
   autocmd InsertEnter * call plug#load('ale')
         \| autocmd! load_ale
-        \| let g:ale_lint_on_text_changed = 0
-        \| let g:ale_lint_on_save = 1
+        \| let g:ale_lint_on_text_changed=0
+        \| let g:ale_lint_on_save=1
 augroup END
 
 " AUTO-COMPLETION, LSP, SNIPPETS
@@ -484,55 +476,55 @@ augroup load_completion_lsp_snippet
   autocmd!
   autocmd InsertEnter * call plug#load('asyncomplete.vim', 'asyncomplete-buffer.vim', 'asyncomplete-file.vim', 'asyncomplete-lsp.vim', 'vim-lsp', 'vim-vsnip', 'vim-vsnip-integ')
         \| autocmd! load_completion_lsp_snippet
-        \| let g:lsp_diagnostics_enabled = 0
-        \| let g:lsp_use_native_client = 1
+        \| let g:lsp_diagnostics_enabled=0
+        \| let g:lsp_use_native_client=1
         \| call asyncomplete#enable_for_buffer()
-        \| imap <expr><Tab> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : pumvisible() ? "\<C-n>" : "\<Tab>"
-        \| smap <expr><Tab> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : pumvisible() ? "\<C-n>" : "\<Tab>"
-        \| imap <expr><S-Tab> vsnip#available(1) ? '<Plug>(vsnip-jump-prev)' : pumvisible() ? "\<C-p>" : "\<S-Tab>"
-        \| smap <expr><S-Tab> vsnip#available(1) ? '<Plug>(vsnip-jump-prev)' : pumvisible() ? "\<C-p>" : "\<S-Tab>"
+        \| imap <expr><Tab> vsnip#available(1)?'<Plug>(vsnip-expand-or-jump)':pumvisible()?"\<C-n>":"\<Tab>"
+        \| smap <expr><Tab> vsnip#available(1)?'<Plug>(vsnip-expand-or-jump)':pumvisible()?"\<C-n>":"\<Tab>"
+        \| imap <expr><S-Tab> vsnip#available(1)?'<Plug>(vsnip-jump-prev)':pumvisible()?"\<C-p>":"\<S-Tab>"
+        \| smap <expr><S-Tab> vsnip#available(1)?'<Plug>(vsnip-jump-prev)':pumvisible()?"\<C-p>":"\<S-Tab>"
         \| call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-        \ 'name': 'buffer',
-        \ 'allowlist': ['*'],
-        \ 'blocklist': ['go'],
-        \ 'completor': function('asyncomplete#sources#buffer#completor'),
-        \ 'config': { 'max_buffer_size': 10000 }
-        \ }))
+        \'name': 'buffer',
+        \'allowlist': ['*'],
+        \'blocklist': ['go'],
+        \'completor': function('asyncomplete#sources#buffer#completor'),
+        \'config': {'max_buffer_size': 10000}
+        \}))
         \| call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-        \ 'name': 'file',
-        \ 'allowlist': ['*'],
-        \ 'priority': 10,
-        \ 'completor': function('asyncomplete#sources#file#completor')
-        \ }))
+        \'name': 'file',
+        \'allowlist': ['*'],
+        \'priority': 10,
+        \'completor': function('asyncomplete#sources#file#completor')
+        \}))
         \| call lsp#enable()
         \| if executable('clangd')
         \| call lsp#register_server({
-        \ 'name': 'clangd',
-        \ 'cmd': { server_info -> ['clangd', '-j=12', '--enable-config', '--background-index', '--clang-tidy', '--all-scopes-completion', '--completion-style=detailed', '--header-insertion-decorators', '--limit-references=3000', '--limit-results=350'] },
-        \ 'whitelist': ['c', 'cpp']
-        \ })
+        \'name': 'clangd',
+        \'cmd': {server_info -> ['clangd', '-j=12', '--enable-config', '--background-index', '--clang-tidy', '--all-scopes-completion', '--completion-style=detailed', '--header-insertion-decorators', '--limit-references=3000', '--limit-results=350']},
+        \'whitelist': ['c', 'cpp']
+        \})
         \| endif
         \| if executable('basedpyright')
         \| call lsp#register_server({
-        \ 'name': 'basedpyright',
-        \ 'cmd': { server_info -> ['basedpyright-langserver', '--stdio'] },
-        \ 'whitelist': ['python']
-        \ })
+        \'name': 'basedpyright',
+        \'cmd': {server_info -> ['basedpyright-langserver', '--stdio']},
+        \'whitelist': ['python']
+        \})
         \| endif
         \| if executable('typescript-language-server')
         \| call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': { server_info -> [&shell, &shellcmdflag, 'typescript-language-server --stdio'] },
-        \ 'root_uri': { server_info -> lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..')) },
-        \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact', 'typescript', 'typescript.tsx', 'typescriptreact']
+        \'name': 'typescript-language-server',
+        \'cmd': {server_info -> [&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \'root_uri': {server_info -> lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+        \'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact', 'typescript', 'typescript.tsx', 'typescriptreact']
         \ })
         \| endif
         \| if executable('gopls')
         \| call lsp#register_server({
-        \ 'name': 'gopls',
-        \ 'cmd': { server_info->['gopls', '-remote=auto'] },
-        \ 'allowlist': ['go', 'gomod', 'gohtmltmpl', 'gotexttmpl']
-        \ })
+        \'name': 'gopls',
+        \'cmd': {server_info->['gopls', '-remote=auto']},
+        \'allowlist': ['go', 'gomod', 'gohtmltmpl', 'gotexttmpl']
+        \})
         \| endif
 augroup END
 function! s:on_lsp_buffer_enabled() abort
@@ -553,7 +545,7 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer>K <Plug>(lsp-hover)
   nnoremap <buffer><expr><C-f> lsp#scroll(+4)
   nnoremap <buffer><expr><C-d> lsp#scroll(-4)
-  let g:lsp_format_sync_timeout = 1000
+  let g:lsp_format_sync_timeout=1000
   autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
 endfunction
 augroup lsp_install
