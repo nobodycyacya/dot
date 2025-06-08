@@ -214,14 +214,11 @@ let g:NERDTreeShowHidden = 1
 let g:NERDTreeWinSize = 23
 nnoremap <Leader>tn :NERDTreeToggle<CR>
 
-Plug 'junegunn/fzf', {'do': { -> fzf#install() }, 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg', 'FZFMru'] }
-Plug 'junegunn/fzf.vim', { 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg', 'FZFMru'] }
-Plug 'pbogut/fzf-mru.vim', { 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg', 'FZFMru'] }
+Plug 'junegunn/fzf', {'do': { -> fzf#install() }, 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg'] }
+Plug 'junegunn/fzf.vim', { 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg'] }
 nnoremap <Leader>ff :Files<CR>
 nnoremap <C-x><C-f> :Files<CR>
 nnoremap <Leader>fF :Files ~/<CR>
-nnoremap <Leader>fm :FZFMru<CR>
-nnoremap <C-x><C-m> :FZFMru<CR>
 nnoremap <Leader>fb :Buffers<CR>
 nnoremap <C-x><C-b> :Buffers<CR>
 nnoremap <Leader>fw :Rg<CR>
