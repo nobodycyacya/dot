@@ -10,18 +10,6 @@
 
 scriptencoding=utf-8
 
-" GUI:
-if has('gui')
-  set guioptions=
-  if has('unix')
-    set guifont=JetBrainsMono\ Nerd\ Font:h12
-  elseif has('mac')
-    set guifont=Menlo:h12
-  elseif has('win32') || has('win64')
-    set guifont=Consolas:h11
-  endif
-endif
-
 " OPTIONS:
 filetype plugin on
 filetype indent on
@@ -59,7 +47,7 @@ set timeoutlen=500
 set ttimeoutlen=500
 
 " THEME:
-set notermguicolors
+set termguicolors
 set background=dark
 if v:version>=900
   set wildoptions=pum,fuzzy
@@ -153,7 +141,7 @@ augroup performance_optimize
 augroup end
 
 " VIM_PLUGINS:
-nnoremap <Leader>tP :PlugStatus<cr>
+nnoremap <Leader>P :PlugStatus<cr>
 
 let data_dir = has('win32') || has('win64') ? '$HOME/vimfiles' : '~/.config/vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -184,18 +172,7 @@ augroup load_vim_devicons
   autocmd BufWinEnter,BufReadPost * call plug#load('vim-devicons')
         \| autocmd! load_vim_devicons
         \| let g:webdevicons_enable = 1
-        \| let g:webdevicons_enable_startify = 1
         \| let g:webdevicons_enable_nerdtree = 1
-augroup end
-
-Plug 'mhinz/vim-startify', { 'on': [] }
-augroup load_vim_startify
-  autocmd!
-  autocmd BufWinEnter * call plug#load('vim-startify')
-        \| autocmd! load_vim_startify
-        \| let g:startify_custom_header = []
-        \| let g:startify_files_number = 15
-        \| let g:startify_padding_left = winwidth(0) / 3
 augroup end
 
 Plug 'morhetz/gruvbox', { 'on': [] }
@@ -212,17 +189,6 @@ augroup load_vim_buftabline
   autocmd!
   autocmd BufReadPost * call plug#load('vim-buftabline')
         \| autocmd! load_vim_buftabline
-augroup end
-
-Plug 'blueyed/vim-diminactive', { 'on': [] }
-augroup load_vim_diminactive
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-diminactive')
-        \| autocmd! load_vim_diminactive
-        \| let g:diminactive_use_colorcolumn = 1
-        \| let g:diminactive_use_syntax = 1
-        \| let g:diminactive_filetype_blacklist = ['startify']
-        \| highlight ColorColumn ctermbg=235 ctermfg=245 guibg=#000000 guifg=#ffffff
 augroup end
 
 Plug 'Yggdroot/indentLine', { 'on': [] }
@@ -245,48 +211,11 @@ augroup load_lightline
         \| call lightline#enable()
 augroup end
 
-Plug 'wincent/terminus', { 'on': [] }
-augroup load_terminus
-  autocmd!
-  autocmd InsertEnter * call plug#load('terminus')
-        \| autocmd! load_terminus
-augroup end
-
-Plug 'kshenoy/vim-signature', { 'on': [] }
-augroup load_vim_signature
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-signature')
-        \|autocmd! load_vim_signature
-augroup end
-
-Plug 'inside/vim-search-pulse', { 'on': [] }
-augroup load_vim_search_pulse
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-search-pulse')
-        \| autocmd! load_vim_search_pulse
-        \| let g:vim_search_pulse_mode = 'cursor_line'
-        \| let g:vim_search_pulse_duration = 1000
-        \| nmap n n<Plug>Pulse
-        \| nmap N N<Plug>Pulse
-        \| nmap * *<Plug>Pulse
-        \| nmap # #<Plug>Pulse
-augroup end
-
-" EDITOR
 Plug 'ntpeters/vim-better-whitespace', { 'on': [] }
 augroup load_vim_better_whitespace
   autocmd!
   autocmd BufReadPost * call plug#load('vim-better-whitespace')
         \| autocmd! load_vim_better_whitespace
-augroup end
-
-Plug 'itchyny/vim-cursorword', { 'on': [] }
-augroup load_vim_cursorword
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-cursorword')
-        \| autocmd! load_vim_cursorword
-        \| let g:cursorword_delay = 1000
-        \| highlight CursorWord ctermbg=239
 augroup end
 
 Plug 'wellle/context.vim', { 'on': [] }
@@ -328,21 +257,6 @@ augroup load_vim_commentary
         \| autocmd! load_vim_commentary
 augroup end
 
-Plug 'tpope/vim-surround', { 'on': [] }
-augroup load_vim_surround
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-surround')
-        \| autocmd! load_vim_surround
-augroup end
-
-Plug 'romainl/vim-cool', { 'on': [] }
-augroup load_vim_cool
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-cool')
-        \| autocmd! load_vim_cool
-        \| let g:cool_total_matches = 1
-augroup end
-
 Plug 'airblade/vim-gitgutter', { 'on': [] }
 augroup load_vim_gitgutter
   autocmd!
@@ -362,64 +276,22 @@ augroup load_vim_textobj
         \| autocmd! load_vim_textobj
 augroup end
 
-Plug 'airblade/vim-rooter', { 'on': [] }
-augroup load_vim_rooter
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-rooter')
-        \| autocmd! load_vim_rooter
-augroup end
-
-Plug 'mg979/vim-visual-multi', { 'on': [], 'branch': 'master' }
-augroup load_vim_visual_multi
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-visual-multi')
-        \| autocmd! load_vim_visual_multi
-augroup end
-
-Plug 'justinmk/vim-sneak', { 'on': [] }
-augroup load_vim_sneak
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-sneak')
-        \| autocmd! load_vim_sneak
-augroup end
-
-Plug 'rhysd/clever-f.vim', { 'on': [] }
-augroup load_clever_f_vim
-  autocmd!
-  autocmd BufReadPost * call plug#load('clever-f.vim')
-        \| autocmd! load_clever_f_vim
-augroup end
-
-Plug 'matze/vim-move', { 'on': ['<Plug>MoveLineDown', '<Plug>MoveLineUp', '<Plug>MoveCharLeft', '<Plug>MoveCharRight', '<Plug>MoveBlockDown', '<Plug>MoveBlockUp', '<Plug>MoveBlockLeft', '<Plug>MoveBlockRight'] }
-let g:move_map_keys = 0
-nmap <ESC><DOWN> <Plug>MoveLineDown
-nmap <ESC><UP> <Plug>MoveLineUp
-nmap <ESC><LEFT> <Plug>MoveCharLeft
-nmap <ESC><RIGHT> <Plug>MoveCharRight
-vmap <ESC><DOWN> <Plug>MoveBlockDown
-vmap <ESC><UP> <Plug>MoveBlockUp
-vmap <ESC><LEFT> <Plug>MoveBlockLeft
-vmap <ESC><RIGHT> <Plug>MoveBlockRight
-
 Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle'] }
 Plug 'liuchengxu/nerdtree-dash', { 'on': ['NERDTreeToggle'] }
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': ['NERDTreeToggle'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle'] }
 Plug 'jistr/vim-nerdtree-tabs', { 'on': ['NERDTreeToggle', 'NERDTreeTabsToggle'] }
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeWinSize = 23
 nnoremap <Leader>tn :NERDTreeToggle<CR>
 
-Plug 'easymotion/vim-easymotion', { 'on': ['<Plug>(easymotion-overwin-line)', '<Plug>(easymotion-overwin-w)'] }
-let g:EasyMotion_do_mapping = 0
-nmap <Leader>gl <Plug>(easymotion-overwin-line)
-nmap <Leader>gw <Plug>(easymotion-overwin-w)
-
-Plug 'junegunn/fzf', {'do': { -> fzf#install() }, 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg'] }
-Plug 'junegunn/fzf.vim',{ 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg'] }
+Plug 'junegunn/fzf', {'do': { -> fzf#install() }, 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg', 'FZFMru'] }
+Plug 'junegunn/fzf.vim', { 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg', 'FZFMru'] }
+Plug 'pbogut/fzf-mru.vim', { 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg', 'FZFMru'] }
 nnoremap <Leader>ff :Files<CR>
 nnoremap <C-x><C-f> :Files<CR>
 nnoremap <Leader>fF :Files ~/<CR>
+nnoremap <Leader>fm :FZFMru<CR>
+nnoremap <C-x><C-m> :FZFMru<CR>
 nnoremap <Leader>fb :Buffers<CR>
 nnoremap <C-x><C-b> :Buffers<CR>
 nnoremap <Leader>fw :Rg<CR>
@@ -431,56 +303,11 @@ nnoremap <C-x><C-r> :History<CR>
 nnoremap <Leader>fc :Colors<CR>
 nnoremap <Leader><Leader> :Commands<CR>
 
-Plug 'junegunn/goyo.vim',{ 'on': ['Goyo'] }
-Plug 'junegunn/limelight.vim', { 'on': ['Limelight'] }
-nnoremap <Leader>tg :Goyo<CR>
-augroup goyo_enter
-  let g:limelight_conceal_ctermfg = 240
-  autocmd! User GoyoEnter Limelight
-augroup end
-augroup goyo_leave
-  autocmd! User GoyoLeave Limelight!
-augroup end
-
-Plug 't9md/vim-choosewin', { 'on': ['<Plug>(choosewin)'] }
-nnoremap <C-x>o <Plug>(choosewin)
-nnoremap <Leader>wo <Plug>(choosewin)
-
-Plug 'terryma/vim-expand-region', { 'on': [] }
-augroup load_expand_region_vim
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-expand-region')
-        \| autocmd! load_expand_region_vim
-augroup end
-
-Plug 'ludovicchabant/vim-gutentags', { 'on': [], 'for': ['c', 'cpp', 'java', 'rust'] }
-augroup load_vim_gutentags
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-gutentags')
-        \| autocmd! load_vim_gutentags
-augroup end
-
-Plug 'thinca/vim-quickrun', { 'on': ['QuickRun'] }
-nnoremap <Leader>tr :QuickRun<CR>
-
 Plug 'liuchengxu/vista.vim', { 'on': ['Vista'] }
 nnoremap <Leader>tv :Vista<CR>
 
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle'] }
 nnoremap <Leader>tu :UndotreeToggle<CR>
-
-Plug 'dstein64/vim-startuptime', { 'on': ['StartupTime'] }
-nnoremap <Leader>tt :StartupTime<CR>
-
-Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
-Plug 'tpope/vim-fugitive', { 'on': ['G', 'Git'] }
-Plug 'ctrlpvim/ctrlp.vim', { 'on': ['CtrlPBuffer', 'CtrlPBuffer', 'CtrlPMRU'] }
-Plug 'lambdalisue/vim-suda', { 'on': ['SudaRead', 'SudaWrite'] }
-Plug 'voldikss/vim-floaterm', { 'on': ['FloatermNew', 'FloatermPrev', 'FloatermNext', 'FloatermToggle', 'FloatermShow'] }
-Plug 'mtth/scratch.vim', { 'on': ['Scratch'] }
-Plug 'metakirby5/codi.vim', { 'on': ['Codi', 'CodiNew', 'CodiSelect', 'CodiExpand'] }
-Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun'] }
-Plug 'preservim/tagbar', { 'on': ['TagbarToggle'] }
 
 Plug 'dense-analysis/ale', { 'on': [] }
 augroup load_ale
@@ -524,10 +351,10 @@ augroup load_completion_lsp_snippet
         \| let g:lsp_diagnostics_enabled = 0
         \| let g:lsp_use_native_client = 1
         \| call asyncomplete#enable_for_buffer()
-        \| imap <EXPR><TAB> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : pumvisible() ? "\<C-n>" : "\<TAB>"
-        \| smap <EXPR><TAB> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : pumvisible() ? "\<C-n>" : "\<TAB>"
-        \| imap <EXPR><S-TAB> vsnip#available(1) ? '<Plug>(vsnip-jump-prev)' : pumvisible() ? "\<C-p>" : "\<S-TAB>"
-        \| smap <EXPR><S-TAB> vsnip#available(1) ? '<Plug>(vsnip-jump-prev)' : pumvisible() ? "\<C-p>" : "\<S-TAB>"
+        \| imap <Expr><TAB> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : pumvisible() ? "\<C-n>" : "\<TAB>"
+        \| smap <Expr><TAB> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : pumvisible() ? "\<C-n>" : "\<TAB>"
+        \| imap <Expr><S-TAB> vsnip#available(1) ? '<Plug>(vsnip-jump-prev)' : pumvisible() ? "\<C-p>" : "\<S-TAB>"
+        \| smap <Expr><S-TAB> vsnip#available(1) ? '<Plug>(vsnip-jump-prev)' : pumvisible() ? "\<C-p>" : "\<S-TAB>"
         \| call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({ 'name': 'buffer', 'allowlist': ['*'], 'blocklist': ['go'], 'completor': function('asyncomplete#sources#buffer#completor'), 'config': { 'max_buffer_size': 10000 } }))
         \| call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({ 'name': 'file', 'allowlist': ['*'], 'priority': 10, 'completor': function('asyncomplete#sources#file#completor') }))
         \| call lsp#enable()
@@ -550,18 +377,13 @@ function! s:on_lsp_buffer_enabled() abort
   if exists('+tagfunc')
     setlocal tagfunc=lsp#tagfunc
   endif
-  nmap <BUFFER>gd <Plug>(lsp-definition)
-  nmap <BUFFER>gs <Plug>(lsp-document-symbol-search)
-  nmap <BUFFER>gS <Plug>(lsp-workspace-symbol-search)
-  nmap <BUFFER>gr <Plug>(lsp-references)
-  nmap <BUFFER>gi <Plug>(lsp-implementation)
-  nmap <BUFFER>gt <Plug>(lsp-type-definition)
-  nmap <BUFFER><Leader>rn <Plug>(lsp-rename)
-  nmap <BUFFER>[g <Plug>(lsp-previous-diagnostic)
-  nmap <BUFFER>]g <Plug>(lsp-next-diagnostic)
-  nmap <BUFFER>K <Plug>(lsp-hover)
-  nnoremap <BUFFER><EXPR><C-f> lsp#scroll(+4)
-  nnoremap <BUFFER><EXPR><C-d> lsp#scroll(-4)
+  nmap <Buffer>gd <Plug>(lsp-definition)
+  nmap <Buffer>gD <Plug>(lsp-implementation)
+  nmap <Buffer>[g <Plug>(lsp-previous-diagnostic)
+  nmap <Buffer>]g <Plug>(lsp-next-diagnostic)
+  nmap <Buffer>K <Plug>(lsp-hover)
+  nnoremap <Buffer><Expr><C-f> lsp#scroll(+4)
+  nnoremap <Buffer><Expr><C-d> lsp#scroll(-4)
   let g:lsp_format_sync_timeout = 1000
   augroup use_lsp_document_format_sync
     autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
@@ -588,38 +410,15 @@ augroup load_rainbow
         \| RainbowToggleOn
 augroup end
 
-Plug 'mattn/emmet-vim', { 'on': [], 'for': 'html' }
-augroup load_emmet_vim
-  autocmd!
-  autocmd BufReadPost * call plug#load('emmet-vim')
-        \| autocmd! load_emmet_vim
-augroup end
-
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug'] }
-Plug 'tpope/vim-dadbod', { 'on': ['DB'] }
-Plug 'kristijanhusak/vim-dadbod-ui', { 'on': ['DBUI', 'DBUIToggle', 'DBUIAddConnection', 'DBUIFindBuffer'], 'for': 'sql' }
-Plug 'kristijanhusak/vim-dadbod-completion', { 'on': ['DBUI', 'DBUIToggle', 'DBUIAddConnection', 'DBUIFindBuffer'], 'for': 'sql' }
-Plug 'vim-test/vim-test', { 'on': ['TestNearest', 'TestFile', 'TestSuite', 'TestLast', 'TestVisit'] }
-
-if has('python3')
-  Plug 'puremourning/vimspector', { 'on': ['VimspectorInstall', '<Plug>VimspectorContinue', '<Plug>VimspectorBreakpoints', '<Plug>VimspectorToggleBreakpoint', '<Plug>VimspectorGoToCurrentLine'] }
-  Plug 'vim-autoformat/vim-autoformat', { 'on': ['Autoformat'] }
-endif
-
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-nnoremap <silent> <Leader> :<C-u>WhichKey '<Space>'<CR>
-nnoremap <silent> <Localleader> :<C-u>WhichKey ','<CR>
+nnoremap <Silent> <Leader> :<C-u>WhichKey '<Space>'<CR>
+nnoremap <Silent> <Localleader> :<C-u>WhichKey ','<CR>
 augroup load_vim_which_key
   let g:which_key_map = {}
   let g:which_key_map['c'] = {
         \ 'name': '+Config',
         \ 'e': ['<Leader>ce', 'Edit'],
         \ 'r': ['<Leader>cr', 'Reload'],
-        \ }
-  let g:which_key_map['w'] = {
-        \ 'name': '+Window',
-        \ 'o': ['<Leader>wo', '<Plug>choosewin'],
         \ }
   let g:which_key_map['f'] = {
         \ 'name': '+Find',
@@ -633,11 +432,8 @@ augroup load_vim_which_key
         \ }
   let g:which_key_map['t'] = {
         \ 'name': '+Toggle',
-        \ 'g': ['<Leader>tg', 'Goyo'],
-        \ 'r': ['<Leader>tr', 'Run Code'],
         \ 'v': ['<Leader>tv', 'Code Outline'],
         \ 'u': ['<Leader>tu', 'Undo Tree'],
-        \ 't': ['<Leader>tt', 'Startup Time'],
         \ }
   autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map', 'n')
 augroup end
