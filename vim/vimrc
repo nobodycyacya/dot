@@ -1,4 +1,4 @@
-" REFERENCE:
+""" REFERENCE """
 " https://github.com/junegunn/vim-plug/wiki/tips
 " https://www.reddit.com/r/vim/comments/7datnj/comment/dpxfjym/?st=ja3oaqh0&sh=a9e76b40
 " https://github.com/junegunn/vim-plug/wiki/faq#conditional-activation
@@ -9,9 +9,9 @@
 " https://github.com/chenxuan520/vim-fast
 " https://github.com/liuchengxu/space-vim
 
-scriptencoding=utf-8
 
-" OPTIONS:
+""" OPTIONS """
+scriptencoding=utf-8
 filetype plugin on
 filetype indent on
 syntax enable
@@ -47,7 +47,7 @@ set noswapfile
 set timeoutlen=500
 set ttimeoutlen=500
 
-" THEME:
+""" THEME """
 set notermguicolors
 set background=dark
 if v:version>=900
@@ -55,7 +55,7 @@ if v:version>=900
   colorscheme habamax
 endif
 
-" BUILTIN_PLUGINS:
+""" BUILTIN_PLUGINS """
 let g:loaded_2html_plugin = 1
 let g:loaded_getscript = 1
 let g:loaded_gzip = 1
@@ -78,7 +78,7 @@ let g:loaded_vimballPlugin = 1
 let g:loaded_zip = 1
 let g:loaded_zipPlugin = 1
 
-" KEYMAPPING:
+""" KEYMAPPING """
 let mapleader = ' '
 let maplocalleader = ','
 nnoremap <Leader>cr :source $MYVIMRC<CR>
@@ -97,7 +97,7 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" AUTOCMD:
+""" AUTOCMD """
 augroup restore_cursor_position
   autocmd!
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$')
@@ -139,7 +139,7 @@ augroup performance_optimize
   autocmd FileType * syntax sync minlines=200
 augroup end
 
-" VIM_PLUGINS:
+""" VIM_PLUGINS """
 nnoremap <Leader>P :PlugStatus<cr>
 
 let data_dir = has('win32') || has('win64') ? '$HOME/vimfiles' : '~/.vim'
@@ -165,13 +165,6 @@ augroup end
 
 call plug#begin(data_dir . '/plugged')
 
-Plug 'andymass/vim-matchup', { 'on': [] }
-augroup load_vim_matchup
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-matchup')
-        \| autocmd! load_vim_matchup
-augroup end
-
 Plug 'machakann/vim-highlightedyank', { 'on': [] }
 augroup load_vim_highlightedyank
   autocmd!
@@ -193,17 +186,6 @@ augroup load_vim_gitgutter
   autocmd BufReadPost * call plug#load('vim-gitgutter')
         \| autocmd! load_vim_gitgutter
         \| let g:gitgutter_map_keys = 0
-augroup end
-
-Plug 'kana/vim-textobj-user', { 'on': [] }
-Plug 'glts/vim-textobj-comment', { 'on': [] }
-Plug 'kana/vim-textobj-function', { 'on': [] }
-Plug 'kana/vim-textobj-indent', { 'on': [] }
-Plug 'wellle/targets.vim', { 'on': [] }
-augroup load_vim_textobj
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-textobj-user', 'vim-textobj-comment', 'vim-textobj-function', 'vim-textobj-indent', 'targets.vim')
-        \| autocmd! load_vim_textobj
 augroup end
 
 Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle'] }
@@ -229,9 +211,6 @@ nnoremap <Leader>fr :History<CR>
 nnoremap <C-x><C-r> :History<CR>
 nnoremap <Leader>fc :Colors<CR>
 nnoremap <Leader><Leader> :Commands<CR>
-
-Plug 'liuchengxu/vista.vim', { 'on': ['Vista'] }
-nnoremap <Leader>tv :Vista<CR>
 
 Plug 'dense-analysis/ale', { 'on': [] }
 augroup load_ale
