@@ -59,7 +59,7 @@ set timeoutlen=500
 set ttimeoutlen=500
 
 " THEME:
-set termguicolors
+set notermguicolors
 set background=dark
 if v:version>=900
   set wildoptions=pum,fuzzy
@@ -212,6 +212,17 @@ augroup load_vim_buftabline
   autocmd!
   autocmd BufReadPost * call plug#load('vim-buftabline')
         \| autocmd! load_vim_buftabline
+augroup end
+
+Plug 'blueyed/vim-diminactive', { 'on': [] }
+augroup load_vim_diminactive
+  autocmd!
+  autocmd BufReadPost * call plug#load('vim-diminactive')
+        \| autocmd! load_vim_diminactive
+        \| let g:diminactive_use_colorcolumn = 1
+        \| let g:diminactive_use_syntax = 1
+        \| let g:diminactive_filetype_blacklist = ['startify']
+        \| highlight ColorColumn ctermbg=235 ctermfg=245 guibg=#000000 guifg=#ffffff
 augroup end
 
 Plug 'Yggdroot/indentLine', { 'on': [] }
