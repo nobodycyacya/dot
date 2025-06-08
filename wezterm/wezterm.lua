@@ -25,7 +25,7 @@ elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" then
 end
 
 config.cell_width = 0.9
-config.color_scheme = "tokyonight_night"
+config.color_scheme = "Default Dark (base16)"
 config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Bold", italic = false })
 config.front_end = "OpenGL"
 config.freetype_load_target = "Light"
