@@ -335,7 +335,11 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (add-hook 'dired-mode-hook #'nerd-icons-dired-mode)
 
 (require-package 'doom-themes)
-(add-hook 'after-init-hook #'(lambda () (load-theme 'doom-palenight t)))
+(add-hook 'after-init-hook
+          #'(lambda ()
+              (setq doom-one-brighter-comments t)
+              (setq doom-one-comment-bg nil)
+              (load-theme 'doom-one t)))
 
 (require-package 'doom-modeline)
 (run-with-idle-timer 5 nil #'doom-modeline-mode)
@@ -417,6 +421,12 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
      (setq centaur-tabs-set-bar 'over)
      (centaur-tabs-mode)))
 
+(require-package 'auto-dim-other-buffers)
+(add-hook 'after-init-hook #'auto-dim-other-buffers-mode)
+(with-eval-after-load 'auto-dim-other-buffers
+  (setq auto-dim-other-buffers-dim-on-focus-out nil)
+  (setq auto-dim-other-buffers-dim-on-switch-to-minibuffer nil))
+
 ;; IVY
 (require-package 'ivy)
 (require-package 'counsel)
@@ -459,6 +469,14 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (run-with-idle-timer
  5 nil
  #'(lambda ()
+     (when (display-graphic-p)
+       (setq hydra-hint-display-type 'posframe)
+       (setq hydra-posframe-show-params
+             '(:left-fringe 12
+                            :right-fringe 12
+                            :internal-border-width 2
+                            :internal-border-color "purple"
+                            :poshandler posframe-poshandler-window-center)))
      ;; avy
      (pretty-hydra-define hydra-avy
        (:color pink :quit-key "q" :title "Avy Commands")
@@ -564,6 +582,8 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
           ("XXX" font-lock-constant-face bold))))
 
 (require-package 'esup)
+
+(require-package 'olivetti)
 
 (require-package 'exec-path-from-shell)
 (when (eq system-type 'darwin)
