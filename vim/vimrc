@@ -48,7 +48,7 @@ set timeoutlen=500
 set ttimeoutlen=500
 
 " THEME:
-set termguicolors
+set notermguicolors
 set background=dark
 if v:version>=900
   set wildoptions=pum,fuzzy
@@ -233,9 +233,6 @@ nnoremap <Leader><Leader> :Commands<CR>
 Plug 'liuchengxu/vista.vim', { 'on': ['Vista'] }
 nnoremap <Leader>tv :Vista<CR>
 
-Plug 'mbbill/undotree', { 'on': ['UndotreeToggle'] }
-nnoremap <Leader>tu :UndotreeToggle<CR>
-
 Plug 'dense-analysis/ale', { 'on': [] }
 augroup load_ale
   autocmd!
@@ -332,30 +329,5 @@ augroup end
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 nnoremap <silent> <Leader> :<C-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <Localleader> :<C-u>WhichKey ','<CR>
-augroup load_vim_which_key
-  let g:which_key_map = {}
-  let g:which_key_map['c'] = {
-        \ 'name': '+Config',
-        \ 'e': ['<Leader>ce', 'Edit'],
-        \ 'r': ['<Leader>cr', 'Reload'],
-        \ }
-  let g:which_key_map['f'] = {
-        \ 'name': '+Find',
-        \ 'b': ['<Leader>fb', 'Buffers'],
-        \ 'c': ['<Leader>fc', 'Colorschemes'],
-        \ 'f': ['<Leader>ff', 'Files'],
-        \ 'F': ['<Leader>ff', 'Files in root'],
-        \ 's': ['<Leader>fs', 'Buffer Words'],
-        \ 'w': ['<Leader>fw', 'Words'],
-        \ 'r': ['<Leader>fr', 'Recent Files'],
-        \ 'm': ['<Leader>fm', 'MRU'],
-        \ }
-  let g:which_key_map['t'] = {
-        \ 'name': '+Toggle',
-        \ 'v': ['<Leader>tv', 'Code Outline'],
-        \ 'u': ['<Leader>tu', 'Undo Tree'],
-        \ }
-  autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map', 'n')
-augroup end
 
 call plug#end()
