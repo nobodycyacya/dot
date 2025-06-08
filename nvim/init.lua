@@ -1,3 +1,4 @@
+--- References ---
 -- https://github.com/boltlessengineer/NativeVim
 -- https://github.com/HCY-ASLEEP/NVIM-Config
 -- https://github.com/LazyVim/LazyVim
@@ -6,7 +7,7 @@
 -- https://github.com/ayamir/nvimdots
 -- https://github.com/nvim-lua/kickstart.nvim
 
--- BUILTIN
+--- OPTIONS ---
 vim.opt.clipboard = "unnamedplus,unnamed"
 vim.opt.cursorline = true
 vim.opt.number = true
@@ -31,6 +32,8 @@ vim.opt.background = "dark"
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 vim.cmd.colorscheme("habamax")
+
+--- KEYBINDINGS ---
 vim.api.nvim_set_keymap("n", "<Leader>CR", ":source $MYVIMRC<CR>", { desc = "Reload conf" })
 vim.api.nvim_set_keymap("n", "<Leader>CE", ":edit $MYVIMRC<CR>", { desc = "Edit conf" })
 vim.api.nvim_set_keymap("i", "jk", "<ESC>", { desc = "Back to Normal Mode" })
@@ -46,6 +49,8 @@ vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", { desc = "Move to Left Window" }
 vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", { desc = "Move to Down Window" })
 vim.api.nvim_set_keymap("n", "<C-k>", "<C-w>k", { desc = "Move to Up Window" })
 vim.api.nvim_set_keymap("n", "<C-l>", "<C-w>l", { desc = "Move to Right Window" })
+
+--- AUTOCMD ---
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("ChangeTabSizeWithSpecificFileType", { clear = true }),
   pattern = { "python", "json", "jsonc" },
@@ -153,7 +158,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
--- lazy.nvim
+--- lazy.nvim ---
 if not vim.loop.fs_stat(vim.fn.stdpath("data") .. "/lazy/lazy.nvim") then
   vim.fn.system({
     "git",
