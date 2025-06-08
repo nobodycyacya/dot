@@ -52,9 +52,7 @@ set termguicolors
 set background=dark
 if v:version>=900
   set wildoptions=pum,fuzzy
-  colorscheme retrobox
-else
-  colorscheme desert
+  colorscheme habamax
 endif
 
 " BUILTIN_PLUGINS:
@@ -79,10 +77,10 @@ let g:loaded_vimball = 1
 let g:loaded_vimballPlugin = 1
 let g:loaded_zip = 1
 let g:loaded_zipPlugin = 1
-let mapleader = ' '
-let maplocalleader = ','
 
 " KEYMAPPING:
+let mapleader = ' '
+let maplocalleader = ','
 nnoremap <Leader>cr :source $MYVIMRC<CR>
 nnoremap <Leader>ce :edit $MYVIMRC<CR>
 inoremap jk <ESC>
@@ -167,80 +165,11 @@ augroup end
 
 call plug#begin(data_dir . '/plugged')
 
-Plug 'ryanoasis/vim-devicons', { 'on': [] }
-augroup load_vim_devicons
-  autocmd!
-  autocmd BufWinEnter,BufReadPost * call plug#load('vim-devicons')
-        \| autocmd! load_vim_devicons
-        \| let g:webdevicons_enable = 1
-        \| let g:webdevicons_enable_nerdtree = 1
-augroup end
-
-Plug 'morhetz/gruvbox', { 'on': [] }
-augroup load_gruvbox
-  autocmd!
-  autocmd BufReadPost * call plug#load('gruvbox')
-        \| autocmd! load_gruvbox
-        \| let g:gruvbox_contrast_dark = 'hard'
-        \| colorscheme gruvbox
-augroup end
-
-Plug 'ap/vim-buftabline', { 'on': [] }
-augroup load_vim_buftabline
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-buftabline')
-        \| autocmd! load_vim_buftabline
-augroup end
-
-Plug 'Yggdroot/indentLine', { 'on': [] }
-augroup load_indentline
-  autocmd!
-  autocmd BufReadPost * call plug#load('indentLine')
-        \| autocmd! load_indentline
-        \| let g:indentLine_char_list = ['│']
-        \| IndentLinesEnable
-augroup end
-
-Plug 'itchyny/lightline.vim', { 'on': [] }
-Plug 'shinchu/lightline-gruvbox.vim', { 'on': [] }
-augroup load_lightline
-  autocmd!
-  autocmd BufReadPost * call plug#load('lightline.vim', 'lightline-gruvbox.vim')
-        \| autocmd! load_lightline
-        \| let g:lightline = {}
-        \| let g:lightline.colorscheme = 'gruvbox'
-        \| call lightline#enable()
-augroup end
-
-Plug 'ntpeters/vim-better-whitespace', { 'on': [] }
-augroup load_vim_better_whitespace
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-better-whitespace')
-        \| autocmd! load_vim_better_whitespace
-augroup end
-
-Plug 'wellle/context.vim', { 'on': [] }
-augroup load_context_vim
-  autocmd!
-  autocmd BufReadPost * call plug#load('context.vim')
-        \| autocmd! load_context_vim
-        \| let g:context_max_height = 1
-        \| let g:context_max_per_indent = 1
-        \| let g:context_max_join_parts = 1
-augroup end
-
 Plug 'andymass/vim-matchup', { 'on': [] }
 augroup load_vim_matchup
   autocmd!
   autocmd BufReadPost * call plug#load('vim-matchup')
         \| autocmd! load_vim_matchup
-augroup end
-
-Plug 'ap/vim-css-color', { 'on': [] }
-augroup load_vim_css_color
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-css-color')
-        \| autocmd! load_vim_css_color
 augroup end
 
 Plug 'machakann/vim-highlightedyank', { 'on': [] }
@@ -334,7 +263,7 @@ Plug 'sheerun/vim-polyglot', { 'on': [] }
 augroup load_vim_polyglot
   autocmd!
   autocmd BufReadPost * call plug#load('vim-polyglot')
-        \|autocmd! load_vim_polyglot
+        \| autocmd! load_vim_polyglot
 augroup end
 
 Plug 'prabirshrestha/asyncomplete.vim', { 'on': [] }
@@ -403,17 +332,9 @@ augroup load_autopairs
         \| call autopairs#AutoPairsTryInit()
 augroup end
 
-Plug 'luochen1990/rainbow', { 'on': [] }
-augroup load_rainbow
-  autocmd!
-  autocmd InsertEnter * call plug#load('rainbow')
-        \| autocmd! load_rainbow
-        \| RainbowToggleOn
-augroup end
-
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-nnoremap <Silent> <Leader> :<C-u>WhichKey '<Space>'<CR>
-nnoremap <Silent> <Localleader> :<C-u>WhichKey ','<CR>
+nnoremap <silent> <Leader> :<C-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <Localleader> :<C-u>WhichKey ','<CR>
 augroup load_vim_which_key
   let g:which_key_map = {}
   let g:which_key_map['c'] = {
@@ -430,6 +351,7 @@ augroup load_vim_which_key
         \ 's': ['<Leader>fs', 'Buffer Words'],
         \ 'w': ['<Leader>fw', 'Words'],
         \ 'r': ['<Leader>fr', 'Recent Files'],
+        \ 'm': ['<Leader>fm', 'MRU'],
         \ }
   let g:which_key_map['t'] = {
         \ 'name': '+Toggle',
