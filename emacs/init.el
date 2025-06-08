@@ -161,7 +161,7 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 
 ;; VIM-LIKE
 (require-package 'evil)
-(add-hook 'after-init-hook #'evil-mode)
+(run-with-idle-timer 0.5 nil #'evil-mode)
 (setq evil-want-integration t)
 (setq evil-want-keybinding nil)
 
@@ -421,12 +421,6 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
      (setq centaur-tabs-set-bar 'over)
      (centaur-tabs-mode)))
 
-(require-package 'auto-dim-other-buffers)
-(add-hook 'after-init-hook #'auto-dim-other-buffers-mode)
-(with-eval-after-load 'auto-dim-other-buffers
-  (setq auto-dim-other-buffers-dim-on-focus-out nil)
-  (setq auto-dim-other-buffers-dim-on-switch-to-minibuffer nil))
-
 ;; IVY
 (require-package 'ivy)
 (require-package 'counsel)
@@ -472,11 +466,7 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
      (when (display-graphic-p)
        (setq hydra-hint-display-type 'posframe)
        (setq hydra-posframe-show-params
-             '(:left-fringe 12
-                            :right-fringe 12
-                            :internal-border-width 2
-                            :internal-border-color "purple"
-                            :poshandler posframe-poshandler-window-center)))
+             '(:left-fringe 12 :right-fringe 12 :internal-border-width 2 :internal-border-color "purple" :poshandler posframe-poshandler-window-center)))
      ;; avy
      (pretty-hydra-define hydra-avy
        (:color pink :quit-key "q" :title "Avy Commands")
