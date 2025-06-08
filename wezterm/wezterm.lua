@@ -31,7 +31,7 @@ config.front_end = "OpenGL"
 config.freetype_load_target = "Light"
 config.freetype_render_target = "HorizontalLcd"
 config.hide_tab_bar_if_only_one_tab = true
-config.line_height = 1.1
+config.line_height = 1.0
 config.window_close_confirmation = "NeverPrompt"
 
 return config
