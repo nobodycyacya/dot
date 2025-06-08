@@ -151,12 +151,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     end
   end,
 })
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = vim.api.nvim_create_augroup("DisableMouseSupport", { clear = true }),
-  callback = function()
-    vim.opt.mouse = ""
-  end,
-})
 
 --- lazy.nvim ---
 if not vim.loop.fs_stat(vim.fn.stdpath("data") .. "/lazy/lazy.nvim") then
