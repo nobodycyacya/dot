@@ -30,21 +30,22 @@ vim.opt.undofile = false
 vim.opt.background = "dark"
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
-vim.api.nvim_set_keymap("n", "<leader>CR", "<cmd>source $MYVIMRC<cr>", { desc = "Reload config" })
-vim.api.nvim_set_keymap("n", "<leader>CE", "<cmd>edit $MYVIMRC<cr>", { desc = "Edit config" })
-vim.api.nvim_set_keymap("i", "jk", "<esc>", { desc = "Back to Normal Mode" })
-vim.api.nvim_set_keymap("v", "jk", "<esc>", { desc = "Stop Visual Mode" })
-vim.api.nvim_set_keymap("c", "jk", "<c-c>", { desc = "Stop Input Commands" })
-vim.api.nvim_set_keymap("i", "<c-a>", "<home>", { desc = "Move to Start" })
-vim.api.nvim_set_keymap("v", "<c-a>", "<home>", { desc = "Move to Start" })
-vim.api.nvim_set_keymap("c", "<c-a>", "<home>", { desc = "Move to Start" })
-vim.api.nvim_set_keymap("i", "<c-e>", "<end>", { desc = "Move to End" })
-vim.api.nvim_set_keymap("v", "<c-e>", "<end>", { desc = "Move to End" })
-vim.api.nvim_set_keymap("c", "<c-e>", "<end>", { desc = "Move to End" })
-vim.api.nvim_set_keymap("n", "<c-h>", "<c-w>h", { desc = "Move to Left Window" })
-vim.api.nvim_set_keymap("n", "<c-j>", "<c-w>j", { desc = "Move to Down Window" })
-vim.api.nvim_set_keymap("n", "<c-k>", "<c-w>k", { desc = "Move to Up Window" })
-vim.api.nvim_set_keymap("n", "<c-l>", "<c-w>l", { desc = "Move to Right Window" })
+vim.cmd.colorscheme("habamax")
+vim.api.nvim_set_keymap("n", "<Leader>CR", ":source $MYVIMRC<CR>", { desc = "Reload conf" })
+vim.api.nvim_set_keymap("n", "<Leader>CE", ":edit $MYVIMRC<CR>", { desc = "Edit conf" })
+vim.api.nvim_set_keymap("i", "jk", "<ESC>", { desc = "Back to Normal Mode" })
+vim.api.nvim_set_keymap("v", "jk", "<ESC>", { desc = "Stop Visual Mode" })
+vim.api.nvim_set_keymap("c", "jk", "<C-c>", { desc = "Stop Input Commands" })
+vim.api.nvim_set_keymap("i", "<C-a>", "<HOME>", { desc = "Move to Start" })
+vim.api.nvim_set_keymap("v", "<C-a>", "<HOME>", { desc = "Move to Start" })
+vim.api.nvim_set_keymap("c", "<C-a>", "<HOME>", { desc = "Move to Start" })
+vim.api.nvim_set_keymap("i", "<C-e>", "<END>", { desc = "Move to End" })
+vim.api.nvim_set_keymap("v", "<C-e>", "<END>", { desc = "Move to End" })
+vim.api.nvim_set_keymap("c", "<C-e>", "<END>", { desc = "Move to End" })
+vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", { desc = "Move to Left Window" })
+vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", { desc = "Move to Down Window" })
+vim.api.nvim_set_keymap("n", "<C-k>", "<C-w>k", { desc = "Move to Up Window" })
+vim.api.nvim_set_keymap("n", "<C-l>", "<C-w>l", { desc = "Move to Right Window" })
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("ChangeTabSizeWithSpecificFileType", { clear = true }),
   pattern = { "python", "json", "jsonc" },
@@ -103,12 +104,12 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.cmd("close")
         pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
       end, {
-        buffer = event.buf,
-        silent = true,
-        desc = "Quit buffer",
-      })
-    end)
-  end,
+      buffer = event.buf,
+      silent = true,
+      desc = "Quit buffer",
+    })
+  end)
+end,
 })
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("WrapWithSpecificType", { clear = true }),
@@ -205,127 +206,5 @@ require("lazy").setup({
       },
     },
   },
-  spec = {
-    -- LazyVim
-    {
-      "LazyVim/LazyVim",
-    },
-    { import = "lazyvim.plugins" },
-    { import = "lazyvim.plugins.extras.coding.luasnip" },
-    { import = "lazyvim.plugins.extras.coding.neogen" },
-    { import = "lazyvim.plugins.extras.coding.nvim-cmp" },
-    { import = "lazyvim.plugins.extras.dap.core" },
-    { import = "lazyvim.plugins.extras.dap.nlua" },
-    { import = "lazyvim.plugins.extras.editor.aerial" },
-    { import = "lazyvim.plugins.extras.editor.fzf" },
-    { import = "lazyvim.plugins.extras.editor.illuminate" },
-    { import = "lazyvim.plugins.extras.editor.navic" },
-    { import = "lazyvim.plugins.extras.editor.neo-tree" },
-    { import = "lazyvim.plugins.extras.editor.outline" },
-    { import = "lazyvim.plugins.extras.editor.overseer" },
-    { import = "lazyvim.plugins.extras.editor.refactoring" },
-    { import = "lazyvim.plugins.extras.formatting.black" },
-    { import = "lazyvim.plugins.extras.formatting.prettier" },
-    { import = "lazyvim.plugins.extras.lang.clangd" },
-    { import = "lazyvim.plugins.extras.lang.cmake" },
-    { import = "lazyvim.plugins.extras.lang.go" },
-    { import = "lazyvim.plugins.extras.lang.json" },
-    { import = "lazyvim.plugins.extras.lang.markdown" },
-    { import = "lazyvim.plugins.extras.lang.python" },
-    { import = "lazyvim.plugins.extras.lang.r" },
-    { import = "lazyvim.plugins.extras.lang.sql" },
-    { import = "lazyvim.plugins.extras.lang.toml" },
-    { import = "lazyvim.plugins.extras.lang.typescript" },
-    { import = "lazyvim.plugins.extras.lang.yaml" },
-    { import = "lazyvim.plugins.extras.linting.eslint" },
-    { import = "lazyvim.plugins.extras.lsp.none-ls" },
-    { import = "lazyvim.plugins.extras.test.core" },
-    { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    { import = "lazyvim.plugins.extras.ui.mini-indentscope" },
-    { import = "lazyvim.plugins.extras.ui.treesitter-context" },
-    { import = "lazyvim.plugins.extras.util.gitui" },
-    { import = "lazyvim.plugins.extras.util.octo" },
-    { import = "lazyvim.plugins.extras.util.project" },
-    -- AstroNvim
-    -- {
-    --   "AstroNvim/AstroNvim",
-    --   version = "^5",
-    -- },
-    -- { import = "astronvim.plugins" },
-    -- {
-    --   "AstroNvim/astrocommunity",
-    -- },
-    -- { import = "astrocommunity.bars-and-lines.dropbar-nvim" },
-    -- { import = "astrocommunity.bars-and-lines.scope-nvim" },
-    -- { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
-    -- { import = "astrocommunity.bars-and-lines.statuscol-nvim" },
-    -- { import = "astrocommunity.bars-and-lines.vim-illuminate" },
-    -- { import = "astrocommunity.code-runner.overseer-nvim" },
-    -- { import = "astrocommunity.color.ccc-nvim" },
-    -- { import = "astrocommunity.color.headlines-nvim" },
-    -- { import = "astrocommunity.color.modes-nvim" },
-    -- { import = "astrocommunity.color.nvim-highlight-colors" },
-    -- { import = "astrocommunity.color.transparent-nvim" },
-    -- { import = "astrocommunity.color.twilight-nvim" },
-    -- { import = "astrocommunity.comment.ts-comments-nvim" },
-    -- { import = "astrocommunity.completion.cmp-cmdline" },
-    -- { import = "astrocommunity.completion.cmp-nvim-lua" },
-    -- { import = "astrocommunity.completion.nvim-cmp-buffer-lines" },
-    -- { import = "astrocommunity.completion.nvim-cmp" },
-    -- { import = "astrocommunity.debugging.nvim-dap-repl-highlights" },
-    -- { import = "astrocommunity.debugging.nvim-dap-view" },
-    -- { import = "astrocommunity.debugging.nvim-dap-virtual-text" },
-    -- { import = "astrocommunity.diagnostics.tiny-inline-diagnostic-nvim" },
-    -- { import = "astrocommunity.diagnostics.trouble-nvim" },
-    -- { import = "astrocommunity.editing-support.auto-save-nvim" },
-    -- { import = "astrocommunity.editing-support.bigfile-nvim" },
-    -- { import = "astrocommunity.editing-support.conform-nvim" },
-    -- { import = "astrocommunity.editing-support.multiple-cursors-nvim" },
-    -- { import = "astrocommunity.editing-support.neogen" },
-    -- { import = "astrocommunity.editing-support.nvim-treesitter-context" },
-    -- { import = "astrocommunity.editing-support.rainbow-delimiters-nvim" },
-    -- { import = "astrocommunity.editing-support.refactoring-nvim" },
-    -- { import = "astrocommunity.editing-support.suda-vim" },
-    -- { import = "astrocommunity.editing-support.todo-comments-nvim" },
-    -- { import = "astrocommunity.editing-support.zen-mode-nvim" },
-    -- { import = "astrocommunity.fuzzy-finder.namu-nvim" },
-    -- { import = "astrocommunity.git.diffview-nvim" },
-    -- { import = "astrocommunity.git.neogit" },
-    -- { import = "astrocommunity.indent.indent-rainbowline" },
-    -- { import = "astrocommunity.indent.snacks-indent-hlchunk" },
-    -- { import = "astrocommunity.keybinding.hydra-nvim" },
-    -- { import = "astrocommunity.keybinding.nvcheatsheet-nvim" },
-    -- { import = "astrocommunity.lsp.lsp-signature-nvim" },
-    -- { import = "astrocommunity.lsp.lspsaga-nvim" },
-    -- { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
-    -- { import = "astrocommunity.motion.vim-matchup" },
-    -- { import = "astrocommunity.pack.bash" },
-    -- { import = "astrocommunity.pack.cmake" },
-    -- { import = "astrocommunity.pack.cpp" },
-    -- { import = "astrocommunity.pack.eslint" },
-    -- { import = "astrocommunity.pack.html-css" },
-    -- { import = "astrocommunity.pack.go" },
-    -- { import = "astrocommunity.pack.json" },
-    -- { import = "astrocommunity.pack.lua" },
-    -- { import = "astrocommunity.pack.markdown" },
-    -- { import = "astrocommunity.pack.python-ruff" },
-    -- { import = "astrocommunity.pack.python" },
-    -- { import = "astrocommunity.pack.quarto" },
-    -- { import = "astrocommunity.pack.sql" },
-    -- { import = "astrocommunity.pack.toml" },
-    -- { import = "astrocommunity.pack.typescript-all-in-one" },
-    -- { import = "astrocommunity.pack.yaml" },
-    -- { import = "astrocommunity.programming-language-support.csv-vim" },
-    -- { import = "astrocommunity.recipes.vscode-icons" },
-    -- { import = "astrocommunity.scrolling.neoscroll-nvim" },
-    -- { import = "astrocommunity.scrolling.nvim-scrollbar" },
-    -- { import = "astrocommunity.search.grug-far-nvim" },
-    -- { import = "astrocommunity.search.nvim-spectre" },
-    -- { import = "astrocommunity.snippet.nvim-snippets" },
-    -- { import = "astrocommunity.split-and-window.neominimap-nvim" },
-    -- { import = "astrocommunity.syntax.hlargs-nvim" },
-    -- { import = "astrocommunity.syntax.vim-cool" },
-    -- { import = "astrocommunity.test.neotest" },
-    -- { import = "astrocommunity.utility.neodim" },
-  },
+  spec = {},
 })
