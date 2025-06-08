@@ -73,6 +73,8 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (when (eq system-type 'darwin)
 	(setq mac-option-modifier 'super)
   (setq mac-command-modifier 'meta))
+(setq-default display-fill-column-indicator-column 80)
+(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
 (add-hook 'window-setup-hook
 					#'(lambda ()
 							(cl-loop for font in '("JetbrainsMono Nerd Font" "SF Mono" "Monaco" "Menlo" "Consolas")
@@ -156,10 +158,7 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
         (clojure . ("https://github.com/sogaiu/tree-sitter-clojure"))
         (nix . ("https://github.com/nix-community/nix-ts-mode"))
         (mojo . ("https://github.com/HerringtonDarkholme/tree-sitter-mojo"))))
-(setq-default display-fill-column-indicator-column 80)
-(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
 
-;; VIM-LIKE
 (require-package 'evil)
 (run-with-idle-timer 0.5 nil #'evil-mode)
 (setq evil-want-integration t)
@@ -219,54 +218,6 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (with-eval-after-load 'evil-snipe
   (setq evil-snipe-scope 'whole-buffer))
 
-(require-package 'general)
-(run-with-idle-timer
- 5 nil
- #'(lambda ()
-     (require 'general)
-     (general-evil-setup t)
-     (general-create-definer spc-leader-def
-       :prefix "SPC"
-       :states '(normal visual))
-     (spc-leader-def
-       "SPC" '(counsel-M-x :wk "Commands"))
-     (spc-leader-def
-       "f" '(:ignore t :wk "Find")
-       "ff" '(counsel-find-file :wk "Files")
-       "fb" '(counsel-ibuffer :wk "Buffers")
-       "fc" '(counsel-load-theme :wk "Colorschemes")
-       "fw" '(counsel-rg :wk "Words+")
-       "fW" '(counsel-grep :wk "Words")
-       "fF" '(counsel-flycheck :wk "Errors")
-       "fo" '(counsel-outline :wk "Outline"))
-     (spc-leader-def
-       "t" '(:ignore t :wk "Toggle")
-       "tt" '(emacs-init-time :wk "Startup Time")
-       "tn" '(neotree-toggle :wk "File Tree")
-       "ts" '(scratch :wk "Scratch Buffer")
-       "tr" '(quickrun :wk "QuickRun")
-       "tu" '(vundo :wk "Undo Tree")
-       "tp" '(symbol-overlay-put :wk "Highlight")
-       "tR" '(symbol-overlay-remove-all :wk "Remove Highlight")
-       "tm" '(minimap-mode :wk "Minimap"))
-     (spc-leader-def
-       "w" '(:ignore t :wk "Window")
-       "ww" '(ace-window :wk "Ace Window")
-       "wd" '(ace-delete-window :wk "Delete Windows")
-       "wD" '(ace-delete-other-windows :wk "Delete Other Windows"))
-     (spc-leader-def
-       "1" 'winum-select-window-1
-       "2" 'winum-select-window-2
-       "3" 'winum-select-window-3
-       "4" 'winum-select-window-4
-       "5" 'winum-select-window-5
-       "6" 'winum-select-window-6
-       "7" 'winum-select-window-7
-       "8" 'winum-select-window-8
-       "9" 'winum-select-window-9
-       "0" 'winum-select-window-0-or-10)))
-
-;; COMPLETION, SNIPPET
 (require-package 'company)
 (add-hook 'prog-mode-hook #'global-company-mode)
 (with-eval-after-load 'company
@@ -294,134 +245,10 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
   (setq company-box-tooltip-limit 50)
   (setq company-box-icons-alist 'company-box-icons-idea))
 
-(require-package 'company-posframe)
-(when (display-graphic-p)
-  (add-hook 'global-company-mode-hook #'company-posframe-mode))
-
 (require-package 'yasnippet)
 (require-package 'yasnippet-snippets)
 (add-hook 'prog-mode-hook #'yas-minor-mode)
 
-;; UI
-(require-package 'dashboard)
-(when (display-graphic-p)
-  (add-hook 'after-init-hook #'dashboard-setup-startup-hook))
-(with-eval-after-load 'dashboard
-  (setq dashboard-startup-banner 'logo)
-  (setq dashboard-center-content t)
-  (setq dashboard-vertically-center-content t)
-  (setq dashboard-navigation-cycle t)
-  (setq dashboard-display-icons-p t)
-  (setq dashboard-icon-type 'nerd-icons)
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t)
-  (setq dashboard-icon-file-height 1.25)
-  (setq dashboard-heading-icon-height 1.25)
-  (setq dashboard-icon-file-v-adjust -0.125)
-  (setq dashboard-heading-icon-v-adjust -0.125)
-  (setq dashboard-item-shortcuts '((recents . "r") (bookmarks . "m") (projects . "p")))
-  (setq dashboard-items '((recents . 10) (bookmarks . 10) (projects . 5))))
-
-(require-package 'rainbow-delimiters)
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-
-(require-package 'nerd-icons-ibuffer)
-(add-hook 'ibuffer-mode-hook #'nerd-icons-ibuffer-mode)
-
-(require-package 'diredfl)
-(add-hook 'dired-mode-hook #'diredfl-mode)
-
-(require-package 'nerd-icons-dired)
-(add-hook 'dired-mode-hook #'nerd-icons-dired-mode)
-
-(require-package 'doom-themes)
-(add-hook 'after-init-hook
-          #'(lambda ()
-              (setq doom-one-brighter-comments t)
-              (setq doom-one-comment-bg nil)
-              (load-theme 'doom-one t)))
-
-(require-package 'doom-modeline)
-(run-with-idle-timer 5 nil #'doom-modeline-mode)
-(with-eval-after-load 'doom-modeline
-  (setq doom-modeline-height 25)
-  (setq doom-modeline-bar-width 5)
-  (setq doom-modeline-window-width-limit 75)
-  (setq doom-modeline-minor-modes t))
-
-(require-package 'minions)
-(add-hook 'doom-modeline-mode-hook #'minions-mode)
-
-(require-package 'solaire-mode)
-(run-with-idle-timer 5 nil #'solaire-global-mode)
-
-(require-package 'hide-mode-line)
-(add-hook 'completion-list-mode-hook #'hide-mode-line-mode)
-(add-hook 'neotree-mode-hook #'hide-mode-line-mode)
-(add-hook 'eshell-mode-hook #'hide-mode-line-mode)
-
-(require-package 'winum)
-(run-with-idle-timer 5 nil #'winum-mode)
-(with-eval-after-load 'winum
-  (setq winum-format "[%s]")
-  (setq winum-mode-line-position 0)
-  (set-face-attribute 'winum-face nil :foreground "DeepPink" :weight 'bold))
-
-(require-package 'highlight-numbers)
-(add-hook 'prog-mode-hook #'highlight-numbers-mode)
-
-(require-package 'auto-highlight-symbol)
-(add-hook 'prog-mode-hook #'global-auto-highlight-symbol-mode)
-
-(require-package 'highlight-defined)
-(add-hook 'emacs-lisp-mode-hook #'highlight-defined-mode)
-
-(require-package 'highlight-quoted)
-(add-hook 'emacs-lisp-mode-hook #'highlight-quoted-mode)
-
-(require-package 'beacon)
-(run-with-idle-timer 5 nil #'beacon-mode)
-(with-eval-after-load 'beacon
-  (setq beacon-size 60)
-  (setq beacon-blink-duration 1.0)
-  (setq beacon-blink-when-point-moves-vertically 3)
-  (setq beacon-blink-when-point-moves-horizontally 3)
-  (setq beacon-blink-when-focused t))
-
-(require-package 'indent-bars)
-(add-hook 'prog-mode-hook #'indent-bars-mode)
-(with-eval-after-load 'indent-bars
-  (setq indent-bars-starting-column 0)
-  (setq indent-bars-width-frac 0.15)
-  (setq indent-bars-prefer-character t)
-  (setq indent-bars-no-descend-string t)
-  (setq indent-bars-display-on-blank-lines nil)
-  (setq indent-bars-color '(highlight :face-bg t :blend 0.425)))
-
-(require-package 'which-key-posframe)
-(when (display-graphic-p)
-  (add-hook 'which-key-mode-hook #'which-key-posframe-mode))
-(with-eval-after-load 'which-key-posframe
-  (setq which-key-posframe-parameters '((left-fringe . 12) (right-fringe . 12)))
-  (setq which-key-posframe-border-width 2)
-  (set-face-attribute 'which-key-posframe-border nil :background (face-background 'highlight)))
-
-(require-package 'mode-line-bell)
-(run-with-idle-timer 10 nil #'mode-line-bell-mode)
-
-(require-package 'centaur-tabs)
-(run-with-idle-timer
- 5 nil
- #'(lambda ()
-     (setq centaur-tabs-style "bar")
-     (setq centaur-tabs-height 25)
-     (setq centaur-tabs-set-icons t)
-     (setq centaur-tabs-icon-type 'nerd-icons)
-     (setq centaur-tabs-gray-out-icons 'buffer)
-     (setq centaur-tabs-set-bar 'over)
-     (centaur-tabs-mode)))
-
-;; IVY
 (require-package 'ivy)
 (require-package 'counsel)
 (require-package 'swiper)
@@ -440,15 +267,6 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
   (setq ivy-re-builders-alist `((t . ivy--regex-ignore-order))))
 (global-set-key (kbd "C-s") #'counsel-grep-or-swiper)
 
-(require-package 'ivy-posframe)
-(when (display-graphic-p)
-  (add-hook 'ivy-mode-hook #'ivy-posframe-mode))
-(with-eval-after-load 'ivy-posframe
-  (setq ivy-posframe-parameters '((left-fringe . 12) (right-fringe . 12)))
-  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
-  (setq ivy-posframe-border-width 2)
-  (set-face-attribute 'ivy-posframe-border nil :background (face-background 'highlight)))
-
 (require-package 'amx)
 (add-hook 'ivy-mode-hook #'amx-mode)
 
@@ -456,197 +274,8 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (with-eval-after-load 'wgrep
   (setq wgrep-auto-save-buffer t))
 
-(require-package 'avy)
-
-(require-package 'hydra)
-(require-package 'pretty-hydra)
-(run-with-idle-timer
- 5 nil
- #'(lambda ()
-     (when (display-graphic-p)
-       (setq hydra-hint-display-type 'posframe)
-       (setq hydra-posframe-show-params
-             '(:left-fringe 12 :right-fringe 12 :internal-border-width 2 :internal-border-color "purple" :poshandler posframe-poshandler-window-center)))
-     ;; avy
-     (pretty-hydra-define hydra-avy
-       (:color pink :quit-key "q" :title "Avy Commands")
-       ("Line"
-        (("y" avy-copy-line)
-         ("m" avy-move-line)
-         ("k" avy-kill-whole-line))
-        "Region"
-        (("Y" avy-copy-region)
-         ("M" avy-move-region)
-         ("K" avy-kill-region))
-        "Goto"
-        (("c" avy-goto-char-timer)
-         ("C" avy-goto-char)
-         ("w" avy-goto-word-1)
-         ("W" avy-goto-word-0)
-         ("l" avy-goto-line)
-         ("L" avy-goto-end-of-line))))
-     (global-set-key (kbd "M-g a") 'hydra-avy/body)
-     ;; lsp-mode
-     (pretty-hydra-define hydra-lsp
-       (:color pink :quit-key "q" :title "LSP Commands")
-       ("Buffer"
-        (("f" lsp-format-buffer)
-         ("m" lsp-ui-imenu)
-         ("x" lsp-execute-code-action))
-        "Server"
-        (("M-r" lsp-restart-workspace)
-         ("S" lsp-shutdown-workspace)
-         ("M-s" lsp-describe-session))
-        "Symbol"
-        (("d" lsp-find-declaration)
-         ("D" lsp-ui-peek-find-definitions)
-         ("R" lsp-ui-peek-find-references)
-         ("i" lsp-ui-peek-find-implementation)
-         ("t" lsp-find-type-definition)
-         ("s" lsp-signature-help)
-         ("o" lsp-describe-thing-at-point)
-         ("r" lsp-rename))))
-     (global-set-key (kbd "M-g l") 'hydra-lsp/body)))
-
-;; TOOL
-(require-package 'ace-window)
-(global-set-key [remap other-window] #'ace-window)
-(with-eval-after-load 'ace-window
-  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
-
-(require-package 'symbol-overlay)
-(add-hook 'prog-mode-hook #'symbol-overlay-mode)
-(with-eval-after-load 'symbol-overlay
-  (global-set-key (kbd "M-g p") 'symbol-overlay-put)
-  (global-set-key (kbd "M-g r") 'symbol-overlay-remove-all))
-
-(require-package 'colorful-mode)
-(add-hook 'prog-mode-hook #'colorful-mode)
-
-(require-package 'gcmh)
-(run-with-idle-timer 2 nil #'gcmh-mode)
-
-(require-package 'xclip)
-(run-with-idle-timer 2 nil #'xclip-mode)
-
-(require-package 'neotree)
-(with-eval-after-load 'neotree
-  (setq neo-theme 'nerd-icons))
-
-(require-package 'quickrun)
-(with-eval-after-load 'quickrun
-  (setq quickrun-focus-p nil))
-
-(require-package 'helpful)
-(global-set-key (kbd "C-h f") #'helpful-callable)
-(global-set-key (kbd "C-h v") #'helpful-variable)
-(global-set-key (kbd "C-h k") #'helpful-key)
-(global-set-key (kbd "C-h x") #'helpful-command)
-(global-set-key (kbd "C-c C-d") #'helpful-at-point)
-
-(require-package 'git-gutter)
-(add-hook 'prog-mode-hook #'global-git-gutter-mode)
-
-(require-package 'format-all)
-(add-hook 'prog-mode-hook #'format-all-mode)
-
-(require-package 'scratch)
-
-(require-package 'vundo)
-
-(require-package 'sudo-edit)
-
-(require-package 'hl-todo)
-(add-hook 'prog-mode-hook #'hl-todo-mode)
-(add-hook 'yaml-mode-hook #'hl-todo-mode)
-(with-eval-after-load 'hl-todo
-  (setq hl-todo-highlight-punctuation ":")
-  (setq hl-todo-keyword-faces
-        '(("TODO" warning bold)
-          ("FIXME" error bold)
-          ("REVIEW" font-lock-keyword-face bold)
-          ("HACK" font-lock-constant-face bold)
-          ("DEPRECATED" font-lock-doc-face bold)
-          ("NOTE" success bold)
-          ("BUG" error bold)
-          ("XXX" font-lock-constant-face bold))))
-
-(require-package 'esup)
-
-(require-package 'olivetti)
-
-(require-package 'exec-path-from-shell)
-(when (eq system-type 'darwin)
-  (run-with-idle-timer 10 nil #'exec-path-from-shell-initialize))
-
-(require-package 'eshell-syntax-highlighting)
-(add-hook 'eshell-mode-hook #'eshell-syntax-highlighting-mode)
-
-(require-package 'minimap)
-(with-eval-after-load 'minimap
-  (setq minimap-window-location 'right)
-  (setq minimap-update-delay 0.1)
-  (setq minimap-width-fraction 0.09)
-  (setq minimap-minimum-width 15))
-
-(require-package 'symbols-outline)
-(with-eval-after-load 'symbols-outline
-  (setq symbols-outline-fetch-fn #'symbols-outline-lsp-fetch)
-  (setq symbols-outline-window-position 'right))
-
-;; SYNTAX CHECK
-(require-package 'flycheck)
-(add-hook 'prog-mode-hook #'global-flycheck-mode)
-(with-eval-after-load 'flycheck
-  (global-set-key (kbd "M-n") #'flycheck-next-error)
-  (global-set-key (kbd "M-p") #'flycheck-previous-error))
-
-(require-package 'flycheck-posframe)
-(when (display-graphic-p)
-  (add-hook #'global-flycheck-mode-hook #'flycheck-posframe-mode))
-(with-eval-after-load 'flycheck-posframe
-  (setq flycheck-posframe-border-width 2)
-  (set-face-attribute 'flycheck-posframe-border-face nil :background (face-background 'highlight)))
-
-;; LSP & DAP
-(require-package 'lsp-mode)
-(require-package 'lsp-ivy)
-(require-package 'lsp-ui)
-(require-package 'dap-mode)
-
-;; PROGRAMMING
-(require-package 'lua-mode)
-(with-eval-after-load 'lua-mode
-  (setq lua-indent-level 2)
-  (setq lua-indent-nested-block-content-align nil)
-  (setq lua-indent-close-paren-align nil))
-
-(require-package 'pyvenv)
-(add-hook 'python-mode-hook #'pyvenv-mode)
-
-(require-package 'typescript-mode)
-(require-package 'markdown-mode)
-(require-package 'vimrc-mode)
-(require-package 'scss-mode)
-(require-package 'web-mode)
-(require-package 'go-mode)
-(require-package 'cmake-mode)
-(require-package 'rust-mode)
-(require-package 'dotenv-mode)
-(require-package 'ess)
-(require-package 'ess-view-data)
-(require-package 'polymode)
-(require-package 'poly-R)
-(require-package 'quarto-mode)
-(require-package 'clojure-mode)
-(require-package 'haskell-mode)
-(require-package 'json-mode)
-(require-package 'yaml-mode)
-(require-package 'csv-mode)
-(require-package 'toml-mode)
-(require-package 'emmet-mode)
-(require-package 'zig-mode)
-(require-package 'rust-mode)
+(require-package 'rainbow-delimiters)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 (provide 'init)
 ;; Local Variables:
