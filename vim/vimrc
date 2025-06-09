@@ -1,4 +1,4 @@
-""" REFERENCE """
+""" REFERENCES """
 " https://github.com/junegunn/vim-plug/wiki/tips
 " https://www.reddit.com/r/vim/comments/7datnj/comment/dpxfjym/?st=ja3oaqh0&sh=a9e76b40
 " https://github.com/junegunn/vim-plug/wiki/faq#conditional-activation
@@ -75,7 +75,7 @@ let g:loaded_vimballPlugin = 1
 let g:loaded_zip = 1
 let g:loaded_zipPlugin = 1
 
-""" KEYMAPPINGS """
+""" KEYBINDINGS """
 let mapleader = ' '
 let maplocalleader = ','
 nnoremap <Leader>cr :source $MYVIMRC<CR>
@@ -163,36 +163,12 @@ augroup end
 
 call plug#begin(data_dir . '/plugged')
 
-Plug 'machakann/vim-highlightedyank', { 'on': [] }
-augroup load_vim_highlightedyank
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-highlightedyank')
-        \| autocmd! load_vim_highlightedyank
-        \| let g:highlightedyank_highlight_duration = 1500
-augroup end
-
 Plug 'tpope/vim-commentary', { 'on': [] }
 augroup load_vim_commentary
   autocmd!
   autocmd BufReadPost * call plug#load('vim-commentary')
         \| autocmd! load_vim_commentary
 augroup end
-
-Plug 'airblade/vim-gitgutter', { 'on': [] }
-augroup load_vim_gitgutter
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-gitgutter')
-        \| autocmd! load_vim_gitgutter
-        \| let g:gitgutter_map_keys = 0
-augroup end
-
-Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle'] }
-Plug 'liuchengxu/nerdtree-dash', { 'on': ['NERDTreeToggle'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle'] }
-Plug 'jistr/vim-nerdtree-tabs', { 'on': ['NERDTreeToggle', 'NERDTreeTabsToggle'] }
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeWinSize = 23
-nnoremap <Leader>tn :NERDTreeToggle<CR>
 
 Plug 'junegunn/fzf', {'do': { -> fzf#install() }, 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg'] }
 Plug 'junegunn/fzf.vim', { 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg'] }
