@@ -49,7 +49,7 @@ set ttimeoutlen=500
 """ THEME """
 set notermguicolors
 set background=dark
-if v:version>=900
+if v:version >= 900
   set wildoptions=pum,fuzzy
   colorscheme habamax
 endif
