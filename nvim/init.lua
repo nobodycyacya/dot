@@ -1,4 +1,4 @@
---- References ---
+--- REFERENCES ---
 -- https://github.com/boltlessengineer/NativeVim
 -- https://github.com/HCY-ASLEEP/NVIM-Config
 -- https://github.com/LazyVim/LazyVim
