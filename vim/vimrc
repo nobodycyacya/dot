@@ -9,7 +9,6 @@
 " https://github.com/chenxuan520/vim-fast
 " https://github.com/liuchengxu/space-vim
 
-
 """ OPTIONS """
 scriptencoding=utf-8
 filetype plugin on
