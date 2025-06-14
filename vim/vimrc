@@ -173,16 +173,11 @@ augroup end
 Plug 'junegunn/fzf', {'do': { -> fzf#install() }, 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg'] }
 Plug 'junegunn/fzf.vim', { 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg'] }
 nnoremap <Leader>ff :Files<CR>
-nnoremap <C-x><C-f> :Files<CR>
 nnoremap <Leader>fF :Files ~/<CR>
 nnoremap <Leader>fb :Buffers<CR>
-nnoremap <C-x><C-b> :Buffers<CR>
 nnoremap <Leader>fw :Rg<CR>
-nnoremap <C-x><C-w> :Rg<CR>
 nnoremap <Leader>fs :BLines<CR>
-nnoremap <C-s> :BLines<CR>
 nnoremap <Leader>fr :History<CR>
-nnoremap <C-x><C-r> :History<CR>
 nnoremap <Leader>fc :Colors<CR>
 nnoremap <Leader><Leader> :Commands<CR>
 
@@ -196,21 +191,8 @@ augroup load_ale
         \| let g:ale_completion_delay = 500
         \| let g:ale_echo_delay = 20
         \| let g:ale_lint_delay = 500
-        \| let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-        \| let g:ale_lint_on_text_changed = 'normal'
         \| let g:ale_lint_on_insert_leave = 1
         \| let g:ale_command_wrapper = 'nice -n5'
-        \| let g:ale_sign_error = '•'
-        \| let g:ale_sign_warning = '•'
-        \| let g:ale_echo_msg_error_str = '✹ Error'
-        \| let g:ale_echo_msg_warning_str = '⚠ Warning'
-augroup end
-
-Plug 'sheerun/vim-polyglot', { 'on': [] }
-augroup load_vim_polyglot
-  autocmd!
-  autocmd BufReadPost * call plug#load('vim-polyglot')
-        \| autocmd! load_vim_polyglot
 augroup end
 
 Plug 'prabirshrestha/asyncomplete.vim', { 'on': [] }
@@ -237,12 +219,6 @@ augroup load_completion_lsp_snippet
         \| call lsp#enable()
         \| if executable('clangd')
         \| call lsp#register_server({ 'name': 'clangd', 'cmd': { server_info -> ['clangd', '-j=12', '--enable-config', '--background-index', '--clang-tidy', '--all-scopes-completion', '--completion-style=detailed', '--header-insertion-decorators', '--limit-references=3000', '--limit-results=350'] }, 'whitelist': ['c', 'cpp'] })
-        \| endif
-        \| if executable('basedpyright')
-        \| call lsp#register_server({ 'name': 'basedpyright', 'cmd': { server_info -> ['basedpyright-langserver', '--stdio'] }, 'whitelist': ['python'] })
-        \| endif
-        \| if executable('typescript-language-server')
-        \| call lsp#register_server({ 'name': 'typescript-language-server', 'cmd': { server_info -> [&shell, &shellcmdflag, 'typescript-language-server --stdio'] }, 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))}, 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact', 'typescript', 'typescript.tsx', 'typescriptreact'] })
         \| endif
         \| if executable('gopls')
         \| call lsp#register_server({ 'name': 'gopls', 'cmd': { server_info -> ['gopls', '-remote=auto'] }, 'allowlist': ['go', 'gomod', 'gohtmltmpl', 'gotexttmpl'] })
