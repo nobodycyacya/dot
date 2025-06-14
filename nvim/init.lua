@@ -20,7 +20,6 @@ vim.opt.shiftwidth = 2
 vim.opt.autoindent = true
 vim.opt.cindent = true
 vim.opt.smartindent = true
-vim.opt.wildmode = "longest:full,full"
 vim.opt.wrap = false
 vim.opt.autoread = true
 vim.opt.autowrite = true
@@ -28,12 +27,10 @@ vim.opt.backup = false
 vim.opt.swapfile = false
 vim.opt.writebackup = false
 vim.opt.undofile = false
-vim.opt.background = "dark"
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
-vim.cmd.colorscheme("habamax")
 
 --- KEYBINDINGS ---
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 vim.api.nvim_set_keymap("n", "<Leader>CR", ":source $MYVIMRC<CR>", { desc = "Reload conf" })
 vim.api.nvim_set_keymap("n", "<Leader>CE", ":edit $MYVIMRC<CR>", { desc = "Edit conf" })
 vim.api.nvim_set_keymap("i", "jk", "<ESC>", { desc = "Back to Normal Mode" })
