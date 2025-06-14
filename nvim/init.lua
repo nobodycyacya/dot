@@ -20,7 +20,6 @@ vim.opt.shiftwidth = 2
 vim.opt.autoindent = true
 vim.opt.cindent = true
 vim.opt.smartindent = true
-vim.opt.termguicolors = true
 vim.opt.wildmode = "longest:full,full"
 vim.opt.wrap = false
 vim.opt.autoread = true
