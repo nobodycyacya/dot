@@ -28,7 +28,6 @@ set nowrap
 set showtabline=2
 set laststatus=2
 set wildmenu
-set wildmode=longest:full,full
 set autoindent
 set cindent
 set smartindent
@@ -43,14 +42,6 @@ set ignorecase
 set smartcase
 set nobackup
 set noswapfile
-set timeoutlen=500
-set ttimeoutlen=500
-set notermguicolors
-set background=dark
-if v:version >= 900
-  set wildoptions=pum,fuzzy
-  colorscheme habamax
-endif
 
 """ BUILTIN PLUGINS """
 let g:loaded_2html_plugin = 1
