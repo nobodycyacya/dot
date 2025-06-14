@@ -76,10 +76,16 @@ If NO-REFRESH is nil, `package-refresh-contents' is called."
 (setq-default display-fill-column-indicator-column 80)
 (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
 (add-hook 'window-setup-hook
-					#'(lambda ()
-							(cl-loop for font in '("JetbrainsMono Nerd Font" "SF Mono" "Monaco" "Menlo" "Consolas")
-											 when (find-font (font-spec :name font))
-											 return (set-face-attribute 'default nil :family font :height 130))))
+          (lambda ()
+            (cl-loop for font in '("JetbrainsMono Nerd Font"
+                                   "SF Mono"
+                                   "Monaco"
+                                   "Menlo"
+                                   "Consolas")
+                     when (find-font (font-spec :name font))
+                     return (set-face-attribute 'default nil
+                                                :family font
+                                                :height 130))))
 (setq auto-save-list-file-prefix nil)
 (setq initial-major-mode 'fundamental-mode)
 (setq inhibit-startup-screen t)
