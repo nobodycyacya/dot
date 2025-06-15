@@ -183,7 +183,6 @@ augroup load_ale
         \| let g:ale_echo_delay = 20
         \| let g:ale_lint_delay = 500
         \| let g:ale_lint_on_insert_leave = 1
-        \| let g:ale_command_wrapper = 'nice -n5'
 augroup end
 
 Plug 'prabirshrestha/asyncomplete.vim', { 'on': [] }
