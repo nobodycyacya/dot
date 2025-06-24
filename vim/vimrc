@@ -1,0 +1,65 @@
+" [[ REFERENCES ]]
+" https://github.com/skywind3000/vim-init
+" https://github.com/wsdjeg/SpaceVim
+" https://github.com/wklken/k-vim
+" https://github.com/amix/vimrc
+" https://github.com/chenxuan520/vim-fast
+" https://github.com/liuchengxu/space-vim
+" https://github.com/theopn/kickstart.vim
+
+" [[ OPTIONS ]]
+set autoread
+set backspace=indent,eol,start
+set number
+set relativenumber
+
+" [[ KEYBINDINGS ]]
+let mapleader = ' '
+let maplocalleader = ','
+
+" [[ AUTOCMD ]]
+augroup restore_position
+	autocmd!
+	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') 
+				\| execute "normal! g'\"" 
+				\| endif
+augroup end
+augroup disable_auto_comment
+	autocmd!
+	autocmd InsertEnter * set formatoptions-=cro
+augroup end
+
+" [[ VIM-PLUG ]]
+let s:data_dir = '~/.vim'
+if empty(glob('~/.vim/autoload/plug.vim'))
+	silent execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+	augroup install_plugins_automatically
+		autocmd VimEnter * PlugInstall --sync
+					\| source $MYVIMRC
+	augroup END
+endif
+augroup install_plugin_when_startup
+	autocmd!
+	autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)')) 
+				\| PlugInstall --sync
+				\| q
+				\| endif
+augroup end
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'tpope/vim-commentary', { 'on': [] }
+augroup load_vim_commentary
+	autocmd!
+	autocmd BufReadPost * call plug#load('vim-commentary')
+				\| autocmd! load_vim_commentary
+augroup end
+
+Plug 'LunarWatcher/auto-pairs', { 'on': [] }
+augroup load_auto_pairs
+	autocmd!
+	autocmd InsertEnter * call plug#load('auto-pairs')
+				\| autocmd! load_auto_pairs
+augroup end
+
+call plug#end()

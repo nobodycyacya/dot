@@ -1,0 +1,41 @@
+{
+    // [[ BUILTIN ]]
+    "extensions.experimental.affinity": {
+        "vscodevim.vim": 1
+    },
+    "window.zoomLevel": -0.7,
+    // [[ VSCodeVim ]]
+    "vim.highlightedyank.enable": true,
+    "vim.hlsearch": true,
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "j",
+                "k"
+            ],
+            "after": [
+                "<Esc>"
+            ]
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "K"
+            ],
+            "commands": [
+                "editor.action.showHover"
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "d"
+            ],
+            "commands": [
+                "editor.action.revealDefinition"
+            ]
+        }
+    ],
+    "vim.useSystemClipboard": true
+}
