@@ -19,7 +19,7 @@ if (-not (Test-Path -Path $VIM_DIR)) {
 
 # [[ Neovim ]]
 $NEOVIM_DIR = Join-Path $env:LOCALAPPDATA "nvim"
-$NEOVIM_DOT = Join-PATH $DOT_DIR "nvim"
+$NEOVIM_DOT = Join-Path $DOT_DIR "nvim"
 if (-not (Test-Path -Path $NEOVIM_DIR)) {
 	New-Item -ItemType SymbolicLink -Path $NEOVIM_DIR -Target $NEOVIM_DOT -ErrorAction Stop
 } else {
