@@ -28,9 +28,8 @@ if (-not (Test-Path -Path $NEOVIM_DIR)) {
 }
 
 # [[ Emacs ]]
-# Need to set ~ as %HOME in environment variable
 $EMACS_DIR = Join-Path $env:USERPROFILE ".emacs.d"
-$EMACS_DOT = Join-PATH $DOT_DIR "emacs"
+$EMACS_DOT = Join-Path $DOT_DIR "emacs"
 if (-not (Test-Path -Path $EMACS_DIR)) {
 	New-Item -ItemType SymbolicLink -Path $EMACS_DIR -Target $EMACS_DOT -ErrorAction Stop
 } else {
