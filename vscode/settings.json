@@ -1,5 +1,6 @@
 {
     // [[ BUILTIN ]]
+    "editor.experimentalEditContextEnabled": false,
     "extensions.experimental.affinity": {
         "vscodevim.vim": 1
     },
