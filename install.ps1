@@ -1,3 +1,7 @@
+# [[ Strict Mode ]]
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+
 # [[ Variables ]]
 $CONFIG_DIR = Join-Path $env:USERPROFILE ".config"
 $DOT_DIR = $PSScriptRoot
