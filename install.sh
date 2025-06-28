@@ -33,7 +33,7 @@ ln -snf "$DOT_DIR/wezterm" "$CONFIG_DIR/wezterm"
 # [[ Visual Studio Code ]]
 if [[ "$OS_NAME" == "Darwin" ]]; then
 	VSCODE_DIR="$HOME/Library/Application Support/Code/User"
-elif [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]] || [[ "$IS_WSL" == true ]]; then
+elif [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
 	VSCODE_DIR="$CONFIG_DIR/Code/User"
 fi
 if [ -n "$VSCODE_DIR" ]; then
