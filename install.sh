@@ -1,14 +1,19 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # [[ Strict Mode ]]
 set -euo pipefail
 
 # [[ Variables ]]
+if echo "$(uname -r)" | grep -qi microsoft; then
+	IS_WSL=true
+else
+	IS_WSL=false
+fi
 OS_NAME="$(uname -s)"
 DOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_DIR="$HOME/.config"
 
-# [[ Create $HOME/.config directory ]]
+# [[ Create XDG_CONFIG_DIRS directory ]]
 if [ ! -d "$CONFIG_DIR" ]; then
 	mkdir -p "$CONFIG_DIR"
 fi
@@ -26,13 +31,12 @@ ln -snf "$DOT_DIR/nvim" "$CONFIG_DIR/nvim"
 ln -snf "$DOT_DIR/wezterm" "$CONFIG_DIR/wezterm"
 
 # [[ Visual Studio Code ]]
-if [ "$OS_NAME" == "Darwin" ]; then
+if [[ "$OS_NAME" == "Darwin" ]]; then
 	VSCODE_DIR="$HOME/Library/Application Support/Code/User"
-	mkdir -p "$VSCODE_DIR"
-	ln -snf "$DOT_DIR/vscode/settings.json" "$VSCODE_DIR/settings.json"
-	ln -snf "$DOT_DIR/vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
-elif [ "$OS_NAME" == "Linux" ] || [[ "$OS_NAME" == *"BSD"* ]]; then
+elif [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]] || [[ "$IS_WSL" == true ]]; then
 	VSCODE_DIR="$CONFIG_DIR/Code/User"
+fi
+if [ -n "$VSCODE_DIR" ]; then
 	mkdir -p "$VSCODE_DIR"
 	ln -snf "$DOT_DIR/vscode/settings.json" "$VSCODE_DIR/settings.json"
 	ln -snf "$DOT_DIR/vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
