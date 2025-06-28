@@ -13,7 +13,7 @@ OS_NAME="$(uname -s)"
 DOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_DIR="$HOME/.config"
 
-# [[ Create XDG_CONFIG_DIRS directory ]]
+# [[ Create ~/.config directory ]]
 if [ ! -d "$CONFIG_DIR" ]; then
 	mkdir -p "$CONFIG_DIR"
 fi
