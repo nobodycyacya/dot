@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# [[ Strict Mode ]]
 set -euo pipefail
 
 # [[ Variables ]]
@@ -12,25 +13,27 @@ if [ ! -d "$CONFIG_DIR" ]; then
 	mkdir -p "$CONFIG_DIR"
 fi
 
-# [[ vim ]]
+# [[ Vim ]]
 ln -snf "$DOT_DIR/vim" "$HOME/.vim"
-
-# [[ Neovim ]]
-ln -snf "$DOT_DIR/nvim" "$CONFIG_DIR/nvim"
 
 # [[ Emacs ]]
 ln -snf "$DOT_DIR/emacs" "$HOME/.emacs.d"
+
+# [[ Neovim ]]
+ln -snf "$DOT_DIR/nvim" "$CONFIG_DIR/nvim"
 
 # [[ WezTerm ]]
 ln -snf "$DOT_DIR/wezterm" "$CONFIG_DIR/wezterm"
 
 # [[ Visual Studio Code ]]
 if [ "$OS_NAME" == "Darwin" ]; then
-	mkdir -p "$HOME/Library/Application Support/Code/User"
-	ln -snf "$DOT_DIR/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
-	ln -snf "$DOT_DIR/vscode/keybindings.json" "$HOME/Library/Application Support/Code/User/keybindings.json"
+	VSCODE_DIR="$HOME/Library/Application Support/Code/User"
+	mkdir -p "$VSCODE_DIR"
+	ln -snf "$DOT_DIR/vscode/settings.json" "$VSCODE_DIR/settings.json"
+	ln -snf "$DOT_DIR/vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
 elif [ "$OS_NAME" == "Linux" ] || [[ "$OS_NAME" == *"BSD"* ]]; then
-	mkdir -p "$CONFIG_DIR/Code/User"
-	ln -snf "$DOT_DIR/vscode/settings.json" "$CONFIG_DIR/Code/User/settings.json"
-	ln -snf "$DOT_DIR/vscode/keybindings.json" "$CONFIG_DIR/Code/User/keybindings.json"
+	VSCODE_DIR="$CONFIG_DIR/Code/User"
+	mkdir -p "$VSCODE_DIR"
+	ln -snf "$DOT_DIR/vscode/settings.json" "$VSCODE_DIR/settings.json"
+	ln -snf "$DOT_DIR/vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
 fi
