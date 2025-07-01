@@ -41,7 +41,7 @@ if (-not (Test-Path -Path $EMACS_DIR)) {
 	New-Item -ItemType SymbolicLink -Path $EMACS_DIR -Target $EMACS_DOT -ErrorAction Stop
 }
 
-# [[ wezterm ]]
+# [[ WezTerm ]]
 $WEZTERM_DIR = Join-Path $CONFIG_DIR "wezterm"
 $WEZTERM_DOT = Join-Path $DOT_DIR "wezterm"
 if (-not (Test-Path -Path $WEZTERM_DIR)) {
