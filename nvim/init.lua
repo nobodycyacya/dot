@@ -30,32 +30,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 		end
 	end,
 })
-vim.api.nvim_create_autocmd("FileType", {
-	group = vim.api.nvim_create_augroup("disable_auto_comment", { clear = true }),
-	pattern = "*",
-	callback = function()
-		vim.opt_local.formatoptions:remove({ "r", "o", "c" })
-	end,
-})
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = vim.api.nvim_create_augroup("highlighted_yank", { clear = true }),
 	callback = function()
 		vim.highlight.on_yank({ timeout = 2000 })
 	end,
-})
-
--- [[ lazy.nvim ]]
-if not vim.loop.fs_stat(vim.fn.stdpath("data") .. "/lazy/lazy.nvim") then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable",
-		vim.fn.stdpath("data") .. "/lazy/lazy.nvim",
-	})
-end
-vim.opt.rtp:prepend(vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
-require("lazy").setup({
-	spec = {},
 })
