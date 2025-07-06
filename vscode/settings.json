@@ -5,7 +5,6 @@
 		"vscodevim.vim": 1
 	},
 	"window.zoomLevel": -0.7,
-	"workbench.colorTheme": "Solarized Dark",
 	// [[ VSCodeVim ]]
 	"vim.highlightedyank.enable": true,
 	"vim.hlsearch": true,
