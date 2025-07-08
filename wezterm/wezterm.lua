@@ -17,13 +17,14 @@ elseif wezterm.target_triple == "x86_64-apple-darwin" then
 elseif wezterm.target_triple == "aarch64-apple-darwin" then
 	config.font_size = 13.0
 	config.default_prog = { "/bin/zsh", "-l" }
-	config.window_background_opacity = 0.98
+	config.window_background_opacity = 0.90
 elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" then
 	config.font_size = 12.0
 	config.default_prog = { "/usr/bin/bash", "-l" }
 	config.window_background_opacity = 1.0
 end
 
+config.color_scheme = 'tokyonight_night'
 config.font = wezterm.font("JetBrains Mono", { weight = "Bold", italic = false })
 config.cell_width = 0.9
 config.front_end = "OpenGL"
