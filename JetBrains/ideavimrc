@@ -1,0 +1,35 @@
+" [[ Plugins ]]
+set argtextobj
+set textobj-entire
+set functiontextobj
+set textobj-indent
+set mini-ai
+set vim-paragraph-motion
+set multiple-cursors
+nmap <C-n> <Plug>NextWholeOccurrence
+xmap <C-n> <Plug>NextWholeOccurrence
+nmap g<C-n> <Plug>NextOccurrence
+xmap g<C-n> <Plug>NextOccurrence
+xmap <C-x> <Plug>SkipOccurrence
+xmap <C-p> <Plug>RemoveOccurrence
+set commentary
+set easymotion
+set vim-sneak
+set matchit
+set NERDTree
+nnoremap <Leader>tn :NERDTreeToggle<CR>
+set highlightedyank
+let g:highlightedyank_highlight_duration = "1500"
+set peekaboo
+set surround
+set which-key
+
+" [[ Mappings ]]
+nmap <leader>fa <Action>(SearchEverywhere)
+nmap <leader>ff <Action>(GotoFile)
+nmap <leader>fr <Action>(RecentFiles)
+nmap <leader>fw <Action>(FindInPath)
+nmap <leader>fb <Action>(Switcher)
+nmap <leader>e <Action>(RecentFiles)
+nmap gD <Action>(GotoSuperMethod)
+nmap gd <Action>(GotoDeclaration)

@@ -41,6 +41,26 @@ if (-not (Test-Path -Path $EMACS_DIR)) {
 	New-Item -ItemType SymbolicLink -Path $EMACS_DIR -Target $EMACS_DOT -ErrorAction Stop
 }
 
+# [[ Helix ]]
+$HELIX_DIR = Join-Path $env:APPDATA "helix"
+$HELIX_DOT = Join-Path $DOT_DIR "helix"
+if (-not (Test-Path -Path $HELIX_DIR)) {
+	New-Item -ItemType SymbolicLink -Path $HELIX_DIR -Target $HELIX_DOT -ErrorAction Stop
+} else {
+	Remove-Item -Path $EMACS_DIR -Recurse -Force
+	New-Item -ItemType SymbolicLink -Path $HELIX_DIR -Target $HELIX_DOT -ErrorAction Stop
+}
+
+# [[ JetBrains ideavim ]]
+$IDEAVIM_VIMRC = Join-Path $env:USERPROFILE ".ideavimrc"
+$IDEAVIM_DOT_VIMRC = Join-Path $DOT_DIR ".ideavimrc"
+if (Test-Path -Path $IDEAVIM_VIMRC) {
+	Remove-Item -Path $IDEAVIM_VIMRC -Force -ErrorAction SilentlyContinue
+	New-Item -ItemType SymbolicLink -Path $IDEAVIM_VIMRC -Target $IDEAVIM_DOT_VIMRC -ErrorAction Stop
+} else {
+	New-Item -ItemType SymbolicLink -Path $IDEAVIM_VIMRC -Target $IDEAVIM_DOT_VIMRC -ErrorAction Stop
+}
+
 # [[ WezTerm ]]
 $WEZTERM_DIR = Join-Path $CONFIG_DIR "wezterm"
 $WEZTERM_DOT = Join-Path $DOT_DIR "wezterm"

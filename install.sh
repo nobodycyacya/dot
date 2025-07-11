@@ -30,6 +30,9 @@ ln -snf "$DOT_DIR/nvim" "$CONFIG_DIR/nvim"
 # [[ Helix ]]
 ln -snf "$DOT_DIR/helix" "$CONFIG_DIR/helix"
 
+# [[ JetBrains ideavim ]]
+ln -snf "$DOT_DIR/JetBrains/ideavimrc" "$HOME/.ideavimrc"
+
 # [[ WezTerm ]]
 ln -snf "$DOT_DIR/wezterm" "$CONFIG_DIR/wezterm"
 
