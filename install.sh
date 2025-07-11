@@ -27,6 +27,9 @@ ln -snf "$DOT_DIR/emacs" "$HOME/.emacs.d"
 # [[ Neovim ]]
 ln -snf "$DOT_DIR/nvim" "$CONFIG_DIR/nvim"
 
+# [[ Helix ]]
+ln -snf "$DOT_DIR/helix" "$CONFIG_DIR/helix"
+
 # [[ WezTerm ]]
 ln -snf "$DOT_DIR/wezterm" "$CONFIG_DIR/wezterm"
 

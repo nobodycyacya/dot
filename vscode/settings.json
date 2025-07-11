@@ -8,17 +8,6 @@
 	// [[ VSCodeVim ]]
 	"vim.highlightedyank.enable": true,
 	"vim.hlsearch": true,
-	"vim.insertModeKeyBindings": [
-		{
-			"before": [
-				"j",
-				"k"
-			],
-			"after": [
-				"<Esc>"
-			]
-		}
-	],
 	"vim.normalModeKeyBindingsNonRecursive": [
 		{
 			"before": [

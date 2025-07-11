@@ -1,0 +1,20 @@
+theme = "tokyonight"
+
+[editor]
+bufferline = "always"
+text-width = 80
+rulers = [80]
+line-number = "relative"
+auto-save = true
+
+[editor.whitespace.render]
+newline = "none"
+nbsp = "all"
+space = "none"
+tab = "none"
+
+[editor.indent-guides]
+render = true
+
+[editor.cursor-shape]
+insert = "bar"
