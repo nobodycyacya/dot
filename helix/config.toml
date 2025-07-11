@@ -1,20 +1,10 @@
-theme = "tokyonight"
+theme = "default"
 
 [editor]
-bufferline = "always"
-text-width = 80
-rulers = [80]
-line-number = "relative"
-auto-save = true
+true-color = true
 
-[editor.whitespace.render]
-newline = "none"
-nbsp = "all"
-space = "none"
-tab = "none"
-
-[editor.indent-guides]
-render = true
-
-[editor.cursor-shape]
-insert = "bar"
+[editor.lsp]
+display-messages = true
+auto-signature-help = true
+display-signature-help-docs = true
+display-inlay-hints = true
