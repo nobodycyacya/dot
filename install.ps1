@@ -47,7 +47,7 @@ $HELIX_DOT = Join-Path $DOT_DIR "helix"
 if (-not (Test-Path -Path $HELIX_DIR)) {
 	New-Item -ItemType SymbolicLink -Path $HELIX_DIR -Target $HELIX_DOT -ErrorAction Stop
 } else {
-	Remove-Item -Path $EMACS_DIR -Recurse -Force
+	Remove-Item -Path $HELIX_DIR -Recurse -Force
 	New-Item -ItemType SymbolicLink -Path $HELIX_DIR -Target $HELIX_DOT -ErrorAction Stop
 }
 
