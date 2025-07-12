@@ -50,3 +50,18 @@ if [ -n "$VSCODE_DIR" ]; then
 	ln -snf "$DOT_DIR/vscode/settings.json" "$VSCODE_DIR/settings.json"
 	ln -snf "$DOT_DIR/vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
 fi
+
+# [[ awesomeWM ]]
+if [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
+	ln -snf "$DOT_DIR/awesome" "$CONFIG_DIR/awesome"
+fi
+
+# [[ Xresources ]]
+if [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
+	ln -snf "$DOT_DIR/X11/Xresources" "$HOME/.Xresources"
+fi
+
+# [[ aerospace ]]
+if [[ "$OS_NAME" == "Darwin" ]]; then
+	ln -snf "$DOT_DIR/aerospace" "$CONFIG_DIR/aerospace"
+fi

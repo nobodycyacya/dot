@@ -1,0 +1,50 @@
+! General
+Xft.dpi: 96
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgb
+Xft.autohint: true
+Xft.hintstyle: hintfull
+Xft.lcdfilter: lcdfilter
+
+! XTerm
+XTerm*renderFont: true
+XTerm*faceName: xft:JetBrainsMono Nerd Font:style=Regular:size=12
+XTerm*faceSize: 12
+XTerm*utf8: 2
+XTerm*locale: true
+XTerm*loginshell: true
+XTerm*savelines: 5000
+XTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+! rxvt-unicode
+URxvt*imLocale: en_US.UTF-8
+URxvt*termName: rxvt-unicode-256color
+URxvt*buffered: false
+URxvt.intensityStyles: false
+URxvt.font: xft:Monospace:style=Regular:size=12
+URxvt.saveLines: 5000
+URxvt.scrollBar: false
+URxvt.cursorColor: white
+URxvt*depth: 32
+
+! Theme
+*background: #11111b
+*foreground: #cdd6f4
+*cursorColor: #f38ba8
+*color0: #11111b
+*color1: #f38ba8
+*color2: #a6e3a1
+*color3: #f9e2af
+*color4: #89b4fa
+*color5: #f5c2e7
+*color6: #94e2d5
+*color7: #cdd6f4
+*color8: #11111b
+*color9: #f38ba8
+*color10: #a6e3a1
+*color11: #f9e2af
+*color12: #89b4fa
+*color13: #f5c2e7
+*color14: #94e2d5
+*color15: #cdd6f4

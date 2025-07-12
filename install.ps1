@@ -92,3 +92,27 @@ if (Test-Path -Path $VSCODE_KEYBINDINGS) {
 } else {
 	New-Item -ItemType SymbolicLink -Path $VSCODE_KEYBINDINGS -Target $VSCODE_DOT_KEYBINDINGS -ErrorAction Stop
 }
+
+# [[ Windows Terminal ]]
+$WINDOWSTERMINAL_DIR = Join-Path $env:LOCALAPPDATA "Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
+$WINDOWSTERMINAL_SETTINGS = Join-Path $WINDOWSTERMINAL_DIR "settings.json"
+$WINDOWSTERMINAL_DOT_SETTINGS = Join-Path $DOT_DIR "WindowsTerminal\settings.json"
+if (-not (Test-Path -Path $WINDOWSTERMINAL_DIR -PathType Container)) {
+	New-Item -Path $WINDOWSTERMINAL_DIR -ItemType Directory -Force
+}
+if (Test-Path -Path $WINDOWSTERMINAL_SETTINGS) {
+	Remove-Item -Path $WINDOWSTERMINAL_SETTINGS -Force -ErrorAction SilentlyContinue
+	New-Item -ItemType SymbolicLink -Path $WINDOWSTERMINAL_SETTINGS -Target $WINDOWSTERMINAL_DOT_SETTINGS -ErrorAction Stop
+} else {
+	New-Item -ItemType SymbolicLink -Path $WINDOWSTERMINAL_SETTINGS -Target $WINDOWSTERMINAL_DOT_SETTINGS -ErrorAction Stop
+}
+
+# [[ glzr ]]
+$GLZR_DIR = Join-Path $HOME ".glzr"
+$GLZR_DOT = Join-Path $DOT_DIR "glzr"
+if (-not (Test-Path -Path $GLZR_DIR)) {
+	New-Item -ItemType SymbolicLink -Path $GLZR_DIR -Target $GLZR_DOT -ErrorAction Stop
+} else {
+	Remove-Item -Path $GLZR_DIR -Recurse -Force
+	New-Item -ItemType SymbolicLink -Path $GLZR_DIR -Target $GLZR_DOT -ErrorAction Stop
+}
