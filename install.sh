@@ -36,6 +36,9 @@ ln -snf "$DOT_DIR/JetBrains/ideavimrc" "$HOME/.ideavimrc"
 # [[ WezTerm ]]
 ln -snf "$DOT_DIR/wezterm" "$CONFIG_DIR/wezterm"
 
+# [[ kakoune ]]
+ln -snf "$DOT_DIR/kak" "$CONFIG_DIR/kak"
+
 # [[ Visual Studio Code ]]
 if [[ "$OS_NAME" == "Darwin" ]]; then
 	VSCODE_DIR="$HOME/Library/Application Support/Code/User"

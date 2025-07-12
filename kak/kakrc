@@ -1,0 +1,4 @@
+colorscheme palenight
+set-option global tabstop 2
+set-option global indentwidth 2
+add-highlighter global/ number-lines -relative

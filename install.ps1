@@ -53,7 +53,7 @@ if (-not (Test-Path -Path $HELIX_DIR)) {
 
 # [[ JetBrains ideavim ]]
 $IDEAVIM_VIMRC = Join-Path $env:USERPROFILE ".ideavimrc"
-$IDEAVIM_DOT_VIMRC = Join-Path $DOT_DIR ".ideavimrc"
+$IDEAVIM_DOT_VIMRC = Join-Path $DOT_DIR "JetBrains\ideavimrc"
 if (Test-Path -Path $IDEAVIM_VIMRC) {
 	Remove-Item -Path $IDEAVIM_VIMRC -Force -ErrorAction SilentlyContinue
 	New-Item -ItemType SymbolicLink -Path $IDEAVIM_VIMRC -Target $IDEAVIM_DOT_VIMRC -ErrorAction Stop
