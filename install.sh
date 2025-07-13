@@ -36,6 +36,12 @@ ln -snf "$DOT_DIR/JetBrains/ideavimrc" "$HOME/.ideavimrc"
 # [[ WezTerm ]]
 ln -snf "$DOT_DIR/wezterm" "$CONFIG_DIR/wezterm"
 
+# [[ Alacritty ]]
+ln -snf "$DOT_DIR/alacritty" "$CONFIG_DIR/alacritty"
+
+# [[ Alacritty ]]
+ln -snf "$DOT_DIR/kitty" "$CONFIG_DIR/kitty"
+
 # [[ kakoune ]]
 ln -snf "$DOT_DIR/kak" "$CONFIG_DIR/kak"
 

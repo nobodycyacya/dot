@@ -71,6 +71,16 @@ if (-not (Test-Path -Path $WEZTERM_DIR)) {
 	New-Item -ItemType SymbolicLink -Path $WEZTERM_DIR -Target $WEZTERM_DOT -ErrorAction Stop
 }
 
+# [[ Alacritty ]]
+$ALACRITTY_DIR = Join-Path $env:APPDATA "alacritty"
+$ALACRITTY_DOT = Join-Path $DOT_DIR "alacritty"
+if (-not (Test-Path -Path $ALACRITTY_DIR)) {
+	New-Item -ItemType SymbolicLink -Path $ALACRITTY_DIR -Target $ALACRITTY_DOT -ErrorAction Stop
+} else {
+	Remove-Item -Path $ALACRITTY_DIR -Recurse -Force
+	New-Item -ItemType SymbolicLink -Path $ALACRITTY_DIR -Target $ALACRITTY_DOT -ErrorAction Stop
+}
+
 # [[ Visual Studio Code ]]
 $VSCODE_USER_DIR = Join-Path $env:APPDATA "Code\User"
 $VSCODE_SETTINGS = Join-Path $VSCODE_USER_DIR "settings.json"

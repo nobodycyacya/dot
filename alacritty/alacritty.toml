@@ -1,0 +1,145 @@
+[general]
+import = []
+working_directory = "None"
+live_config_reload = true
+ipc_socket = true
+
+[env]
+WINIT_X11_SCALE_FACTOR = "1.0"
+
+[window]
+dimensions = { columns = 0, lines = 0 }
+position = "None"
+padding = { x = 12, y = 12 }
+dynamic_padding = false
+decorations = "Full"
+opacity = 0.98
+blur = true
+startup_mode = "Maximized"
+title = "Alacritty"
+dynamic_title = true
+class = { instance = "Alacritty", general = "Alacritty" }
+decorations_theme_variant = "Dark"
+resize_increments = true
+option_as_alt = "OnlyLeft"
+level = "Normal"
+
+[scrolling]
+history = 10000
+multiplier = 4
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+bold = { family = "JetBrainsMono Nerd Font", style = "Bold" }
+italic = { family = "JetBrainsMono Nerd Font", style = "Italic" }
+bold_italic = { family = "JetBrainsMono Nerd Font", style = "Bold Italic" }
+size = 12.25
+offset = { x = 0, y = 0 }
+glyph_offset = { x = 0, y = 0 }
+builtin_box_drawing = true
+
+[colors]
+line_indicator = { foreground = "None", background = "None" }
+footer_bar = { foreground = "#181818", background = "#d8d8d8" }
+selection = { text = "CellBackground", background = "CellForeground" }
+cursor = { text = "CellBackground", cursor = "CellForeground" }
+vi_mode_cursor = { text = "CellBackground", cursor = "CellForeground" }
+indexed_colors = []
+transparent_background_colors = true
+draw_bold_text_with_bright_colors = true
+
+[colors.primary]
+foreground = "#d8d8d8"
+background = "#181818"
+dim_foreground = "#828482"
+bright_foreground = "#ffffff"
+
+[colors.search]
+matches = { foreground = "#181818", background = "#ac4242" }
+focused_match = { foreground = "#181818", background = "#f4bf75" }
+
+[colors.hints]
+start = { foreground = "#181818", background = "#f4bf75" }
+end = { foreground = "#181818", background = "#ac4242" }
+
+[colors.normal]
+black = "#181818"
+red = "#ac4242"
+green = "#90a959"
+yellow = "#f4bf75"
+blue = "#6a9fb5"
+magenta = "#aa759f"
+cyan = "#75b5aa"
+white = "#d8d8d8"
+
+[colors.bright]
+black = "#6b6b6b"
+red = "#c55555"
+green = "#aac474"
+yellow = "#feca88"
+blue = "#82b8c8"
+magenta = "#c28cb8"
+cyan = "#93d3c3"
+white = "#f8f8f8"
+
+[colors.dim]
+black = "#0f0f0f"
+red = "#d8d8d8"
+green = "#5f6f3a"
+yellow = "#a17e4d"
+blue = "#456877"
+magenta = "#704d68"
+cyan = "#4d7770"
+white = "#8e8e8e"
+
+[bell]
+animation = "Linear"
+duration = 0
+color = "#ac4242"
+command = "None"
+
+[selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+save_to_clipboard = true
+
+[cursor]
+style = { shape = "Block", blinking = "Always" }
+vi_mode_style = { shape = "Block", blinking = "Always" }
+blink_interval = 500
+blink_timeout = 5
+unfocused_hollow = true
+thickness = 0.3
+
+[terminal]
+# shell = { program = "/bin/zsh", args = ["-l"] }
+osc52 = "CopyPaste"
+
+[mouse]
+hide_when_typing = true
+bindings = [{ mouse = "Right", mods = "Control", action = "Paste" }]
+
+[hints]
+alphabet = "jfkdls;ahgurieowpq"
+
+# [[hints.enabled]]
+# command = "xdg-open" # On Linux/BSD
+# command = "open" # On macOS
+# command = { program = "cmd", args = [ "/c", "start", "" ] } # On Windows
+# hyperlinks = true
+# post_processing = true
+# persist = false
+# mouse.enabled = true
+# binding = { key = "O", mods = "Control|Shift" }
+# regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`\\\\]+"
+
+[keyboard]
+bindings = []
+
+[debug]
+render_timer = false
+persistent_logging = false
+log_level = "Error"
+renderer = "None"
+print_events = false
+highlight_damage = false
+prefer_egl = false
