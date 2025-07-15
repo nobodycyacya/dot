@@ -92,5 +92,8 @@
   :hook
   (after-init . save-place-mode))
 
+(use-package catppuccin-theme
+  :hook (after-init . (lambda () (load-theme 'catppuccin t))))
+
 (provide 'init)
 ;;; init.el ends here

@@ -1,10 +1,12 @@
 {
 	// [[ BUILTIN ]]
 	"editor.experimentalEditContextEnabled": false,
+	"editor.semanticHighlighting.enabled": true,
 	"extensions.experimental.affinity": {
 		"vscodevim.vim": 1
 	},
 	"window.zoomLevel": -0.7,
+	"terminal.integrated.minimumContrastRatio": 1,
 	// [[ VSCodeVim ]]
 	"vim.highlightedyank.enable": true,
 	"vim.hlsearch": true,
@@ -27,5 +29,39 @@
 			]
 		}
 	],
-	"vim.useSystemClipboard": true
+	"vim.useSystemClipboard": true,
+	// [[ Catppuccin for VSCode ]]
+	"workbench.colorTheme": "Catppuccin Mocha",
+	"catppuccin.accentColor": "blue",
+	"catppuccin.colorOverrides": {
+		"mocha": {
+			"base": "#11111b",
+			"mantle": "#11111b",
+			"crust": "#11111b",
+		},
+	},
+	"catppuccin.customUIColors": {
+		"mocha": {
+			"editorCursor.foreground": "rosewater",
+			"editorLineNumber.activeForeground": "green",
+			"widget.border": "blue",
+			"statusBar.foreground": "blue",
+		},
+	},
+	"catppuccin.italicKeywords": true,
+	"catppuccin.italicComments": true,
+	"catppuccin.boldKeywords": true,
+	"catppuccin.bracketMode": "rainbow",
+	"catppuccin.extraBordersEnabled": true,
+	"catppuccin.syncWithIconPack": true,
+	"catppuccin.workbenchMode": "flat",
+	// [[ Catppuccin Icons for VSCode ]]
+	"workbench.iconTheme": "catppuccin-mocha",
+	"catppuccin-icons.hidesExplorerArrows": false,
+	"catppuccin-icons.specificFolders": true,
+	"catppuccin-icons.monochrome": false,
+	"catppuccin-icons.associations.files": {},
+	"catppuccin-icons.associations.folders": {},
+	"catppuccin-icons.associations.languages": {},
+	"catppuccin-icons.associations.extensions": {},
 }

@@ -24,7 +24,7 @@ elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" then
 	config.window_background_opacity = 1.0
 end
 
-config.color_scheme = 'tokyonight_night'
+config.color_scheme = 'Catppuccin Mocha'
 config.font = wezterm.font("JetBrains Mono", { weight = "Bold", italic = false })
 config.cell_width = 0.9
 config.front_end = "OpenGL"
