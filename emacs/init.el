@@ -72,28 +72,5 @@
   :hook
   (after-init . global-auto-revert-mode))
 
-(use-package elec-pair
-  :ensure nil
-  :hook
-  (prog-mode . electric-pair-mode))
-
-(use-package ibuffer
-  :ensure nil
-  :bind
-  (("C-x C-b" . ibuffer)))
-
-(use-package delsel
-  :ensure nil
-  :hook
-  (after-init . delete-selection-mode))
-
-(use-package saveplace
-  :ensure nil
-  :hook
-  (after-init . save-place-mode))
-
-(use-package catppuccin-theme
-  :hook (after-init . (lambda () (load-theme 'catppuccin t))))
-
 (provide 'init)
 ;;; init.el ends here
