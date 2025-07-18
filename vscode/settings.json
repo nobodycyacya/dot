@@ -1,6 +1,5 @@
 {
 	// [[ BUILTIN ]]
-	"editor.experimentalEditContextEnabled": false,
 	"editor.semanticHighlighting.enabled": true,
 	"extensions.experimental.affinity": {
 		"vscodevim.vim": 1

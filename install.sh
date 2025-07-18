@@ -71,3 +71,8 @@ fi
 if [[ "$OS_NAME" == "Darwin" ]]; then
 	ln -snf "$DOT_DIR/aerospace" "$CONFIG_DIR/aerospace"
 fi
+
+# [[ borders ]]
+if [[ "$OS_NAME" == "Darwin" ]]; then
+	ln -snf "$DOT_DIR/borders" "$CONFIG_DIR/borders"
+fi
