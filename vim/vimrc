@@ -16,6 +16,7 @@ set relativenumber
 " [[ KEYBINDINGS ]]
 let mapleader = ' '
 let maplocalleader = ','
+inoremap jk <Esc>
 
 " [[ AUTOCMD ]]
 augroup restore_position

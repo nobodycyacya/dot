@@ -12,6 +12,7 @@ vim.opt.relativenumber = true
 -- [[ KEYBINDINGS ]]
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
+vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
 
 -- [[ AUTOCMD ]]
 vim.api.nvim_create_autocmd("BufReadPost", {

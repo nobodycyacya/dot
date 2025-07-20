@@ -72,5 +72,16 @@
   :hook
   (after-init . global-auto-revert-mode))
 
+(use-package evil
+  :hook
+  (after-init . evil-mode))
+
+(use-package evil-escape
+  :hook
+  (evil-mode . evil-escape-mode)
+  :config
+  (setq-default evil-escape-key-sequence "jk")
+  (setq-default evil-escape-delay 0.2))
+
 (provide 'init)
 ;;; init.el ends here
