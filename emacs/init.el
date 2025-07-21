@@ -180,7 +180,7 @@
 (use-package indent-bars
   :hook ((prog-mode yaml-mode) . indent-bars-mode)
   :config
-  (setq indent-bars-color '(highlight :face-bg t :blend 0.225))
+  (setq indent-bars-color '(highlight :face-bg t :blend 0.425))
   (setq indent-bars-no-descend-string t)
   (setq indent-bars-display-on-blank-lines nil)
   (setq indent-bars-prefer-character t))
@@ -244,6 +244,7 @@
   :bind
   (("C-s" . consult-line)
    ("C-c h". consult-history)
+   ("C-c f". consult-flymake)
    ("C-c r". consult-ripgrep)
    ("C-c o". consult-outline)
    ("C-x b" . consult-buffer)
@@ -255,16 +256,16 @@
 (use-package consult-eglot
   :after consult)
 
+(use-package consult-todo
+  :after consult
+  :bind
+  (("C-c t" . consult-todo)))
+
 (use-package embark
   :bind
   (("C-." . embark-act)
    ("C-;" . embark-export)
-   ("C-c C-l"  . embark-collect))
-  :config
-  (add-to-list 'display-buffer-alist
-	       '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-		 nil
-		 (window-parameters (mode-line-format . none)))))
+   ("C-c C-l"  . embark-collect)))
 
 (use-package embark-consult
   :hook
@@ -358,6 +359,16 @@
 
 (use-package flymake-popon
   :hook (flymake-mode . flymake-popon-mode))
+
+(use-package lua-mode
+  :config
+  (setq lua-indent-level 2)
+  (setq lua-indent-nested-block-content-align nil)
+  (setq lua-indent-close-paren-align nil))
+
+(use-package pyvenv
+  :hook
+  (python-mode . pyvenv-mode))
 
 (provide 'init)
 ;;; init.el ends here
