@@ -65,8 +65,8 @@
 				"experimental.rightClickContextMenu": true,
 				"font": {
 					"cellHeight": "1.4",
-					"face": "'JetBrainsMono Nerd Font'",
-					"size": 9.25
+					"face": "JetBrainsMono Nerd Font",
+					"size": 9
 				},
 				"guid": "{96cba0a6-05df-49c9-974a-a718d7b9976f}",
 				"hidden": false,
