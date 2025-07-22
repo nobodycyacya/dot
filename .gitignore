@@ -33,4 +33,5 @@ emacs/package-quickstart.el
 *.jpeg
 *.log
 *.el~
+*.swp
 .DS_Store

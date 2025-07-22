@@ -1,78 +1,64 @@
 {
-	// [[ BUILTIN ]]
-	"editor.semanticHighlighting.enabled": true,
-	"editor.fontSize": 15,
-	"extensions.experimental.affinity": {
-		"vscodevim.vim": 1
-	},
-	"window.zoomLevel": -0.75,
-	"terminal.integrated.minimumContrastRatio": 1,
-	// [[ VSCodeVim ]]
-	"vim.highlightedyank.enable": true,
-	"vim.hlsearch": true,
-	"vim.insertModeKeyBindingsNonRecursive": [
-		{
-			"before": [
-				"j",
-				"k"
-			],
-			"after": [
-				"<Esc>"
-			]
-		},
-	],
-	"vim.normalModeKeyBindingsNonRecursive": [
-		{
-			"before": [
-				"K"
-			],
-			"commands": [
-				"editor.action.showHover"
-			]
-		},
-		{
-			"before": [
-				"g",
-				"d"
-			],
-			"commands": [
-				"editor.action.revealDefinition"
-			]
-		}
-	],
-	"vim.useSystemClipboard": true,
-	// [[ Catppuccin for VSCode ]]
-	"workbench.colorTheme": "Catppuccin Mocha",
-	"catppuccin.accentColor": "blue",
-	"catppuccin.colorOverrides": {
-		"mocha": {
-			"base": "#11111b",
-			"mantle": "#11111b",
-			"crust": "#11111b",
-		},
-	},
-	"catppuccin.customUIColors": {
-		"mocha": {
-			"editorCursor.foreground": "rosewater",
-			"editorLineNumber.activeForeground": "green",
-			"widget.border": "blue",
-			"statusBar.foreground": "blue",
-		},
-	},
-	"catppuccin.italicKeywords": true,
-	"catppuccin.italicComments": true,
-	"catppuccin.boldKeywords": true,
-	"catppuccin.bracketMode": "rainbow",
-	"catppuccin.extraBordersEnabled": true,
-	"catppuccin.syncWithIconPack": true,
-	"catppuccin.workbenchMode": "flat",
-	// [[ Catppuccin Icons for VSCode ]]
-	"workbench.iconTheme": "catppuccin-mocha",
-	"catppuccin-icons.hidesExplorerArrows": false,
-	"catppuccin-icons.specificFolders": true,
-	"catppuccin-icons.monochrome": false,
-	"catppuccin-icons.associations.files": {},
-	"catppuccin-icons.associations.folders": {},
-	"catppuccin-icons.associations.languages": {},
-	"catppuccin-icons.associations.extensions": {},
+  // [[ BUILTIN ]]
+  "editor.semanticHighlighting.enabled": true,
+  "editor.fontSize": 15,
+  "extensions.experimental.affinity": {
+    "vscodevim.vim": 1
+  },
+  "window.zoomLevel": -0.75,
+  "terminal.integrated.minimumContrastRatio": 1,
+  // [[ VSCodeVim ]]
+  "vim.highlightedyank.enable": true,
+  "vim.hlsearch": true,
+  "vim.insertModeKeyBindingsNonRecursive": [
+    {
+      "before": ["j", "k"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["K"],
+      "commands": ["editor.action.showHover"]
+    },
+    {
+      "before": ["g", "d"],
+      "commands": ["editor.action.revealDefinition"]
+    }
+  ],
+  "vim.useSystemClipboard": true,
+  // [[ Catppuccin for VSCode ]]
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "catppuccin.accentColor": "blue",
+  "catppuccin.colorOverrides": {
+    "mocha": {
+      "base": "#11111b",
+      "mantle": "#11111b",
+      "crust": "#11111b"
+    }
+  },
+  "catppuccin.customUIColors": {
+    "mocha": {
+      "editorCursor.foreground": "rosewater",
+      "editorLineNumber.activeForeground": "green",
+      "widget.border": "blue",
+      "statusBar.foreground": "blue"
+    }
+  },
+  "catppuccin.italicKeywords": true,
+  "catppuccin.italicComments": true,
+  "catppuccin.boldKeywords": true,
+  "catppuccin.bracketMode": "rainbow",
+  "catppuccin.extraBordersEnabled": true,
+  "catppuccin.syncWithIconPack": true,
+  "catppuccin.workbenchMode": "flat",
+  // [[ Catppuccin Icons for VSCode ]]
+  "workbench.iconTheme": "catppuccin-mocha",
+  "catppuccin-icons.hidesExplorerArrows": false,
+  "catppuccin-icons.specificFolders": true,
+  "catppuccin-icons.monochrome": false,
+  "catppuccin-icons.associations.files": {},
+  "catppuccin-icons.associations.folders": {},
+  "catppuccin-icons.associations.languages": {},
+  "catppuccin-icons.associations.extensions": {}
 }

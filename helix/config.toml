@@ -8,3 +8,6 @@ display-messages = true
 auto-signature-help = true
 display-signature-help-docs = true
 display-inlay-hints = true
+
+[keys.insert]
+"j" = { "k" = "normal_mode" }

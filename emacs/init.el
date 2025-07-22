@@ -357,6 +357,10 @@
   :config
   (setq wgrep-auto-save-buffer t))
 
+(use-package diff-hl
+  :hook
+  (after-init . global-diff-hl-mode))
+
 (use-package flymake-popon
   :hook (flymake-mode . flymake-popon-mode))
 
@@ -369,6 +373,8 @@
 (use-package pyvenv
   :hook
   (python-mode . pyvenv-mode))
+
+(use-package vimrc-mode)
 
 (provide 'init)
 ;;; init.el ends here
