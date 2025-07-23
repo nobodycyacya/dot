@@ -152,6 +152,16 @@
   :hook
   (evil-mode . global-evil-matchit-mode))
 
+(use-package evil-goggles
+  :hook
+  (evil-mode . evil-goggles-mode)
+  :config
+  (setq evil-goggles-pulse t)
+  (setq evil-goggles-blocking-duration 1.500)
+  (setq evil-goggles-async-duration 0.900)
+  (setq evil-goggles-duration 1.500)
+  (evil-goggles-use-diff-faces))
+
 (use-package catppuccin-theme
   :hook
   (after-init . (lambda () (load-theme 'catppuccin t)))
