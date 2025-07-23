@@ -46,6 +46,7 @@
 (use-package emacs
   :ensure nil
   :config
+  (setq-default outline-margin-width 1)
   (setq-default gc-cons-threshold most-positive-fixnum)
   (setq-default gc-cons-percentage 0.6)
   (setq-default use-short-answers t)
@@ -198,6 +199,10 @@
 (use-package vertico
   :hook
   (after-init . vertico-mode)
+  :bind
+  (:map vertico-map
+	("RET" . vertico-directory-enter)
+	("DEL" . vertico-directory-delete-char))
   :config
   (setq vertico-scroll-margin 0)
   (setq vertico-count 15)
@@ -245,7 +250,7 @@
 
 (use-package yasnippet-capf
   :after cape
-  :config
+  :init
   (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
 (use-package consult
@@ -346,17 +351,10 @@
           ("BUG" error bold)
           ("XXX" font-lock-constant-face bold))))
 
-(use-package neotree
-  :commands
-  (neotree-show neotree-toggle)
-  :config
-  (setq neo-create-file-auto-open nil)
-  (setq neo-auto-indent-point nil)
-  (setq neo-mode-line-type 'none)
-  (setq neo-window-width 30)
-  (setq neo-show-updir-line nil)
-  (setq neo-theme 'nerd)
-  (setq neo-banner-message nil))
+(use-package dired-sidebar
+  :hook
+  (dired-sidebar-mode . (lambda () (display-line-numbers-mode -1)))
+  :commands (dired-sidebar-show-sidebar))
 
 (use-package wgrep
   :bind
@@ -369,7 +367,69 @@
 
 (use-package diff-hl
   :hook
-  (after-init . global-diff-hl-mode))
+  (after-init . global-diff-hl-mode)
+  (dired-mode . diff-hl-dired-mode)
+  (after-init . global-diff-hl-show-hunk-mouse-mode))
+
+(use-package hide-mode-line
+  :hook
+  ((dired-sidebar-mode
+    completion-list-mode
+    eshell-mode
+    term-mode
+    symbols-outline-mode) . hide-mode-line-mode))
+
+(use-package solaire-mode
+  :hook
+  (after-init . solaire-global-mode))
+
+(use-package eshell-syntax-highlighting
+  :hook
+  (eshell-mode . eshell-syntax-highlighting-mode))
+
+(use-package highlight-defined
+  :hook
+  (emacs-lisp-mode . highlight-defined-mode))
+
+(use-package highlight-numbers
+  :hook
+  (prog-mode . highlight-numbers-mode))
+
+(use-package symbols-outline
+  :hook
+  (eglot-mode . (lambda () (setq-local symbols-outline-fetch-fn #'symbols-outline-lsp-fetch)))
+  :config
+  (setq symbols-outline-window-position 'right)
+  (symbols-outline-follow-mode))
+
+(use-package symbol-overlay
+  :bind
+  (("M-i" . symbol-overlay-put)
+   ("M-g n" . symbol-overlay-jump-next)
+   ("M-g p" . symbol-overlay-jump-prev)
+   ("M-g r" . symbol-overlay-remove-all))
+  :hook
+  (prog-mode . symbol-overlay-mode))
+
+(use-package beacon
+  :hook
+  (after-init . beacon-mode)
+  :config
+  (setq beacon-size 60)
+  (setq beacon-color "#ff0000")
+  (setq beacon-blink-duration 0.8)
+  (setq beacon-blink-delay 0.8)
+  (setq beacon-blink-when-window-scrolls t)
+  (setq beacon-blink-when-window-changes t)
+  (setq beacon-blink-when-point-moves t))
+
+(use-package xclip
+  :hook
+  (after-init . xclip-mode))
+
+(use-package gcmh
+  :hook
+  (after-init . gcmh-mode))
 
 (use-package flymake-popon
   :hook (flymake-mode . flymake-popon-mode))
@@ -384,7 +444,17 @@
   :hook
   (python-mode . pyvenv-mode))
 
+(use-package ess)
 (use-package vimrc-mode)
+(use-package csv-mode)
+(use-package yaml-mode)
+(use-package json-mode)
+(use-package toml-mode)
+(use-package typescript-mode)
+(use-package web-mode)
+(use-package emmet-mode)
+(use-package markdown-mode)
+(use-package quarto-mode)
 
 (provide 'init)
 ;;; init.el ends here
