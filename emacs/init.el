@@ -188,6 +188,10 @@
   :hook
   (prog-mode . colorful-mode))
 
+(use-package color-identifiers-mode
+  :hook
+  (after-init . global-color-identifiers-mode))
+
 (use-package indent-bars
   :hook ((prog-mode yaml-mode) . indent-bars-mode)
   :config
