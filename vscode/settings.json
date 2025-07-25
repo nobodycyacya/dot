@@ -1,11 +1,11 @@
 {
   // [[ BUILTIN ]]
   "editor.semanticHighlighting.enabled": true,
-  "editor.fontSize": 15,
+  "editor.fontSize": 14,
   "extensions.experimental.affinity": {
     "vscodevim.vim": 1
   },
-  "window.zoomLevel": -0.75,
+  "window.zoomLevel": -0.56,
   "terminal.integrated.minimumContrastRatio": 1,
   // [[ VSCodeVim ]]
   "vim.highlightedyank.enable": true,
