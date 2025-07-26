@@ -239,6 +239,10 @@ nnoremap <Leader>fr :History<CR>
 nnoremap <Leader>fc :Colors<CR>
 nnoremap <Leader><Leader> :Commands<CR>
 
+Plug 'terryma/vim-expand-region', { 'on': ['<Plug>(expand_region_expand)', '<Plug>(expand_region_shrink)'] }
+map <C-=> <Plug>(expand_region_expand)
+map <C-_> <Plug>(expand_region_shrink)
+
 Plug 'easymotion/vim-easymotion', { 'on': ['<Plug>(easymotion-overwin-line)', '<Plug>(easymotion-overwin-w)'] }
 let g:EasyMotion_do_mapping = 0
 nmap <Leader>gl <Plug>(easymotion-overwin-line)
@@ -340,5 +344,6 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'css'] }
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'dstein64/vim-startuptime', { 'on': ['StartupTime'] }
 Plug 'tpope/vim-fugitive', { 'on': ['G', 'Git'] }
+Plug 'sbdchd/neoformat', { 'on': ['Neoformat'] }
 
 call plug#end()

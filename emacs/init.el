@@ -34,14 +34,15 @@
     (package-initialize))
   (setq package-check-signature nil)
   (setq package-quickstart t)
-  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                           ;; ("elpa-devel" . "https://elpa.gnu.org/devel/")
-                           ;; ("org" . "https://orgmode.org/elpa/")
-                           ;; ("marmalade" . "http://marmalade-repo.jrg/packages/")
-                           ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
-                           ;; ("jcs-elpa" . "https://jcs-emacs.github.io/jcs-elpa/packages/")
-                           ("gnu" . "https://elpa.gnu.org/packages/")
-                           ("nongnu" . "https://elpa.nongnu.org/nongnu/"))))
+  (setq package-archives
+	'(("melpa" . "https://melpa.org/packages/")
+          ;; ("elpa-devel" . "https://elpa.gnu.org/devel/")
+          ;; ("org" . "https://orgmode.org/elpa/")
+          ;; ("marmalade" . "http://marmalade-repo.jrg/packages/")
+          ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
+          ;; ("jcs-elpa" . "https://jcs-emacs.github.io/jcs-elpa/packages/")
+          ("gnu" . "https://elpa.gnu.org/packages/")
+          ("nongnu" . "https://elpa.nongnu.org/nongnu/"))))
 
 (use-package emacs
   :ensure nil
@@ -66,11 +67,13 @@
 					    "Monaco"
 					    "Consolas")
 			      when (find-font (font-spec :name font))
-			      return (set-face-attribute 'default nil
-							 :family font
-							 :height (cond ((eq system-type 'darwin) 125)
-								       ((eq system-type 'windows-nt) 110)
-								       (t 100))))))
+			      return (set-face-attribute
+				      'default nil
+				      :family font
+				      :height (cond
+					       ((eq system-type 'darwin) 125)
+					       ((eq system-type 'windows-nt) 110)
+					       (t 100))))))
   :custom
   (initial-major-mode 'fundamental-mode)
   (inhibit-startup-screen t)
@@ -463,6 +466,26 @@
 
 (use-package flymake-popon
   :hook (flymake-mode . flymake-popon-mode))
+
+(use-package exec-path-from-shell
+  :defer 10
+  :config
+  (exec-path-from-shell-initialize))
+
+(use-package page-break-lines
+  :hook
+  (emacs-lisp-mode . page-break-lines-mode))
+
+(use-package aggressive-indent
+  :hook
+  (after-init . global-aggressive-indent-mode))
+
+(use-package mode-line-bell
+  :hook
+  (doom-modeline-mode . mode-line-bell-mode))
+
+(use-package expand-region
+  :bind ("C-=" . er/expand-region))
 
 (use-package lua-mode
   :config
