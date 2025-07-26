@@ -140,6 +140,35 @@ augroup tool_highlightedyank
         \| let g:highlightedyank_highlight_duration = 1500
 augroup END
 
+Plug 'ap/vim-css-color', { 'on': [] }
+augroup tool_css_color
+  autocmd!
+  autocmd BufReadPre * call plug#load('vim-css-color')
+        \| autocmd! tool_css_color
+augroup END
+
+Plug 'kana/vim-textobj-user', { 'on': [] }
+Plug 'kana/vim-textobj-indent', { 'on': [] }
+Plug 'kana/vim-textobj-function', { 'on': [] }
+Plug 'glts/vim-textobj-comment', { 'on': [] }
+Plug 'wellle/targets.vim', { 'on': [] }
+augroup tool_text_object
+  autocmd!
+  autocmd BufReadPost * call plug#load('vim-textobj-user', 'vim-textobj-indent', 'vim-textobj-function', 'vim-textobj-comment', 'targets.vim')
+        \| autocmd! tool_text_object
+augroup END
+
+Plug 'terryma/vim-smooth-scroll', { 'on': [] }
+augroup tool_smooth_scroll
+  autocmd!
+  autocmd BufReadPost * call plug#load('vim-smooth-scroll')
+        \| autocmd! tool_smooth_scroll
+        \| noremap <silent> <C-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+        \| noremap <silent> <C-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+        \| noremap <silent> <C-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+        \| noremap <silent> <C-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+augroup END
+
 Plug 'LunarWatcher/auto-pairs', { 'on': [] }
 augroup tool_auto_pairs
   autocmd!
@@ -154,6 +183,16 @@ augroup tool_rainbow
   autocmd InsertEnter * call plug#load('rainbow')
         \| autocmd! tool_rainbow
         \| call rainbow_main#toggle()
+augroup END
+
+Plug 'dense-analysis/ale', { 'on': [] }
+augroup linting_ale
+  autocmd!
+  autocmd BufReadPost * call plug#load('ale')
+        \| autocmd! linting_ale
+        \| let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰', '│', '─']
+        \| let g:ale_lint_on_text_changed = 'never'
+        \| let g:ale_lint_on_insert_leave = 0
 augroup END
 
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
@@ -174,7 +213,6 @@ nnoremap <Leader>tu :UndotreeToggle<CR>
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim', { 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg'] }
-let g:fzf_layout = { 'down': '40%' }
 nnoremap <Leader>ff :Files<CR>
 nnoremap <Leader>fF :Files ~/<CR>
 nnoremap <Leader>fb :Buffers<CR>
@@ -183,6 +221,13 @@ nnoremap <Leader>fs :BLines<CR>
 nnoremap <Leader>fr :History<CR>
 nnoremap <Leader>fc :Colors<CR>
 nnoremap <Leader><Leader> :Commands<CR>
+
+Plug 't9md/vim-choosewin', { 'on': ['<Plug>(choosewin)'] }
+let g:choosewin_overlay_enable = 1
+nmap <C-x>o <Plug>(choosewin)
+
+Plug 'dyng/ctrlsf.vim', { 'on': ['<Plug>CtrlSFPrompt'] }
+nmap <C-c>s <Plug>CtrlSFPrompt
 
 Plug 'prabirshrestha/asyncomplete.vim', { 'on': [] }
 Plug 'prabirshrestha/asyncomplete-buffer.vim', { 'on': [] }
@@ -266,5 +311,12 @@ augroup lsp_install
   autocmd!
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
+Plug 'chrisbra/csv.vim', { 'for': 'csv' }
+Plug 'mattn/emmet-vim', { 'for': ['html', 'css'] }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'dstein64/vim-startuptime', { 'on': ['StartupTime'] }
+Plug 'tpope/vim-fugitive', { 'on': ['G', 'Git'] }
 
 call plug#end()
