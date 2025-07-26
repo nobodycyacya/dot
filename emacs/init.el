@@ -58,6 +58,19 @@
 
 (use-package startup
   :ensure nil
+  :hook
+  (emacs-startup . (lambda ()
+		     (cl-loop for font in '("JetbrainsMono Nerd Font"
+					    "Menlo"
+					    "Hack"
+					    "Monaco"
+					    "Consolas")
+			      when (find-font (font-spec :name font))
+			      return (set-face-attribute 'default nil
+							 :family font
+							 :height (cond ((eq system-type 'darwin) 125)
+								       ((eq system-type 'windows-nt) 110)
+								       (t 100))))))
   :custom
   (initial-major-mode 'fundamental-mode)
   (inhibit-startup-screen t)
@@ -79,6 +92,11 @@
   :ensure nil
   :hook
   (after-init . global-auto-revert-mode))
+
+(use-package repeat
+  :ensure nil
+  :hook
+  (after-init . repeat-mode))
 
 (use-package display-fill-column-indicator
   :ensure nil
@@ -360,6 +378,14 @@
   (dired-sidebar-mode . (lambda () (display-line-numbers-mode -1)))
   :commands (dired-sidebar-show-sidebar))
 
+(use-package quickrun
+  :commands (quickrun)
+  :config
+  (setq quickrun-focus-p nil))
+
+(use-package scratch
+  :commands (scratch))
+
 (use-package wgrep
   :bind
   (:map grep-mode-map
@@ -459,6 +485,9 @@
 (use-package emmet-mode)
 (use-package markdown-mode)
 (use-package quarto-mode)
+
+(use-package dape
+  :commands (dape))
 
 (provide 'init)
 ;;; init.el ends here
