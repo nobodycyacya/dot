@@ -118,6 +118,13 @@ augroup tool_commentary
         \| autocmd! tool_commentary
 augroup END
 
+Plug 'tpope/vim-surround', { 'on': [] }
+augroup tool_surround
+  autocmd!
+  autocmd BufReadPost * call plug#load('vim-surround')
+        \| autocmd! tool_surround
+augroup END
+
 Plug 'andymass/vim-matchup', { 'on': [] }
 augroup tool_matchup
   autocmd!
@@ -211,6 +218,16 @@ nnoremap <Leader>tn :NERDTreeToggle<CR>
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle'] }
 nnoremap <Leader>tu :UndotreeToggle<CR>
 
+Plug 'thinca/vim-quickrun', { 'on': ['QuickRun'] }
+nnoremap <Leader>tr :QuickRun<CR>
+
+Plug 'mtth/scratch.vim', { 'on': ['Scratch'] }
+let g:scratch_horizontal = 1
+let g:scratch_top = 0
+let g:scratch_height = 15
+let g:scratch_no_mappings = 1
+nnoremap <Leader>ts :Scratch<CR>
+
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim', { 'on': ['Files', 'Buffers', 'Colors', 'Lines', 'BLines', 'History', 'Commands', 'Rg'] }
 nnoremap <Leader>ff :Files<CR>
@@ -221,6 +238,11 @@ nnoremap <Leader>fs :BLines<CR>
 nnoremap <Leader>fr :History<CR>
 nnoremap <Leader>fc :Colors<CR>
 nnoremap <Leader><Leader> :Commands<CR>
+
+Plug 'easymotion/vim-easymotion', { 'on': ['<Plug>(easymotion-overwin-line)', '<Plug>(easymotion-overwin-w)'] }
+let g:EasyMotion_do_mapping = 0
+nmap <Leader>gl <Plug>(easymotion-overwin-line)
+nmap <Leader>gw <Plug>(easymotion-overwin-w)
 
 Plug 't9md/vim-choosewin', { 'on': ['<Plug>(choosewin)'] }
 let g:choosewin_overlay_enable = 1
