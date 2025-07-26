@@ -17,7 +17,7 @@ outer.top = 12
 
 [mode.main.binding]
 # alt-enter = 'exec-and-forget open -n /System/Applications/Utilities/Terminal.app'
-alt-enter = 'exec-and-forget open -n /Volumes/Macintosh\ HD/Applications/Alacritty.app'
+alt-enter = 'exec-and-forget open -n /Volumes/Macintosh\ HD/Applications/iTerm.app'
 alt-shift-enter = 'exec-and-forget /opt/homebrew/bin/emacs'
 alt-h = 'focus left'
 alt-j = 'focus down'

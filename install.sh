@@ -39,6 +39,9 @@ ln -snf "$DOT_DIR/wezterm" "$CONFIG_DIR/wezterm"
 # [[ Alacritty ]]
 ln -snf "$DOT_DIR/alacritty" "$CONFIG_DIR/alacritty"
 
+# [[ Hyper ]]
+ln -snf "$DOT_DIR/hyper/hyper.js" "$HOME/.hyper.js"
+
 # [[ Alacritty ]]
 ln -snf "$DOT_DIR/kitty" "$CONFIG_DIR/kitty"
 
@@ -75,4 +78,26 @@ fi
 # [[ borders ]]
 if [[ "$OS_NAME" == "Darwin" ]]; then
 	ln -snf "$DOT_DIR/borders" "$CONFIG_DIR/borders"
+fi
+
+# [[ tabby ]]
+if [[ "$OS_NAME" == "Darwin" ]]; then
+	TABBY_DIR="$HOME/Library/Application Support/tabby"
+elif [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
+	TABBY_DIR="$CONFIG_DIR/tabby"
+fi
+if [ -n "$TABBY_DIR" ]; then
+	mkdir -p "$TABBY_DIR"
+	ln -snf "$DOT_DIR/tabby/config.yaml" "$TABBY_DIR/config.yaml"
+fi
+
+# [[ ghostty ]]
+if [[ "$OS_NAME" == "Darwin" ]]; then
+	GHOSTTY_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty/"
+elif [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
+	GHOSTTY_DIR="$CONFIG_DIR/ghostty"
+fi
+if [ -n "$GHOSTTY_DIR" ]; then
+	mkdir -p "$GHOSTTY_DIR"
+	ln -snf "$DOT_DIR/ghostty/config" "$GHOSTTY_DIR/config"
 fi
