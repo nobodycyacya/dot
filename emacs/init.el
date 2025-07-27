@@ -184,6 +184,35 @@
   (setq evil-goggles-duration 1.500)
   (evil-goggles-use-diff-faces))
 
+(use-package evil-surround
+  :hook
+  (evil-mode . global-evil-surround-mode))
+
+(use-package evil-visualstar
+  :hook
+  (evil-mode . global-evil-visualstar-mode))
+
+(use-package evil-args
+  :after (evil)
+  :bind
+  (:map evil-inner-text-objects-map
+	("a" . evil-inner-arg))
+  (:map evil-outer-text-objects-map
+	("a" . evil-outer-arg))
+  (:map evil-normal-state-map
+	("L" . evil-forward-arg)
+	("H" . evil-backward-arg))
+  (:map evil-motion-state-map
+	("L" . evil-forward-arg)
+	("H" . evil-backward-arg)))
+
+(use-package evil-snipe
+  :hook
+  (evil-mode . evil-snipe-mode)
+  (evil-mode . evil-snipe-override-mode)
+  :config
+  (setq evil-snipe-scope 'buffer))
+
 (use-package catppuccin-theme
   :hook
   (after-init . (lambda () (load-theme 'catppuccin t)))
