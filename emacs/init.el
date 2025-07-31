@@ -72,7 +72,7 @@
 				      :family font
 				      :height (cond
 					       ((eq system-type 'darwin) 125)
-					       ((eq system-type 'windows-nt) 110)
+					       ((eq system-type 'windows-nt) 90)
 					       (t 100))))))
   :custom
   (initial-major-mode 'fundamental-mode)
