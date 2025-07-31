@@ -271,11 +271,11 @@
 
 (use-package nerd-icons-completion
   :hook
-  (vertico-mode . nerd-icons-completion-mode))
+  (marginalia-mode . nerd-icons-completion-marginalia-setup))
 
 (use-package marginalia
   :hook
-  (marginalia-mode . nerd-icons-completion-marginalia-setup))
+  (vertico-mode . marginalia-mode))
 
 (use-package corfu
   :hook
