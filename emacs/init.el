@@ -275,7 +275,7 @@
 
 (use-package marginalia
   :hook
-  (vertico-mode . marginalia-mode))
+  (marginalia-mode . nerd-icons-completion-marginalia-setup))
 
 (use-package corfu
   :hook
