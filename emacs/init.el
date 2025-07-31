@@ -269,13 +269,13 @@
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles partial-completion)))))
 
-(use-package nerd-icons-completion
-  :hook
-  (marginalia-mode . nerd-icons-completion-marginalia-setup))
-
 (use-package marginalia
   :hook
   (vertico-mode . marginalia-mode))
+
+(use-package nerd-icons-completion
+  :hook
+  (marginalia-mode . nerd-icons-completion-marginalia-setup))
 
 (use-package corfu
   :hook
