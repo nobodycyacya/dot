@@ -45,6 +45,9 @@ ln -snf "$DOT_DIR/hyper/hyper.js" "$HOME/.hyper.js"
 # [[ Alacritty ]]
 ln -snf "$DOT_DIR/kitty" "$CONFIG_DIR/kitty"
 
+# [[ tmux ]]
+ln -snf "$DOT_DIR/tmux" "$CONFIG_DIR/tmux"
+
 # [[ kakoune ]]
 ln -snf "$DOT_DIR/kak" "$CONFIG_DIR/kak"
 
@@ -75,9 +78,49 @@ if [[ "$OS_NAME" == "Darwin" ]]; then
 	ln -snf "$DOT_DIR/aerospace" "$CONFIG_DIR/aerospace"
 fi
 
+# [[ sketchybar ]]
+if [[ "$OS_NAME" == "Darwin" ]]; then
+	ln -snf "$DOT_DIR/sketchybar" "$CONFIG_DIR/sketchybar"
+fi
+
 # [[ borders ]]
 if [[ "$OS_NAME" == "Darwin" ]]; then
 	ln -snf "$DOT_DIR/borders" "$CONFIG_DIR/borders"
+fi
+
+# [[ dunst ]]
+if [[ "$OS_NAME" == "Linux" ]]; then
+	ln -snf "$DOT_DIR/dunst" "$CONFIG_DIR/dunst"
+fi
+
+# [[ rofi ]]
+if [[ "$OS_NAME" == "Linux" ]]; then
+	ln -snf "$DOT_DIR/rofi" "$CONFIG_DIR/rofi"
+fi
+
+# [[ waybar ]]
+if [[ "$OS_NAME" == "Linux" ]]; then
+	ln -snf "$DOT_DIR/waybar" "$CONFIG_DIR/waybar"
+fi
+
+# [[ hyprland ]]
+if [[ "$OS_NAME" == "Linux" ]]; then
+	ln -snf "$DOT_DIR/hyprland" "$CONFIG_DIR/hypr"
+fi
+
+# [[ qtile ]]
+if [[ "$OS_NAME" == "Linux" ]]; then
+	ln -snf "$DOT_DIR/qtile" "$CONFIG_DIR/qtile"
+fi
+
+# [[ yabai ]]
+if [[ "$OS_NAME" == "Darwin" ]]; then
+	ln -snf "$DOT_DIR/yabai" "$CONFIG_DIR/yabai"
+fi
+
+# [[ skhd ]]
+if [[ "$OS_NAME" == "Darwin" ]]; then
+	ln -snf "$DOT_DIR/skhd" "$CONFIG_DIR/skhd"
 fi
 
 # [[ tabby ]]
