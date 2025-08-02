@@ -1,0 +1,74 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/v0.1.37/schema.bar.json",
+  "monitor": 0,
+  "font_family": "JetBrains Mono",
+  "font_size": 12,
+  "widget_spacing": 0,
+  "frame": {
+    "inner_margin": {
+      "x": 4,
+      "y": 0
+    }
+  },
+  "grouping": {
+    "kind": "None",
+    "style": "DefaultWithShadowB4O1S3",
+    "transparency_alpha": 250
+  },
+  "height": 32,
+  "icon_scale": 1.2,
+  "theme": {
+    "palette": "Base16",
+    "name": "DefaultDark",
+    "accent": "Base0E"
+  },
+  "left_widgets": [
+    {
+      "Komorebi": {
+        "workspaces": {
+          "enable": true,
+          "hide_empty_workspaces": true
+        },
+        "layout": {
+          "enable": true
+        },
+        "focused_window": {
+          "enable": true,
+          "show_icon": true
+        }
+      }
+    }
+  ],
+  "right_widgets": [
+    {
+      "Cpu": {
+        "enable": true,
+        "label_prefix": "Icon"
+      }
+    },
+    {
+      "Memory": {
+        "enable": true,
+        "label_prefix": "Icon"
+      }
+    },
+    {
+      "Battery": {
+        "enable": true,
+        "label_prefix": "Icon"
+      }
+    },
+    {
+      "Date": {
+        "enable": true,
+        "format": "YearMonthDate"
+      }
+    },
+    {
+      "Time": {
+        "enable": true,
+        "format": "TwentyFourHour"
+      }
+    }
+  ]
+}
