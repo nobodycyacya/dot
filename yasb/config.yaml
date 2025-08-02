@@ -36,32 +36,25 @@ bars:
       bottom: 0
       right: 0
     widgets:
-      left: [
-        "home",
-        "komorebi_workspaces",
-        "komorebi_active_layout",
-        "active_window",
-      ]
-      center: [
-      ]
-      right: [
-        "cpu",
-        "memory",
-        "battery",
-        "volume",
-        "clock",
-        "power_menu"
+      left:
+        [
+          "home",
+          "komorebi_workspaces",
+          "komorebi_active_layout",
+          "active_window",
         ]
+      center: []
+      right: ["cpu", "memory", "battery", "volume", "clock", "power_menu"]
 widgets:
   home:
     type: "yasb.home.HomeWidget"
     options:
       label: "<span>\udb81\udf17</span>"
       menu_list:
-      - { title: "User Home", path: "~" }
-      - { title: "Download", path: "~\\Downloads" }
-      - { title: "Documents", path: "~\\Documents" }
-      - { title: "Pictures", path: "~\\Pictures" }
+        - { title: "User Home", path: "~" }
+        - { title: "Download", path: "~\\Downloads" }
+        - { title: "Documents", path: "~\\Documents" }
+        - { title: "Pictures", path: "~\\Pictures" }
       system_menu: true
       power_menu: true
       blur: false
