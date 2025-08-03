@@ -478,7 +478,7 @@
   (after-init . beacon-mode)
   :config
   (setq beacon-size 60)
-  (setq beacon-color "#ff0000")
+  (setq beacon-color "#f38ba8")
   (setq beacon-blink-duration 0.8)
   (setq beacon-blink-delay 0.8)
   (setq beacon-blink-when-window-scrolls t)
