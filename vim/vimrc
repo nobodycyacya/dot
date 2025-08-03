@@ -209,6 +209,7 @@ Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 set timeoutlen=500
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ','
+let g:which_key_fallback_to_native_key = 1
 nnoremap <silent> <Leader> :<C-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <Localleader> :<C-u>WhichKey ','<CR>
 
