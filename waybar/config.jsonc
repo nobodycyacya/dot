@@ -66,10 +66,7 @@
     "format-muted": "  M",
     "format-icons": {
       "headphone": "",
-      "default": [
-        "",
-        ""
-      ],
+      "default": ["", ""],
     },
   },
   "battery": {
@@ -81,13 +78,7 @@
     },
     "format": "{icon} {capacity}%",
     "format-charging": "󰂄 {capacity}%",
-    "format-icons": [
-      "󰁺",
-      "󰁼",
-      "󰁾",
-      "󰂁",
-      "󰁹"
-    ],
+    "format-icons": ["󰁺", "󰁼", "󰁾", "󰂁", "󰁹"],
     "max-length": 25,
   },
   "clock": {
