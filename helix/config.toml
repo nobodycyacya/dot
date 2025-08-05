@@ -9,5 +9,17 @@ auto-signature-help = true
 display-signature-help-docs = true
 display-inlay-hints = true
 
+[editor.statusline]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.indent-guides]
+render = true
+
+[editor.soft-wrap]
+enable = true
+wrap-at-text-width = true
+
 [keys.insert]
 "j" = { "k" = "normal_mode" }
