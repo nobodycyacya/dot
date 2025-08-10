@@ -290,6 +290,10 @@
   (setq corfu-auto-delay 0.1)
   (setq corfu-popupinfo-delay '(0.4 . 0.2)))
 
+(use-package corfu-terminal
+  :when (display-graphic-p)
+  :hook (global-corfu-mode . corfu-terminal-mode))
+
 (use-package nerd-icons-corfu
   :after corfu
   :init (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
