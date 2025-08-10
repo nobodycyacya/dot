@@ -8,10 +8,10 @@
 # Steps
 # 1. Boot by USB
 # 2. Connect to the Internet - iwctl
-# 3. curl -fsSL https://raw.githubusercontent.com/nobody-cya/dots/refs/heads/main/linux/arch/install.sh > install.sh
-# 4. chmod +x install.sh
-# 5. write down your os information
-# 6. sh install.sh
+# 3. curl -fsSL https://raw.githubusercontent.com/nobodycyacya/dot/refs/heads/main/install_archlinux.sh > arch.sh
+# 4. chmod +x arch.sh
+# 5. write down your OS config information
+# 6. sh arch.sh
 
 # Debugging
 set -e
@@ -85,7 +85,7 @@ trap 'echo "\"${last_command}\" command end with exit code $?."' EXIT
 	sleep 5
 	echo "w"
 	sleep 1
-	) | fdisk $HDLOC
+) | fdisk $HDLOC
 
 # Format
 mkfs.vfat ${HDLOC}p1
