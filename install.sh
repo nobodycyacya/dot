@@ -18,40 +18,42 @@ if [ ! -d "$CONFIG_DIR" ]; then
 	mkdir -p "$CONFIG_DIR"
 fi
 
-# [[ Vim ]]
+# [[ General ]]
+#
+# Vim
 ln -snf "$DOT_DIR/vim" "$HOME/.vim"
 
-# [[ Emacs ]]
+# Emacs
 ln -snf "$DOT_DIR/emacs" "$HOME/.emacs.d"
 
-# [[ Neovim ]]
+# Neovim
 ln -snf "$DOT_DIR/nvim" "$CONFIG_DIR/nvim"
 
-# [[ Helix ]]
+# Helix
 ln -snf "$DOT_DIR/helix" "$CONFIG_DIR/helix"
 
-# [[ JetBrains ideavim ]]
+# JetBrains ideavim
 ln -snf "$DOT_DIR/JetBrains/ideavimrc" "$HOME/.ideavimrc"
 
-# [[ WezTerm ]]
+# WezTerm
 ln -snf "$DOT_DIR/wezterm" "$CONFIG_DIR/wezterm"
 
-# [[ Alacritty ]]
+# Alacritty
 ln -snf "$DOT_DIR/alacritty" "$CONFIG_DIR/alacritty"
 
-# [[ Hyper ]]
+# Hyper
 ln -snf "$DOT_DIR/hyper/hyper.js" "$HOME/.hyper.js"
 
-# [[ Alacritty ]]
+# Alacritty
 ln -snf "$DOT_DIR/kitty" "$CONFIG_DIR/kitty"
 
-# [[ tmux ]]
+# tmux
 ln -snf "$DOT_DIR/tmux" "$CONFIG_DIR/tmux"
 
-# [[ kakoune ]]
+# kakoune
 ln -snf "$DOT_DIR/kak" "$CONFIG_DIR/kak"
 
-# [[ Visual Studio Code ]]
+# Visual Studio Code
 if [[ "$OS_NAME" == "Darwin" ]]; then
 	VSCODE_DIR="$HOME/Library/Application Support/Code/User"
 elif [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
@@ -63,67 +65,7 @@ if [ -n "$VSCODE_DIR" ]; then
 	ln -snf "$DOT_DIR/vscode/keybindings.json" "$VSCODE_DIR/keybindings.json"
 fi
 
-# [[ awesomeWM ]]
-if [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
-	ln -snf "$DOT_DIR/awesome" "$CONFIG_DIR/awesome"
-fi
-
-# [[ Xresources ]]
-if [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
-	ln -snf "$DOT_DIR/X11/Xresources" "$HOME/.Xresources"
-fi
-
-# [[ aerospace ]]
-if [[ "$OS_NAME" == "Darwin" ]]; then
-	ln -snf "$DOT_DIR/aerospace" "$CONFIG_DIR/aerospace"
-fi
-
-# [[ sketchybar ]]
-if [[ "$OS_NAME" == "Darwin" ]]; then
-	ln -snf "$DOT_DIR/sketchybar" "$CONFIG_DIR/sketchybar"
-fi
-
-# [[ borders ]]
-if [[ "$OS_NAME" == "Darwin" ]]; then
-	ln -snf "$DOT_DIR/borders" "$CONFIG_DIR/borders"
-fi
-
-# [[ dunst ]]
-if [[ "$OS_NAME" == "Linux" ]]; then
-	ln -snf "$DOT_DIR/dunst" "$CONFIG_DIR/dunst"
-fi
-
-# [[ rofi ]]
-if [[ "$OS_NAME" == "Linux" ]]; then
-	ln -snf "$DOT_DIR/rofi" "$CONFIG_DIR/rofi"
-fi
-
-# [[ waybar ]]
-if [[ "$OS_NAME" == "Linux" ]]; then
-	ln -snf "$DOT_DIR/waybar" "$CONFIG_DIR/waybar"
-fi
-
-# [[ hyprland ]]
-if [[ "$OS_NAME" == "Linux" ]]; then
-	ln -snf "$DOT_DIR/hyprland" "$CONFIG_DIR/hypr"
-fi
-
-# [[ qtile ]]
-if [[ "$OS_NAME" == "Linux" ]]; then
-	ln -snf "$DOT_DIR/qtile" "$CONFIG_DIR/qtile"
-fi
-
-# [[ yabai ]]
-if [[ "$OS_NAME" == "Darwin" ]]; then
-	ln -snf "$DOT_DIR/yabai" "$CONFIG_DIR/yabai"
-fi
-
-# [[ skhd ]]
-if [[ "$OS_NAME" == "Darwin" ]]; then
-	ln -snf "$DOT_DIR/skhd" "$CONFIG_DIR/skhd"
-fi
-
-# [[ tabby ]]
+# tabby
 if [[ "$OS_NAME" == "Darwin" ]]; then
 	TABBY_DIR="$HOME/Library/Application Support/tabby"
 elif [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
@@ -134,7 +76,7 @@ if [ -n "$TABBY_DIR" ]; then
 	ln -snf "$DOT_DIR/tabby/config.yaml" "$TABBY_DIR/config.yaml"
 fi
 
-# [[ ghostty ]]
+# ghostty
 if [[ "$OS_NAME" == "Darwin" ]]; then
 	GHOSTTY_DIR="$HOME/Library/Application Support/com.mitchellh.ghostty/"
 elif [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
@@ -143,4 +85,83 @@ fi
 if [ -n "$GHOSTTY_DIR" ]; then
 	mkdir -p "$GHOSTTY_DIR"
 	ln -snf "$DOT_DIR/ghostty/config" "$GHOSTTY_DIR/config"
+fi
+
+# [[ Linux or BSD ]]
+
+# awesomeWM
+if [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
+	ln -snf "$DOT_DIR/awesome" "$CONFIG_DIR/awesome"
+fi
+
+# Xresources
+if [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
+	ln -snf "$DOT_DIR/X11/Xresources" "$HOME/.Xresources"
+fi
+
+# dunst
+if [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
+	ln -snf "$DOT_DIR/dunst" "$CONFIG_DIR/dunst"
+fi
+
+# rofi
+if [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
+	ln -snf "$DOT_DIR/rofi" "$CONFIG_DIR/rofi"
+fi
+
+# waybar
+if [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
+	ln -snf "$DOT_DIR/waybar" "$CONFIG_DIR/waybar"
+fi
+
+# hyprland
+if [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
+	ln -snf "$DOT_DIR/hyprland" "$CONFIG_DIR/hypr"
+fi
+
+# qtile
+if [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
+	ln -snf "$DOT_DIR/qtile" "$CONFIG_DIR/qtile"
+fi
+
+# picom
+if [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
+	ln -snf "$DOT_DIR/picom" "$CONFIG_DIR/picom"
+fi
+
+# polybar
+if [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
+	ln -snf "$DOT_DIR/polybar" "$CONFIG_DIR/polybar"
+fi
+
+# conky
+if [[ "$OS_NAME" == "Linux" ]] || [[ "$OS_NAME" == *"BSD"* ]]; then
+	ln -snf "$DOT_DIR/conky" "$CONFIG_DIR/conky"
+fi
+
+# [[ macOS ]]
+
+# aerospace
+if [[ "$OS_NAME" == "Darwin" ]]; then
+	ln -snf "$DOT_DIR/aerospace" "$CONFIG_DIR/aerospace"
+fi
+
+# sketchybar
+if [[ "$OS_NAME" == "Darwin" ]]; then
+	ln -snf "$DOT_DIR/sketchybar" "$CONFIG_DIR/sketchybar"
+fi
+
+# borders
+if [[ "$OS_NAME" == "Darwin" ]]; then
+	ln -snf "$DOT_DIR/borders" "$CONFIG_DIR/borders"
+fi
+
+# yabai
+if [[ "$OS_NAME" == "Darwin" ]]; then
+	ln -snf "$DOT_DIR/yabai" "$CONFIG_DIR/yabai"
+fi
+
+# skhd
+if [[ "$OS_NAME" == "Darwin" ]]; then
+	ln -snf "$DOT_DIR/skhd" "$CONFIG_DIR/skhd"
 fi
