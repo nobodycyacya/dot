@@ -4,8 +4,8 @@
 # 3. https://davi.sh/blog/2024/02/nix-home-manager/
 
 # Bootstrap:
-# 1. sh <(curl -L https://nixos.org/nix/install)
-# 2. nix run nix-darwin/master#darwin-rebuild --extra-experimental-features 'nix-command flakes' -- switch --flake ~/dot#cya
+# 1. sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install)
+# 2. sudo nix run nix-darwin/master#darwin-rebuild --extra-experimental-features 'nix-command flakes' -- switch --flake ~/dot#cya
 # 3. darwin-rebuild switch --flake ~/dot#cya
 
 # Code:
@@ -57,16 +57,20 @@
           homebrew.taps = [ ];
           homebrew.brews = [ ];
           homebrew.casks = [
+	    "alacritty"
             "emacs"
             "font-hack-nerd-font"
             "font-jetbrains-mono-nerd-font"
             "font-victor-mono-nerd-font"
+	    "firefox"
             "google-chrome"
             "hiddenbar"
+	    "iterm2"
+	    "kitty"
             "keka"
-            "microsoft-excel"
-            "microsoft-powerpoint"
-            "microsoft-word"
+            # "microsoft-excel"
+            # "microsoft-powerpoint"
+            # "microsoft-word"
             "miniforge"
             "neohtop"
             "r"
@@ -87,9 +91,10 @@
           nix.gc.options = "--delete-older-than 7d";
 
           # system
+	  system.primaryUser = "cya";
           system.stateVersion = 6;
           system.configurationRevision = self.rev or self.dirtyRev or null;
-          system.defaults.finder.AppleShowAllFiles = true;
+	  system.defaults.finder.AppleShowAllFiles = true;
           system.defaults.finder.FXEnableExtensionChangeWarning = false;
           system.defaults.finder.QuitMenuItem = true;
           system.defaults.finder.ShowPathbar = true;
@@ -143,7 +148,7 @@
                 app_name=$(basename "$src")
                   echo "copying $src" >&2
                 ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
-                  done
+              done
             '';
           security.pam.services.sudo_local.touchIdAuth = true;
         };
@@ -179,20 +184,23 @@
               )
             '';
           home.packages = with pkgs; [
+	    btop
             cargo
             curl
             go
+	    lsd
             mkalias
             neovim
             nixfmt-rfc-style
             nodejs_22
             uv
+	    vim
             wget
           ];
-          home.file.".emacs.d/init.el".source = ./home/emacs/init.el;
-          home.file.".config/nvim/init.lua".source = ./home/nvim/init.lua;
-          home.file.".config/wezterm/wezterm.lua".source = ./home/wezterm/wezterm.lua;
-          programs.home-manager.enable = true;
+	  #home.file.".emacs.d/init.el".source = ../home/emacs/init.el;
+          #home.file.".config/nvim/init.lua".source = ./home/nvim/init.lua;
+          #home.file.".config/wezterm/wezterm.lua".source = ./home/wezterm/wezterm.lua;
+	  programs.home-manager.enable = true;
           programs.bat.enable = true;
           programs.btop.enable = true;
           programs.fastfetch.enable = true;
@@ -200,7 +208,6 @@
           programs.fzf.enableZshIntegration = true;
           programs.git.enable = true;
           programs.lsd.enable = true;
-          programs.lsd.enableAliases = true;
           programs.ripgrep.enable = true;
           programs.ripgrep-all.enable = true;
           programs.starship.enable = true;
@@ -236,7 +243,7 @@
                 "homebrew/homebrew-core" = homebrew-core;
                 "homebrew/homebrew-cask" = homebrew-cask;
               };
-              nix-homebrew.mutableTaps = false;
+              nix-homebrew.mutableTaps = true;
               nix-homebrew.autoMigrate = true;
             }
             home-manager.darwinModules.home-manager

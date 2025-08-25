@@ -60,5 +60,6 @@
   "catppuccin-icons.associations.files": {},
   "catppuccin-icons.associations.folders": {},
   "catppuccin-icons.associations.languages": {},
-  "catppuccin-icons.associations.extensions": {}
+  "catppuccin-icons.associations.extensions": {},
+  "python.defaultInterpreterPath": "/Users/cya/.local/bin/python3.12"
 }
