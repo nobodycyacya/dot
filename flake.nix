@@ -1,14 +1,14 @@
-# References:
+# [[ Reference ]]
 # 1. https://github.com/ryan4yin/nix-darwin-kickstarter
 # 2. https://nixos-and-flakes.thiscute.world/
 # 3. https://davi.sh/blog/2024/02/nix-home-manager/
 
-# Bootstrap:
+# [[ Guide ]]
 # 1. sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install)
 # 2. sudo nix run nix-darwin/master#darwin-rebuild --extra-experimental-features 'nix-command flakes' -- switch --flake ~/dot#cya
 # 3. sudo darwin-rebuild switch --flake ~/dot#cya
 
-# Code:
+# [[ Code ]]
 {
   description = "nix-darwin configuration";
   inputs = {
