@@ -6,7 +6,7 @@
 # Bootstrap:
 # 1. sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install)
 # 2. sudo nix run nix-darwin/master#darwin-rebuild --extra-experimental-features 'nix-command flakes' -- switch --flake ~/dot#cya
-# 3. darwin-rebuild switch --flake ~/dot#cya
+# 3. sudo darwin-rebuild switch --flake ~/dot#cya
 
 # Code:
 {
@@ -57,16 +57,16 @@
           homebrew.taps = [ ];
           homebrew.brews = [ ];
           homebrew.casks = [
-	    "alacritty"
+            "alacritty"
             "emacs"
             "font-hack-nerd-font"
             "font-jetbrains-mono-nerd-font"
             "font-victor-mono-nerd-font"
-	    "firefox"
+            "firefox"
             "google-chrome"
             "hiddenbar"
-	    "iterm2"
-	    "kitty"
+            "iterm2"
+            "kitty"
             "keka"
             # "microsoft-excel"
             # "microsoft-powerpoint"
@@ -91,10 +91,10 @@
           nix.gc.options = "--delete-older-than 7d";
 
           # system
-	  system.primaryUser = "cya";
+          system.primaryUser = "cya";
           system.stateVersion = 6;
           system.configurationRevision = self.rev or self.dirtyRev or null;
-	  system.defaults.finder.AppleShowAllFiles = true;
+          system.defaults.finder.AppleShowAllFiles = true;
           system.defaults.finder.FXEnableExtensionChangeWarning = false;
           system.defaults.finder.QuitMenuItem = true;
           system.defaults.finder.ShowPathbar = true;
@@ -184,23 +184,24 @@
               )
             '';
           home.packages = with pkgs; [
-	    btop
+            btop
             cargo
             curl
             go
-	    lsd
+            lsd
             mkalias
             neovim
             nixfmt-rfc-style
             nodejs_22
             uv
-	    vim
+            vim
             wget
           ];
-	  #home.file.".emacs.d/init.el".source = ../home/emacs/init.el;
-          #home.file.".config/nvim/init.lua".source = ./home/nvim/init.lua;
-          #home.file.".config/wezterm/wezterm.lua".source = ./home/wezterm/wezterm.lua;
-	  programs.home-manager.enable = true;
+          home.file.".emacs.d/init.el".source = ./home/emacs/init.el;
+          home.file.".config/nvim/init.lua".source = ./home/nvim/init.lua;
+          home.file.".config/wezterm/wezterm.lua".source = ./home/wezterm/wezterm.lua;
+          home.file.".vim/vimrc".source = ./home/vim/vimrc;
+          programs.home-manager.enable = true;
           programs.bat.enable = true;
           programs.btop.enable = true;
           programs.fastfetch.enable = true;

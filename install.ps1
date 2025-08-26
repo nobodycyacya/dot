@@ -4,7 +4,7 @@ $ErrorActionPreference = "Stop"
 
 # [[ Variables ]]
 $CONFIG_DIR = Join-Path $env:USERPROFILE ".config"
-$DOT_DIR = $PSScriptRoot
+$DOT_DIR = Join-Path $PSScriptRoot "home"
 
 # [[ Create ~/.config directory ]]
 if (-not (Test-Path -Path $CONFIG_DIR)) {

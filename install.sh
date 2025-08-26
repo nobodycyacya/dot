@@ -10,7 +10,7 @@ else
 	IS_WSL=false
 fi
 OS_NAME="$(uname -s)"
-DOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/home"
 CONFIG_DIR="$HOME/.config"
 
 # [[ Create ~/.config directory ]]
