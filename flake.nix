@@ -54,33 +54,48 @@
           homebrew.brewPrefix = "/opt/homebrew/bin";
           homebrew.global.brewfile = true;
           homebrew.global.autoUpdate = false;
-          homebrew.taps = [ ];
-          homebrew.brews = [ ];
+          homebrew.taps = [ 
+            "FelixKratz/formulae"
+            "koekeishiya/formulae"
+          ];
+          homebrew.brews = [ 
+            "borders"
+            "skhd"
+            "yabai"
+          ];
           homebrew.casks = [
+            "aerospace"
             "alacritty"
             "emacs"
             "font-hack-nerd-font"
             "font-jetbrains-mono-nerd-font"
             "font-victor-mono-nerd-font"
             "firefox"
+            "ghostty"
             "google-chrome"
             "hiddenbar"
+            "hyper"
             "iterm2"
             "kitty"
             "keka"
-            # "microsoft-excel"
-            # "microsoft-powerpoint"
+            "microsoft-edge"
+            "microsoft-excel"
+            "microsoft-powerpoint"
             # "microsoft-word"
             "miniforge"
             "neohtop"
-            "r"
+            "raycast"
+            "r-app"
             "rstudio"
             "stats"
+            "tabby"
             "visual-studio-code"
             "wezterm"
           ];
-          homebrew.masApps = { };
-          homebrew.onActivation.cleanup = "uninstall";
+          homebrew.masApps = { 
+            LINE = 539883307;
+          };
+          homebrew.onActivation.cleanup = "zap";
           homebrew.onActivation.autoUpdate = false;
           homebrew.onActivation.upgrade = false;
 
@@ -197,9 +212,15 @@
             vim
             wget
           ];
+          home.file."Library/Application Support/com.mitchellh.ghostty/".source = ./home/ghostty/config;
+          home.file.".config/alacritty/alacritty.toml".source = ./home/alacritty/alacritty.toml;
+          home.file.".config/aerospace/aerospace.toml".source = ./home/aerospace/aerospace.toml;
+          home.file.".config/kitty/kitty.conf".source = ./home/kitty/kitty.conf;
           home.file.".emacs.d/init.el".source = ./home/emacs/init.el;
+          home.file.".hyper.js".source = ./home/hyper/hyper.js;
           home.file.".config/nvim/init.lua".source = ./home/nvim/init.lua;
           home.file.".config/wezterm/wezterm.lua".source = ./home/wezterm/wezterm.lua;
+          home.file."Library/Application Support/tabby/config.yaml".source = ./home/tabby/config.yaml;
           home.file.".vim/vimrc".source = ./home/vim/vimrc;
           programs.home-manager.enable = true;
           programs.bat.enable = true;
